@@ -17,6 +17,10 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        //Auth Filter
+        manifestPlaceholders["auth0Domain"] = "@string/auth0_domain"
+        manifestPlaceholders["auth0Scheme"] = "@string/auth0_scheme"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -50,6 +54,10 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    //Auth
+    implementation("com.auth0.android:auth0:3.10.0")
+    implementation("com.auth0.android:jwtdecode:2.0.2")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
