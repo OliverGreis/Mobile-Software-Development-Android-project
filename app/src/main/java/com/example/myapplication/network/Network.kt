@@ -3,11 +3,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.http.*
 
-// Source - https://stackoverflow.com/questions/66059143/how-to-make-a-http-post-request-in-kotlin-android-to-simple-server
-// Posted by Stefan Zhelyazkov, modified by community. See post 'Timeline' for change history
-// Retrieved 2025-11-13, License - CC BY-SA 4.0
-
-implementation "io.ktor:ktor-client-android:$ktor_version"
+// Source - https://ktor.io/docs/client-create-and-configure.html#basic-config
 
 
 
