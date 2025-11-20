@@ -1,6 +1,8 @@
 package com.example.myapplication
 import io.ktor.client.*
-import io.ktor.client.engine.cio.*
+import io.ktor.client.engine.android.*
+import io.ktor.client.request.request
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.*
 
 // Source - https://ktor.io/docs/client-create-and-configure.html#basic-config
@@ -9,40 +11,43 @@ import io.ktor.http.*
 
 class Network() {
 
-    fun sendPostRequest(urlInput:String) {
-        val client = HttpClient(Android){}
+    companion object {
 
-        val response: HttpResponse = client.request("$urlInput") {
-            method = HttpMethod.Post
+        suspend fun sendPostRequest(urlInput: String): HttpResponse {
+            val client = HttpClient(Android) {}
+
+            val response: HttpResponse = client.request("$urlInput") {
+                method = HttpMethod.Post
+            }
+
+            return response
+
+            client.close()
         }
 
-        return response
+        suspend fun sendGetRequest(urlInput: String): HttpResponse {
+            val client = HttpClient(Android) {}
 
-        client.close()
-    }
+            val response: HttpResponse = client.request("$urlInput") {
+                method = HttpMethod.Get
+            }
 
-    fun sendGetRequest(urlInput:String) {
-        val client = HttpClient(Android){}
+            return response
 
-        val response: HttpResponse = client.request("$urlInput") {
-            method = HttpMethod.Get
+            client.close()
         }
 
-        return response
+        suspend fun sendPutRequest(urlInput: String): HttpResponse {
+            val client = HttpClient(Android) {}
 
-        client.close()
-    }
+            val response: HttpResponse = client.request("$urlInput") {
+                method = HttpMethod.Put
+            }
 
-    fun sendPutRequest(urlInput:String) {
-        val client = HttpClient(Android){}
+            return response
 
-        val response: HttpResponse = client.request("$urlInput") {
-            method = HttpMethod.Put
+            client.close()
         }
-
-        return response
-
-        client.close()
     }
 
 }
