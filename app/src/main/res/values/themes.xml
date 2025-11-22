@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.MyApplication" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:fontFamily">@font/robot_codensed_family</item>
+        <item name="android:fontFamily">@font/robot_condensed_family</item>
         <item name="android:colorPrimary">@color/darkGreen</item>
         <item name="android:colorSecondary">@color/lightGreen</item>
         <item name="android:colorBackground">@color/white</item>
+    </style>
+
+    <style name="CardPayment" parent="CardView">
+        <item name="cardBackgroundColor">@color/lightGreen</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="android:shadowColor">@color/darkGreen</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="PaymentBox">
+        <item name="android:background">@drawable/light_green_box</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:shadowColor">@color/darkGreen</item>
+        <item name="android:layout_width">384dp</item>
+        <item name="android:layout_height">95dp</item>
+    </style>
+
+    <style name="PaymentMethod" parent="CardView">
+        <item name="cardBackgroundColor">@color/lightGreen</item>
+        <item name="cardCornerRadius">35dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="android:shadowColor">@color/darkGreen</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>
