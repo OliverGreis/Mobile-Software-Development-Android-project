@@ -240,6 +240,17 @@
                 android:elevation="4dp"
                 android:shadowColor="@color/darkGreen"
                 />
+            <Button
+                android:id="@+id/Settings_button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/settings"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
