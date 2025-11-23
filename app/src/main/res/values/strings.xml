@@ -59,4 +59,5 @@
     <string name="month_year_numbers">01/23</string>
     <string name="delete_info">Are you sure you want to delete payment method</string>
     <string name="leave_info">you are about to leave with out saving your changes do you want to leave</string>
+    <string name="logo">logo</string>
 </resources>

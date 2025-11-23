@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/add_payment_method"
         android:textSize="32sp"
-        android:textColor="@color/black"
+        android:textColor="@color/purple_200"
         android:fontFamily="@font/robot_condensed_family"
         android:textStyle="normal"
         app:layout_constraintTop_toTopOf="parent"
