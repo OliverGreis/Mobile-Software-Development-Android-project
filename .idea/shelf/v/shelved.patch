@@ -1,0 +1,1236 @@
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+new file mode 100644
+--- /dev/null	(date 1763912889251)
++++ b/.idea/inspectionProfiles/Project_Default.xml	(date 1763912889251)
+@@ -0,0 +1,61 @@
++<component name="InspectionProjectProfileManager">
++  <profile version="1.0">
++    <option name="myName" value="Project Default" />
++    <inspection_tool class="ComposePreviewDimensionRespectsLimit" enabled="true" level="WARNING" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="ComposePreviewMustBeTopLevelFunction" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="ComposePreviewNeedsComposableAnnotation" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="ComposePreviewNotSupportedInUnitTestFiles" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="GlancePreviewDimensionRespectsLimit" enabled="true" level="WARNING" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="GlancePreviewMustBeTopLevelFunction" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="GlancePreviewNeedsComposableAnnotation" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="GlancePreviewNotSupportedInUnitTestFiles" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="PreviewAnnotationInFunctionWithParameters" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="PreviewApiLevelMustBeValid" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="PreviewDeviceShouldUseNewSpec" enabled="true" level="WEAK WARNING" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="PreviewFontScaleMustBeGreaterThanZero" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="PreviewMultipleParameterProviders" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="PreviewParameterProviderOnFirstParameter" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++    <inspection_tool class="PreviewPickerAnnotation" enabled="true" level="ERROR" enabled_by_default="true">
++      <option name="composableFile" value="true" />
++      <option name="previewFile" value="true" />
++    </inspection_tool>
++  </profile>
++</component>
+\ No newline at end of file
+Index: .idea/migrations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/migrations.xml b/.idea/migrations.xml
+new file mode 100644
+--- /dev/null	(date 1763912889255)
++++ b/.idea/migrations.xml	(date 1763912889255)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectMigrations">
++    <option name="MigrateToGradleLocalJavaHome">
++      <set>
++        <option value="$PROJECT_DIR$" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42_[Changes]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42_[Changes]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1763912565354)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42_[Changes]/shelved.patch	(date 1763912565354)
+@@ -0,0 +1,925 @@
++Index: app/build.gradle.kts
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>plugins {\r\n    alias(libs.plugins.android.application)\r\n    alias(libs.plugins.kotlin.android)\r\n    alias(libs.plugins.kotlin.compose)\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.myapplication\"\r\n    compileSdk {\r\n        version = release(36)\r\n    }\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.example.myapplication\"\r\n        minSdk = 24\r\n        targetSdk = 36\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(\r\n                getDefaultProguardFile(\"proguard-android-optimize.txt\"),\r\n                \"proguard-rules.pro\"\r\n            )\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_11\r\n        targetCompatibility = JavaVersion.VERSION_11\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = \"11\"\r\n    }\r\n    buildFeatures {\r\n        compose = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation(libs.androidx.core.ktx)\r\n    implementation(libs.androidx.lifecycle.runtime.ktx)\r\n    implementation(libs.androidx.activity.compose)\r\n    implementation(platform(libs.androidx.compose.bom))\r\n    implementation(libs.androidx.compose.ui)\r\n    implementation(libs.androidx.compose.ui.graphics)\r\n    implementation(libs.androidx.compose.ui.tooling.preview)\r\n    implementation(libs.androidx.compose.material3)\r\n    testImplementation(libs.junit)\r\n    androidTestImplementation(libs.androidx.junit)\r\n    androidTestImplementation(libs.androidx.espresso.core)\r\n    androidTestImplementation(platform(libs.androidx.compose.bom))\r\n    androidTestImplementation(libs.androidx.compose.ui.test.junit4)\r\n    debugImplementation(libs.androidx.compose.ui.tooling)\r\n    debugImplementation(libs.androidx.compose.ui.test.manifest)\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/build.gradle.kts b/app/build.gradle.kts
++--- a/app/build.gradle.kts	(revision 776a58a26a92660251e1fb5edbacc4e2519a4f37)
+++++ b/app/build.gradle.kts	(date 1763894111055)
++@@ -57,4 +57,5 @@
++     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
++     debugImplementation(libs.androidx.compose.ui.tooling)
++     debugImplementation(libs.androidx.compose.ui.test.manifest)
+++    implementation("androidx.navigation:navigation-compose:2.7.7")
++ }
++\ No newline at end of file
++Index: app/src/main/java/com/example/myapplication/MainActivity.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/MainActivity.kt b/app/src/main/java/com/example/myapplication/screens/MainScreen.kt
++rename from app/src/main/java/com/example/myapplication/MainActivity.kt
++rename to app/src/main/java/com/example/myapplication/screens/MainScreen.kt
++--- a/app/src/main/java/com/example/myapplication/MainActivity.kt	(revision 776a58a26a92660251e1fb5edbacc4e2519a4f37)
+++++ b/app/src/main/java/com/example/myapplication/screens/MainScreen.kt	(date 1763897952809)
++@@ -1,16 +1,17 @@
++-package com.example.myapplication
+++package com.example.myapplication.screens
++ import android.os.Bundle
++ import androidx.activity.ComponentActivity
++ import androidx.activity.compose.setContent
++ import androidx.activity.enableEdgeToEdge
++-import androidx.compose.foundation.layout.fillMaxSize
++-import androidx.compose.foundation.layout.padding
++-import androidx.compose.material3.Scaffold
++-import androidx.compose.material3.Text
++ import androidx.compose.runtime.Composable
+++import androidx.navigation.compose.rememberNavController
+++import androidx.compose.material3.Scaffold
++ import androidx.compose.ui.Modifier
++-import androidx.compose.ui.tooling.preview.Preview
+++import androidx.compose.foundation.layout.padding
+++import com.example.myapplication.BotAppBarExample
+++import com.example.myapplication.SmallTopAppBarExample
++ import com.example.myapplication.ui.theme.MyApplication7Theme
+++import com.example.myapplication.navigation.AppNavHost
++ 
++ class MainActivity : ComponentActivity() {
++     override fun onCreate(savedInstanceState: Bundle?) {
++@@ -18,29 +19,24 @@
++         enableEdgeToEdge()
++         setContent {
++             MyApplication7Theme {
++-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
++-                    Greeting(
++-                        name = "Android",
++-                        modifier = Modifier.padding(innerPadding)
++-                    )
+++                    MainScreen()
++                 }
++-            }
++         }
++     }
++ }
++ 
++ @Composable
++-fun Greeting(name: String, modifier: Modifier = Modifier) {
++-    Text(
++-        text = "Hello $name!",
++-        modifier = modifier
++-    )
++-}
++-
++-@Preview(showBackground = true)
++-@Composable
++-fun GreetingPreview() {
++-    MyApplication7Theme {
++-        Greeting("Android")
+++fun MainScreen() {
+++    val navController = rememberNavController()
+++
+++    Scaffold(
+++        topBar = { SmallTopAppBarExample(navController) },
+++        bottomBar = { BotAppBarExample(navController) }
+++    ) { innerPadding ->
+++        AppNavHost(
+++            navController = navController,
+++            modifier = Modifier.padding(innerPadding)
+++        )
++     }
++-}
++\ No newline at end of file
+++}
+++
++Index: app/src/main/AndroidManifest.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.MyApplication\">\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\"\r\n            android:label=\"@string/app_name\"\r\n            android:theme=\"@style/Theme.MyApplication\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
++--- a/app/src/main/AndroidManifest.xml	(revision 776a58a26a92660251e1fb5edbacc4e2519a4f37)
+++++ b/app/src/main/AndroidManifest.xml	(date 1763893954009)
++@@ -12,7 +12,7 @@
++         android:supportsRtl="true"
++         android:theme="@style/Theme.MyApplication">
++         <activity
++-            android:name=".MainActivity"
+++            android:name=".screens.MainActivity"
++             android:exported="true"
++             android:label="@string/app_name"
++             android:theme="@style/Theme.MyApplication">
++Index: app/src/main/java/com/example/myapplication/Header.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/Header.kt b/app/src/main/java/com/example/myapplication/Header.kt
++new file mode 100644
++--- /dev/null	(date 1763909094005)
+++++ b/app/src/main/java/com/example/myapplication/Header.kt	(date 1763909094005)
++@@ -0,0 +1,39 @@
+++package com.example.myapplication
+++
+++import androidx.compose.runtime.Composable
+++import androidx.compose.material3.Scaffold
+++import androidx.compose.material3.ExperimentalMaterial3Api
+++import androidx.compose.material3.TopAppBarDefaults
+++import androidx.compose.material3.MaterialTheme
+++import androidx.compose.material3.TopAppBar
+++import androidx.compose.material3.Text
+++import androidx.compose.material3.IconButton
+++import androidx.compose.material.icons.Icons
+++import androidx.compose.material3.Icon
+++import androidx.compose.material.icons.filled.Menu
+++import androidx.compose.material.icons.automirrored.filled.ArrowBack
+++import androidx.navigation.NavHostController
+++
+++@OptIn(ExperimentalMaterial3Api::class)
+++
+++@Composable
+++fun SmallTopAppBarExample(navController: NavHostController) {
+++
+++            TopAppBar(
+++                colors = TopAppBarDefaults.topAppBarColors(
+++                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+++                    titleContentColor = MaterialTheme.colorScheme.primary,
+++                ),
+++                title = {
+++                    Text("Page Name")
+++                },
+++                navigationIcon = {
+++                    IconButton(onClick = { navController.popBackStack() }) {
+++                        Icon(
+++                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+++                            contentDescription = "Localized description"
+++                        )
+++                    }
+++                }
+++    )
+++}
++\ No newline at end of file
++Index: app/src/main/java/com/example/myapplication/screens/Request.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/screens/Request.kt b/app/src/main/java/com/example/myapplication/screens/Request.kt
++new file mode 100644
++--- /dev/null	(date 1763909856340)
+++++ b/app/src/main/java/com/example/myapplication/screens/Request.kt	(date 1763909856340)
++@@ -0,0 +1,2 @@
+++package com.example.myapplication.screens
+++
++Index: app/src/main/java/com/example/myapplication/navigation/NavHost.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/navigation/NavHost.kt b/app/src/main/java/com/example/myapplication/navigation/NavHost.kt
++new file mode 100644
++--- /dev/null	(date 1763908108649)
+++++ b/app/src/main/java/com/example/myapplication/navigation/NavHost.kt	(date 1763908108649)
++@@ -0,0 +1,26 @@
+++package com.example.myapplication.navigation
+++import androidx.compose.runtime.Composable
+++import androidx.compose.ui.Modifier
+++import androidx.navigation.NavHostController
+++import androidx.navigation.compose.NavHost
+++import androidx.navigation.compose.composable
+++import com.example.myapplication.screens.ActivityPage
+++import com.example.myapplication.screens.CreateGroup
+++import com.example.myapplication.screens.Home
+++import com.example.myapplication.screens.Profile
+++import com.example.myapplication.screens.Group
+++
+++@Composable
+++fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
+++    NavHost(
+++        navController = navController,
+++        startDestination = "home"
+++    ) {
+++        composable("home") { Home(navController = navController) }
+++        composable("add") { CreateGroup() }
+++        composable("profile") { Profile() }
+++        composable("group") { Group() }
+++        composable("activity") { ActivityPage() }
+++
+++    }
+++}
++\ No newline at end of file
++Index: app/src/main/java/com/example/myapplication/screens/GroupPage.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/screens/GroupPage.kt b/app/src/main/java/com/example/myapplication/screens/GroupPage.kt
++new file mode 100644
++--- /dev/null	(date 1763907689404)
+++++ b/app/src/main/java/com/example/myapplication/screens/GroupPage.kt	(date 1763907689404)
++@@ -0,0 +1,181 @@
+++package com.example.myapplication.screens
+++import android.os.Bundle
+++import androidx.activity.ComponentActivity
+++import androidx.activity.compose.setContent
+++import androidx.activity.enableEdgeToEdge
+++import androidx.compose.foundation.layout.fillMaxSize
+++import androidx.compose.foundation.layout.padding
+++import androidx.compose.material3.Scaffold
+++import androidx.compose.material3.Text
+++import androidx.compose.runtime.Composable
+++import androidx.compose.ui.Modifier
+++import androidx.compose.ui.tooling.preview.Preview
+++import com.example.myapplication.ui.theme.MyApplication7Theme
+++import androidx.compose.ui.res.painterResource
+++import androidx.compose.foundation.Image
+++import androidx.compose.foundation.layout.Row
+++import androidx.compose.foundation.layout.Column
+++import androidx.compose.ui.layout.ContentScale
+++import androidx.compose.foundation.lazy.LazyColumn
+++import androidx.compose.foundation.lazy.LazyRow
+++import androidx.compose.material3.Button
+++import androidx.compose.material3.TextButton
+++import androidx.compose.ui.unit.dp
+++import androidx.compose.foundation.layout.Arrangement
+++import androidx.compose.foundation.layout.PaddingValues
+++import androidx.compose.foundation.layout.size
+++import androidx.compose.ui.Alignment
+++import androidx.compose.material3.Card
+++import androidx.compose.foundation.shape.RoundedCornerShape
+++import androidx.compose.foundation.background
+++import androidx.compose.foundation.layout.Box
+++import androidx.compose.material3.CardDefaults
+++import androidx.compose.ui.graphics.Color
+++import androidx.compose.foundation.layout.fillMaxWidth
+++import androidx.compose.material3.ButtonDefaults
+++import androidx.compose.foundation.layout.Spacer
+++import androidx.compose.foundation.shape.CircleShape
+++import androidx.compose.foundation.layout.width
+++import androidx.compose.foundation.layout.height
+++import com.example.myapplication.BotAppBarExample
+++import com.example.myapplication.R
+++import com.example.myapplication.SmallTopAppBarExample
+++
+++
+++
+++
+++
+++@Composable
+++fun Group(modifier: Modifier = Modifier) {
+++    Column {
+++        Spacer(Modifier.height(100.dp))
+++
+++        Text(
+++            text = "Britney's Birthday",
+++            modifier = modifier
+++        )
+++        Text(
+++            text = "Group members",
+++            modifier = modifier
+++        )
+++        LazyRow(  contentPadding = PaddingValues(horizontal = 16.dp),
+++            horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+++
+++            items(7){
+++                Card(
+++                    shape = RoundedCornerShape(16.dp),
+++                    modifier = Modifier
+++                        .size(90.dp)
+++                        .background(Color(0xFF8BC34A), RoundedCornerShape(16.dp)),
+++                    colors = CardDefaults.cardColors(
+++                        containerColor = Color(0xFF8BC34A)
+++                    )
+++                ) {
+++                    Box(
+++                        modifier = Modifier.fillMaxSize(),
+++                        contentAlignment = Alignment.Center
+++                    ) {
+++                        Image(
+++                            painter = painterResource(R.drawable.icon),
+++                            contentDescription = "Member icon",
+++                            modifier = Modifier.size(40.dp),
+++                            contentScale = ContentScale.Fit
+++                        )
+++                    }
+++
+++            }
+++    }
+++        }
+++            TextButton(
+++                onClick = { }, modifier = Modifier.padding(vertical = 30.dp)
+++            ) {
+++                Text("Add Member")
+++            }
+++
+++
+++        LazyColumn(modifier = Modifier.height(400.dp)) {
+++            items(7) { index ->
+++                ActivityItem()
+++            }
+++
+++        }
+++
+++        Button(onClick = {},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp), colors = ButtonDefaults.buttonColors(Color(0xFF4CAF50)
+++        )) {
+++            Text("Make Request")
+++        }
+++
+++    }
+++
+++}
+++
+++@Composable
+++fun ActivityItem() {
+++    Card(
+++        modifier = Modifier
+++            .fillMaxWidth()
+++            .padding(vertical = 8.dp),
+++        shape = RoundedCornerShape(20.dp),
+++        colors = CardDefaults.cardColors(
+++            containerColor = Color(0xFF1B5E20)
+++        ),
+++        elevation = CardDefaults.cardElevation(6.dp)
+++    ) {
+++        Row(
+++            modifier = Modifier
+++                .padding(16.dp)
+++                .fillMaxWidth()
+++                .height(100.dp),
+++            verticalAlignment = Alignment.CenterVertically
+++        ) {
+++
+++            Card(
+++                modifier = Modifier.size(55.dp),
+++                shape = CircleShape,
+++                colors = CardDefaults.cardColors(
+++                    containerColor = Color(0xFF4CAF50)
+++                )
+++            ) {
+++                Box(contentAlignment = Alignment.Center) {
+++                    Image(
+++                        painter = painterResource(R.drawable.icon),
+++                        contentDescription = null,
+++                        modifier = Modifier.size(55.dp)
+++                    )
+++                }
+++            }
+++
+++            Spacer(Modifier.width(12.dp))
+++
+++            Column(
+++                modifier = Modifier.weight(1f)
+++            ) {
+++                Text("Group member requested", color = Color.White)
+++                Text("200 kr", color = Color.White)
+++            }
+++
+++            Column(
+++                horizontalAlignment = Alignment.End
+++            ) {
+++                Text("You owe", color = Color.White)
+++                Text("40 kr", color = Color.White)
+++
+++                Spacer(Modifier.height(6.dp))
+++
+++                Button(
+++                    onClick = {},
+++                    shape = RoundedCornerShape(12.dp),
+++                    colors = ButtonDefaults.buttonColors(
+++                        containerColor = Color(0xFF4CAF50)
+++                    )
+++                ) {
+++                    Text("Pay")
+++                }
+++            }
+++        }
+++    }
+++}
+++
+++
+++
+++
++Index: app/src/main/java/com/example/myapplication/Footer.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/Footer.kt b/app/src/main/java/com/example/myapplication/Footer.kt
++new file mode 100644
++--- /dev/null	(date 1763897124053)
+++++ b/app/src/main/java/com/example/myapplication/Footer.kt	(date 1763897124053)
++@@ -0,0 +1,39 @@
+++package com.example.myapplication
+++import androidx.compose.runtime.Composable
+++import androidx.compose.material3.IconButton
+++import androidx.compose.material3.Icon
+++import androidx.compose.material3.Scaffold
+++import androidx.compose.material3.BottomAppBar
+++import androidx.compose.material.icons.Icons
+++import androidx.compose.material3.Text
+++import androidx.compose.ui.Modifier
+++import androidx.compose.foundation.layout.padding
+++import androidx.compose.material.icons.filled.Home
+++import androidx.compose.material.icons.filled.Person
+++import androidx.compose.material.icons.filled.Add
+++import androidx.compose.ui.unit.dp
+++import androidx.compose.foundation.layout.height
+++import androidx.compose.foundation.layout.size
+++import com.example.myapplication.screens.CreateGroup
+++import androidx.navigation.NavHostController
+++
+++@Composable
+++fun BotAppBarExample(navController: NavHostController) {
+++
+++            BottomAppBar(
+++                modifier = Modifier.height(85.dp),
+++                actions = {
+++                    IconButton(onClick = { navController.navigate("home")  },modifier = Modifier.padding(horizontal = 20.dp)) {
+++                        Icon(Icons.Filled.Home, contentDescription = "Localized description", modifier = Modifier.size(75.dp))
+++                    }
+++                    IconButton(onClick = { navController.navigate("add") },modifier = Modifier.padding(horizontal = 80.dp)) {
+++                        Icon(Icons.Filled.Add, contentDescription = "Localized description", modifier = Modifier.size(75.dp))
+++                    }
+++                    IconButton(onClick = { navController.navigate("profile") },modifier = Modifier.padding(horizontal = 20.dp)) {
+++                        Icon(Icons.Filled.Person, contentDescription = "Localized description", modifier = Modifier.size(75.dp))
+++                    }
+++
+++
+++},
+++)
+++}
++\ No newline at end of file
++Index: app/src/main/java/com/example/myapplication/screens/Activity.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/screens/Activity.kt b/app/src/main/java/com/example/myapplication/screens/Activity.kt
++new file mode 100644
++--- /dev/null	(date 1763909171738)
+++++ b/app/src/main/java/com/example/myapplication/screens/Activity.kt	(date 1763909171738)
++@@ -0,0 +1,67 @@
+++package com.example.myapplication.screens
+++
+++import androidx.compose.foundation.layout.Column
+++import androidx.compose.foundation.layout.Spacer
+++import androidx.compose.runtime.Composable
+++import androidx.compose.ui.Modifier
+++import androidx.navigation.NavHostController
+++import androidx.compose.material3.Text
+++import androidx.compose.foundation.lazy.LazyColumn
+++import androidx.compose.foundation.layout.height
+++import androidx.compose.foundation.layout.padding
+++import androidx.compose.foundation.layout.width
+++import androidx.compose.foundation.shape.RoundedCornerShape
+++import androidx.compose.material3.Card
+++import androidx.compose.material3.CardDefaults
+++import androidx.compose.ui.Alignment
+++import androidx.compose.ui.graphics.Color
+++import androidx.compose.ui.unit.dp
+++
+++@Composable
+++fun ActivityPage(modifier: Modifier = Modifier) {
+++
+++    Column(){
+++    Spacer(Modifier.height(100.dp))
+++    Text(
+++        text = "Activity: ",
+++        modifier = modifier
+++        )
+++        LazyColumn(modifier = Modifier.height(600.dp)) {
+++        items(7) { index ->
+++        ActivityPageItem()
+++        }
+++ }
+++}
+++}
+++
+++    @Composable
+++    fun ActivityPageItem() {
+++        Card(
+++            modifier = Modifier
+++                .padding(horizontal = 20.dp)
+++                .width(400.dp),
+++            shape = RoundedCornerShape(0.dp),
+++            colors = CardDefaults.cardColors(
+++                containerColor = Color(0xFF1B5E20)
+++            ),
+++            elevation = CardDefaults.cardElevation(0.dp)
+++        ) {
+++
+++
+++            Text("+25,00 kr", color = Color.White)
+++
+++            Spacer(Modifier.width(12.dp))
+++
+++
+++
+++            Column(
+++                horizontalAlignment = Alignment.End
+++            ) {
+++                Text("From Vaccation Time", color = Color.White)
+++                Text("Member Name", color = Color.White)
+++
+++                Spacer(Modifier.height(6.dp))
+++
+++            }
+++        }
+++    }
++\ No newline at end of file
++Index: app/src/main/java/com/example/myapplication/screens/CreateGroup.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/screens/CreateGroup.kt b/app/src/main/java/com/example/myapplication/screens/CreateGroup.kt
++new file mode 100644
++--- /dev/null	(date 1763909209602)
+++++ b/app/src/main/java/com/example/myapplication/screens/CreateGroup.kt	(date 1763909209602)
++@@ -0,0 +1,94 @@
+++package com.example.myapplication.screens
+++
+++import androidx.compose.foundation.Image
+++import androidx.compose.foundation.background
+++import androidx.compose.foundation.layout.Arrangement
+++import androidx.compose.foundation.layout.Box
+++import androidx.compose.foundation.layout.Column
+++import androidx.compose.foundation.layout.PaddingValues
+++import androidx.compose.foundation.layout.Spacer
+++import androidx.compose.foundation.layout.fillMaxSize
+++import androidx.compose.foundation.layout.height
+++import androidx.compose.foundation.layout.size
+++import androidx.compose.foundation.lazy.LazyRow
+++import androidx.compose.foundation.shape.RoundedCornerShape
+++import androidx.compose.material3.Text
+++import androidx.compose.runtime.Composable
+++import androidx.compose.ui.Modifier
+++import androidx.compose.ui.tooling.preview.Preview
+++import com.example.myapplication.ui.theme.MyApplication7Theme
+++import androidx.compose.material3.TextField
+++import androidx.compose.foundation.text.input.rememberTextFieldState
+++import androidx.compose.material3.Card
+++import androidx.compose.material3.CardDefaults
+++import androidx.compose.ui.Alignment
+++import androidx.compose.ui.graphics.Color
+++import androidx.compose.ui.layout.ContentScale
+++import androidx.compose.ui.res.painterResource
+++import androidx.compose.ui.unit.dp
+++import androidx.compose.foundation.text.input.TextFieldLineLimits
+++import androidx.compose.foundation.layout.padding
+++import androidx.compose.ui.text.font.FontWeight
+++import com.example.myapplication.R
+++import java.time.format.TextStyle
+++@Composable
+++fun CreateGroup(modifier: Modifier = Modifier) {
+++
+++    Column(){
+++        Spacer(Modifier.height(100.dp))
+++
+++        Text(
+++            text = "Group Name",
+++            modifier = modifier
+++        )
+++
+++        /*TextField(
+++            state = rememberTextFieldState("Hello\nWorld\nInvisible"),
+++            lineLimits = TextFieldLineLimits.MultiLine(maxHeightInLines = 2),
+++            placeholder = { Text("") },
+++            textStyle = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold),
+++            label = { Text("Enter text") },
+++            modifier = Modifier.padding(20.dp)
+++        )*/
+++
+++        Text(
+++            text = "Group Image",
+++            modifier = modifier
+++        )
+++
+++        Text(
+++            text = "Add Members",
+++            modifier = modifier
+++        )
+++
+++        LazyRow(  contentPadding = PaddingValues(horizontal = 16.dp),
+++            horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+++
+++            items(7){
+++                Card(
+++                    shape = RoundedCornerShape(16.dp),
+++                    modifier = Modifier
+++                        .size(90.dp)
+++                        .background(Color(0xFF8BC34A), RoundedCornerShape(16.dp)),
+++                    colors = CardDefaults.cardColors(
+++                        containerColor = Color(0xFF8BC34A)
+++                    )
+++                ) {
+++                    Box(
+++                        modifier = Modifier.fillMaxSize(),
+++                        contentAlignment = Alignment.Center
+++                    ) {
+++                        Image(
+++                            painter = painterResource(R.drawable.icon),
+++                            contentDescription = "Member icon",
+++                            modifier = Modifier.size(40.dp),
+++                            contentScale = ContentScale.Fit
+++                        )
+++                    }
+++
+++                }
+++            }
+++    }
+++    }
+++}
+++
++Index: app/src/main/java/com/example/myapplication/screens/AddCart.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/screens/AddCart.kt b/app/src/main/java/com/example/myapplication/screens/AddCart.kt
++new file mode 100644
++--- /dev/null	(date 1763909793834)
+++++ b/app/src/main/java/com/example/myapplication/screens/AddCart.kt	(date 1763909793834)
++@@ -0,0 +1,28 @@
+++package com.example.myapplication.screens
+++
+++import androidx.compose.foundation.layout.Column
+++import androidx.compose.foundation.layout.Spacer
+++import androidx.compose.foundation.layout.height
+++import androidx.compose.foundation.lazy.LazyColumn
+++import androidx.compose.material3.Text
+++import androidx.compose.runtime.Composable
+++import androidx.compose.ui.Modifier
+++import androidx.compose.ui.unit.dp
+++
+++
+++@Composable
+++fun CardPage(modifier: Modifier = Modifier) {
+++
+++    Column(){
+++        Spacer(Modifier.height(100.dp))
+++        Text(
+++            text = "Add card: ",
+++            modifier = modifier
+++        )
+++        LazyColumn(modifier = Modifier.height(600.dp)) {
+++            items(7) { index ->
+++                ActivityPageItem()
+++            }
+++        }
+++    }
+++}
++\ No newline at end of file
++Index: app/src/main/java/com/example/myapplication/screens/HomePage.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/screens/HomePage.kt b/app/src/main/java/com/example/myapplication/screens/HomePage.kt
++new file mode 100644
++--- /dev/null	(date 1763908150698)
+++++ b/app/src/main/java/com/example/myapplication/screens/HomePage.kt	(date 1763908150698)
++@@ -0,0 +1,143 @@
+++package com.example.myapplication.screens
+++
+++import androidx.compose.foundation.Image
+++import androidx.compose.foundation.layout.Box
+++import androidx.compose.foundation.layout.Column
+++import androidx.compose.foundation.layout.Row
+++import androidx.compose.foundation.layout.Spacer
+++import androidx.compose.foundation.layout.fillMaxWidth
+++import androidx.compose.foundation.layout.height
+++import androidx.compose.foundation.layout.padding
+++import androidx.compose.foundation.layout.size
+++import androidx.compose.foundation.layout.width
+++import androidx.compose.foundation.lazy.LazyColumn
+++import androidx.compose.foundation.shape.CircleShape
+++import androidx.compose.foundation.shape.RoundedCornerShape
+++import androidx.compose.material3.Button
+++import androidx.compose.material3.ButtonDefaults
+++import androidx.compose.material3.Card
+++import androidx.compose.material3.CardDefaults
+++import androidx.compose.material3.Text
+++import androidx.compose.runtime.Composable
+++import androidx.compose.ui.Alignment
+++import androidx.compose.ui.Modifier
+++import androidx.compose.ui.graphics.Color
+++import androidx.compose.ui.res.painterResource
+++import androidx.compose.ui.unit.dp
+++import androidx.navigation.NavHostController
+++import com.example.myapplication.R
+++
+++@Composable
+++fun Home(modifier: Modifier = Modifier,navController: NavHostController) {
+++Column(){
+++    Spacer(Modifier.height(100.dp))
+++
+++    Text(
+++        text = "Groups:",
+++        modifier = modifier
+++    )
+++    LazyColumn(modifier = Modifier.height(300.dp)) {
+++        items(7) { index ->
+++            GroupItem(onClick = { navController.navigate("group") })
+++        }
+++    }
+++    Text(
+++            text = "Activity: ",
+++            modifier = modifier
+++        )
+++        LazyColumn(modifier = Modifier.height(300.dp)) {
+++            items(7) { index ->
+++                HomeActivityItem(onClick = { navController.navigate("activity") })
+++            }
+++}
+++}
+++}
+++
+++@Composable
+++fun HomeActivityItem(onClick: () -> Unit) {
+++    Card(
+++        onClick = onClick,
+++        modifier = Modifier
+++            .padding(horizontal = 20.dp)
+++            .width(400.dp),
+++        shape = RoundedCornerShape(0.dp),
+++        colors = CardDefaults.cardColors(
+++            containerColor = Color(0xFF1B5E20)
+++        ),
+++        elevation = CardDefaults.cardElevation(0.dp)
+++    ) {
+++
+++
+++        Text("+25,00 kr", color = Color.White)
+++
+++        Spacer(Modifier.width(12.dp))
+++
+++
+++
+++            Column(
+++                horizontalAlignment = Alignment.End
+++            ) {
+++                Text("From Vaccation Time", color = Color.White)
+++                Text("Member Name", color = Color.White)
+++
+++                Spacer(Modifier.height(6.dp))
+++
+++            }
+++        }
+++    }
+++
+++
+++@Composable
+++fun GroupItem(onClick: () -> Unit) {
+++    Card(
+++        onClick = onClick,
+++        modifier = Modifier
+++            .padding(horizontal = 20.dp)
+++            .width(400.dp),
+++        shape = RoundedCornerShape(0.dp),
+++        colors = CardDefaults.cardColors(
+++            containerColor = Color(0xFF1B5E20)
+++        ),
+++        elevation = CardDefaults.cardElevation(0.dp)
+++    ) {
+++        Row(
+++            modifier = Modifier
+++                .padding(16.dp)
+++                .fillMaxWidth()
+++                .height(100.dp),
+++            verticalAlignment = Alignment.CenterVertically
+++        ) {
+++
+++            Card(
+++                modifier = Modifier.size(55.dp),
+++                shape = CircleShape,
+++                colors = CardDefaults.cardColors(
+++                    containerColor = Color(0xFF4CAF50)
+++                )
+++            ) {
+++                Box(contentAlignment = Alignment.Center) {
+++                    Image(
+++                        painter = painterResource(R.drawable.icon),
+++                        contentDescription = null,
+++                        modifier = Modifier.size(55.dp)
+++                    )
+++                }
+++            }
+++
+++            Spacer(Modifier.width(12.dp))
+++
+++
+++            Text("Alex Birthday", color = Color.White)
+++
+++            Column(
+++                horizontalAlignment = Alignment.End
+++            ) {
+++                Text("Missing", color = Color.White)
+++                Text("Payment", color = Color.White)
+++
+++                Spacer(Modifier.height(6.dp))
+++
+++            }
+++        }
+++    }
+++}
++Index: app/src/main/java/com/example/myapplication/screens/ProfilePage.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/myapplication/screens/ProfilePage.kt b/app/src/main/java/com/example/myapplication/screens/ProfilePage.kt
++new file mode 100644
++--- /dev/null	(date 1763909126578)
+++++ b/app/src/main/java/com/example/myapplication/screens/ProfilePage.kt	(date 1763909126578)
++@@ -0,0 +1,86 @@
+++package com.example.myapplication.screens
+++
+++import androidx.compose.foundation.Image
+++import androidx.compose.foundation.layout.Box
+++import androidx.compose.foundation.layout.Spacer
+++import androidx.compose.foundation.layout.height
+++import androidx.compose.foundation.layout.size
+++import androidx.compose.foundation.shape.CircleShape
+++import androidx.compose.material3.Card
+++import androidx.compose.material3.CardDefaults
+++import androidx.compose.runtime.Composable
+++import androidx.compose.ui.Alignment
+++import androidx.compose.ui.Modifier
+++import androidx.compose.ui.graphics.Color
+++import androidx.compose.ui.res.painterResource
+++import androidx.compose.ui.unit.dp
+++import com.example.myapplication.R
+++import androidx.compose.foundation.layout.Column
+++import androidx.compose.foundation.layout.padding
+++import androidx.compose.foundation.layout.fillMaxWidth
+++import androidx.compose.material3.Text
+++import androidx.compose.foundation.layout.Row
+++import androidx.compose.material3.ButtonDefaults
+++import androidx.compose.material3.Button
+++
+++@Composable
+++fun Profile( modifier: Modifier = Modifier) {
+++    Column(){
+++        Spacer(Modifier.height(100.dp))
+++        Box(
+++            modifier = modifier.fillMaxWidth(),
+++            contentAlignment = Alignment.Center
+++        ) {
+++            ProfileImage()
+++        }    }
+++    Text(
+++        text = "User name ",
+++        modifier = modifier
+++    )
+++    Row(){
+++        Column {
+++            Text(
+++                text = "Email",
+++                modifier = modifier
+++            )
+++            Text(
+++                text = "UserName@Email.com",
+++                modifier = modifier
+++            )
+++        }
+++        Column {
+++            Text(
+++                text = "Phone Number",
+++                modifier = modifier
+++            )
+++            Text(
+++                text = "+45 12 34 56 78",
+++                modifier = modifier
+++            )
+++        }
+++    }
+++
+++
+++}
+++
+++@Composable
+++fun ProfileImage(){
+++    Card(
+++        modifier = Modifier
+++            .size(150.dp),
+++        shape = CircleShape,
+++        colors = CardDefaults.cardColors(
+++            containerColor = Color(0xFF4CAF50)
+++        )
+++    ) {
+++        Box(contentAlignment = Alignment.Center) {
+++            Image(
+++                painter = painterResource(R.drawable.icon),
+++                contentDescription = null,
+++                modifier = Modifier.size(150.dp)
+++            )
+++        }
+++    }
+++}
+++
+++
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1763912889258)
++++ b/.idea/misc.xml	(date 1763912889258)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/build/classes" />
++  </component>
++  <component name="ProjectType">
++    <option name="id" value="Android" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/runConfigurations.xml b/.idea/runConfigurations.xml
+new file mode 100644
+--- /dev/null	(date 1763912889260)
++++ b/.idea/runConfigurations.xml	(date 1763912889260)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RunConfigurationProducerService">
++    <option name="ignoredProducers">
++      <set>
++        <option value="com.intellij.execution.junit.AbstractAllInDirectoryConfigurationProducer" />
++        <option value="com.intellij.execution.junit.AllInPackageConfigurationProducer" />
++        <option value="com.intellij.execution.junit.PatternConfigurationProducer" />
++        <option value="com.intellij.execution.junit.TestInClassConfigurationProducer" />
++        <option value="com.intellij.execution.junit.UniqueIdConfigurationProducer" />
++        <option value="com.intellij.execution.junit.testDiscovery.JUnitTestDiscoveryConfigurationProducer" />
++        <option value="org.jetbrains.kotlin.idea.junit.KotlinJUnitRunConfigurationProducer" />
++        <option value="org.jetbrains.kotlin.idea.junit.KotlinPatternConfigurationProducer" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/androidTestResultsUserPreferences.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/androidTestResultsUserPreferences.xml b/.idea/androidTestResultsUserPreferences.xml
+new file mode 100644
+--- /dev/null	(date 1763912889238)
++++ b/.idea/androidTestResultsUserPreferences.xml	(date 1763912889238)
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="AndroidTestResultsUserPreferences">
++    <option name="androidTestResultsTableState">
++      <map>
++        <entry key="1853408589">
++          <value>
++            <AndroidTestResultsTableState>
++              <option name="preferredColumnWidths">
++                <map>
++                  <entry key="Duration" value="90" />
++                  <entry key="Medium_Phone_API_36.1" value="120" />
++                  <entry key="Tests" value="360" />
++                </map>
++              </option>
++            </AndroidTestResultsTableState>
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1763912889241)
++++ b/.idea/compiler.xml	(date 1763912889241)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="21" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/deploymentTargetSelector.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetSelector.xml b/.idea/deploymentTargetSelector.xml
+new file mode 100644
+--- /dev/null	(date 1763912889245)
++++ b/.idea/deploymentTargetSelector.xml	(date 1763912889245)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="deploymentTargetSelector">
++    <selectionStates>
++      <SelectionState runConfigName="app">
++        <option name="selectionMode" value="DROPDOWN" />
++      </SelectionState>
++      <SelectionState runConfigName="Tests in 'com.example.myapplication'">
++        <option name="selectionMode" value="DROPDOWN" />
++      </SelectionState>
++    </selectionStates>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+new file mode 100644
+--- /dev/null	(date 1763912889248)
++++ b/.idea/gradle.xml	(date 1763912889248)
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
++  <component name="GradleSettings">
++    <option name="linkedExternalProjectsSettings">
++      <GradleProjectSettings>
++        <option name="testRunner" value="CHOOSE_PER_TEST" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
++        <option name="modules">
++          <set>
++            <option value="$PROJECT_DIR$" />
++            <option value="$PROJECT_DIR$/app" />
++          </set>
++        </option>
++      </GradleProjectSettings>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42__Changes_.xml
+new file mode 100644
+--- /dev/null	(date 1763912586980)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42__Changes_.xml	(date 1763912586980)
+@@ -0,0 +1,8 @@
++<changelist name="Uncommitted_changes_before_Update_at_23-11-2025_16_42_[Changes]" date="1763912565374" recycled="false" toDelete="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 23-11-2025 16:42 [Changes]" />
++  <binary>
++    <option name="AFTER_PATH" value="app/src/main/res/drawable/icon.jpg" />
++    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23-11-2025_16_42_[Changes]/icon.jpg" />
++  </binary>
++</changelist>
+\ No newline at end of file
+Index: .idea/AndroidProjectSystem.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/AndroidProjectSystem.xml b/.idea/AndroidProjectSystem.xml
+new file mode 100644
+--- /dev/null	(date 1763912889235)
++++ b/.idea/AndroidProjectSystem.xml	(date 1763912889235)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="AndroidProjectSystem">
++    <option name="providerId" value="com.android.tools.idea.GradleProjectSystem" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1763912889264)
++++ b/.idea/vcs.xml	(date 1763912889264)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
