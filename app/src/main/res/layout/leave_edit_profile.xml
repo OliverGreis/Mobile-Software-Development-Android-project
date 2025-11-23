@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="362dp"
+    android:layout_height="250dp"
+    style="@style/PaymentMethod">
+
+    <TextView
+        android:id="@+id/Leave_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/leave_info"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        android:padding="8dp"
+        />
+
+    <Button
+        android:id="@+id/Yes_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yes"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/dark_green_box"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        android:textSize="20sp"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="20dp"
+        />
+
+    <Button
+        android:id="@+id/No_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/dark_green_box"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        android:textSize="20sp"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="230dp"
+        />
+</androidx.cardview.widget.CardView>
