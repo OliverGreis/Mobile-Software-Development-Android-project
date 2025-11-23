@@ -4,4 +4,6 @@
 
     <string name="auth0_domain">dev-0o0gcvm7d4ul8b2u.eu.auth0.com</string>
     <string name="com_auth0_client_id">5LIXAuSwDdBXI6b9wct9wXerbpKcr7Pc</string>
+    <string name="default_notification_channel_id">default_notification_channel_id</string>
+    <string name="default_notification_channel_name">default_notification_channel_name</string>
 </resources>

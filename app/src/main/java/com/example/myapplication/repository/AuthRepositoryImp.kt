@@ -10,6 +10,12 @@ import com.auth0.android.jwt.JWT
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.example.myapplication.R
+import com.example.myapplication.data.remote.DeviceTokenApi
+import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.resume
 
@@ -20,6 +26,9 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
     private val auth0 = Auth0.getInstance(
         context.getString(R.string.com_auth0_client_id),
         context.getString(R.string.auth0_domain))
+
+    private val deviceTokenApi = DeviceTokenApi()
+
 
     override suspend fun login(activity: Activity): User = suspendCancellableCoroutine { cont ->
         WebAuthProvider.login(auth0)
@@ -33,6 +42,20 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
                 override fun onSuccess(result: Credentials) {
                     val idToken = result.idToken
                     val user = parseUserFromIdToken(idToken)
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val fcmToken = FirebaseMessaging.getInstance().token.await()
+                            deviceTokenApi.testConnection()
+                            deviceTokenApi.registerDeviceToken(
+                                userId = user.id,
+                                token = fcmToken
+                            )
+                        }catch (e: Exception){
+                            e.printStackTrace()
+                        }
+                    }
+
                     cont.resume(user)
                 }
             })
@@ -53,7 +76,7 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
     }
 
     private fun parseUserFromIdToken(idToken: String): User {
-        val jwt = JWT(idToken ?: "")
+        val jwt = JWT(idToken)
         return User(
             id = jwt.subject ?: "",
             name = jwt.getClaim("name").asString() ?: "",

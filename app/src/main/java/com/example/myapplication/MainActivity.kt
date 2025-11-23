@@ -1,10 +1,15 @@
 package com.example.myapplication
 
+import android.Manifest
 import android.app.Activity
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,18 +21,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.error
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.repository.AuthRepository
 import com.example.myapplication.repository.AuthRepositoryImp
 import com.example.myapplication.ui.theme.MyApplication7Theme
 import com.example.myapplication.viewmodel.AuthViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,10 +46,22 @@ class MainActivity : ComponentActivity() {
         val repo = AuthRepositoryImp(applicationContext)
         val viewModel = ViewModelProvider(this, AuthVmFactory(repo))
             .get(AuthViewModel::class.java)
+        // Test if token can be fetched
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("FCM", "Fetching FCM registration token failed", task.exception)
+                    return@addOnCompleteListener
+                }
+                val token = task.result
+                Log.d("FCM", "Token: $token")
+            }
+
 
         setContent {
             MyApplication7Theme {
                 // Pass the activity and viewmodel into your screen
+                NotificationPermissionRequester()
                 AuthScreen(activity = this, viewModel = viewModel)
             }
         }
@@ -54,6 +74,29 @@ class MainActivity : ComponentActivity() {
                 return AuthViewModel(repo) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
+
+
+    @Composable
+    fun NotificationPermissionRequester() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val context = LocalContext.current
+            val launcher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.RequestPermission(),
+                onResult = { }
+            )
+
+            LaunchedEffect(Unit) {
+                val granted = ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PermissionChecker.PERMISSION_GRANTED
+
+                if (!granted) {
+                    launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
         }
     }
 
