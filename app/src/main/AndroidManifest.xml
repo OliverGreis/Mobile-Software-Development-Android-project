@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,33 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity
-            android:name=".Profile"
-            android:exported="false" />
-        <activity
-            android:name=".Edit_profile"
-            android:exported="false" />
-        <activity
-            android:name=".Add_account"
-            android:exported="false" />
-        <activity
-            android:name=".Add_cart"
-            android:exported="false" />
-        <activity
-            android:name=".Add_payment"
-            android:exported="false" />
-        <activity
-            android:name=".Create_account_Password"
-            android:exported="false" />
-        <activity
-            android:name=".Create_account"
-            android:exported="false" />
-        <activity
-            android:name=".Forgot_password"
-            android:exported="false" />
-        <activity
-            android:name=".Authentication"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
