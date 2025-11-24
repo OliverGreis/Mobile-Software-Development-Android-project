@@ -8,24 +8,32 @@ import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.padding
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.ui.theme.MyApplication7Theme
 import com.example.myapplication.navigation.AppNavHost
 import com.example.myapplication.Controller.groupApi
+import com.example.myapplication.repository.AuthRepository
+import com.example.myapplication.repository.AuthRepositoryImp
 
 class MainActivity : ComponentActivity() {
+    private val repo: AuthRepository by lazy { AuthRepositoryImp(applicationContext) }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        
         enableEdgeToEdge()
         setContent {
             MyApplication7Theme {
-                    MainScreen()
+                    MainScreen(authRepository = repo)
                 }
         }
     }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(authRepository: AuthRepository) {
     val navController = rememberNavController()
     val api = groupApi
 
@@ -37,6 +45,7 @@ fun MainScreen() {
             navController = navController,
             modifier = Modifier.padding(innerPadding),
             api = api,
+            AuthRepository = authRepository,
         )
     }
 }
