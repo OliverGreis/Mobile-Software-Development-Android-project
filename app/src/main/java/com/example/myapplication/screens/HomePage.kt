@@ -1,5 +1,6 @@
     package com.example.myapplication.screens
 
+import android.Manifest
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -42,8 +43,15 @@ import com.example.myapplication.Controller.GroupApiService
 import java.nio.charset.StandardCharsets
 import java.net.URLEncoder
 import android.net.Uri
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 
-@Composable
+    @Composable
 fun Home(modifier: Modifier = Modifier,navController: NavHostController,groups: List<Group>) {
 
     Column(){
@@ -216,8 +224,10 @@ fun GroupItem(
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @Composable
     fun HomeScreen(navController: NavHostController, api: GroupApiService,refreshTrigger: Boolean ) {
+        NotificationPermissionRequester()
         var groups by remember { mutableStateOf<List<Group>>(emptyList()) }
 
 
@@ -231,4 +241,25 @@ fun GroupItem(
         }
 
         Home(navController = navController, groups = groups)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    @Composable
+    fun NotificationPermissionRequester() {
+            val context = LocalContext.current
+            val launcher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.RequestPermission(),
+                onResult = { }
+            )
+
+            LaunchedEffect(Unit) {
+                val granted = ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PermissionChecker.PERMISSION_GRANTED
+
+                if (!granted) {
+                    launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+        }
     }
