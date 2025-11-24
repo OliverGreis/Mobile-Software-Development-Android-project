@@ -6,17 +6,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myapplication.screens.ActivityPage
 import com.example.myapplication.screens.CreateGroup
-import com.example.myapplication.screens.Home
-import com.example.myapplication.screens.Profile
+import com.example.myapplication.Profile
 import com.example.myapplication.screens.Group
-
+import com.example.myapplication.Controller.GroupApiService
+import com.example.myapplication.screens.HomeScreen
 @Composable
-fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
+fun AppNavHost(navController: NavHostController, api: GroupApiService, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = "home"
     ) {
-        composable("home") { Home(navController = navController) }
+        composable("home") { HomeScreen(navController = navController, api = api) }
         composable("add") { CreateGroup() }
         composable("profile") { Profile() }
         composable("group") { Group() }
@@ -24,3 +24,4 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
         
     }
 }
+

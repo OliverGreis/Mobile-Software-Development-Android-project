@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -39,7 +38,7 @@
         android:background="@drawable/light_green_box"
         app:layout_constraintTop_toBottomOf="@+id/First_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:elevation="4dp"
         android:shadowColor="@color/darkGreen"
         tools:ignore="RtlSymmetry"
@@ -56,7 +55,7 @@
         android:textStyle="normal"
         app:layout_constraintTop_toBottomOf="@+id/First_name_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         />
 
@@ -70,7 +69,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/First_name_input"
         app:layout_constraintStart_toEndOf="@+id/Middle_name"
-        app:layout_constraintTop_toTopOf="0dp"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="38dp"
         tools:ignore="DuplicateIds,SmallSp"
         />
@@ -90,7 +89,7 @@
         android:background="@drawable/light_green_box"
         app:layout_constraintTop_toBottomOf="@+id/Middle_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:elevation="4dp"
         android:shadowColor="@color/darkGreen"
         android:layout_marginTop="0dp"
@@ -108,7 +107,7 @@
         android:textStyle="normal"
         app:layout_constraintTop_toBottomOf="@+id/Middle_name_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         />
 
@@ -127,7 +126,7 @@
         android:background="@drawable/light_green_box"
         app:layout_constraintTop_toBottomOf="@+id/Last_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:elevation="4dp"
         android:shadowColor="@color/darkGreen"
         android:layout_marginTop="0dp"
@@ -145,7 +144,7 @@
         android:textStyle="normal"
         app:layout_constraintTop_toBottomOf="@+id/Last_name_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         />
 
@@ -164,7 +163,7 @@
         android:background="@drawable/light_green_box"
         app:layout_constraintTop_toBottomOf="@+id/Email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:elevation="4dp"
         android:shadowColor="@color/darkGreen"
         android:layout_marginTop="0dp"
@@ -182,7 +181,7 @@
         android:textStyle="normal"
         app:layout_constraintTop_toBottomOf="@+id/Email_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         />
 
@@ -201,7 +200,7 @@
         android:background="@drawable/light_green_box"
         app:layout_constraintTop_toBottomOf="@+id/phone_number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:elevation="4dp"
         android:shadowColor="@color/darkGreen"
         android:layout_marginTop="0dp"
@@ -219,7 +218,7 @@
         android:textStyle="normal"
         app:layout_constraintTop_toBottomOf="@+id/Phone_number_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         />
 
@@ -248,7 +247,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/Phone_number_input"
         app:layout_constraintStart_toEndOf="@+id/Profile_picture"
-        app:layout_constraintTop_toTopOf="0dp"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="38dp"
         tools:ignore="SmallSp"
         />
@@ -271,14 +270,4 @@
         android:layout_marginBottom="2dp"
         />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/back_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>

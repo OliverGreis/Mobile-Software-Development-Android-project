@@ -1,16 +1,9 @@
 package com.example.myapplication.screens
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.myapplication.ui.theme.MyApplication7Theme
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
@@ -24,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
-import androidx.compose.ui.Alignment
 import androidx.compose.material3.Card
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.background
@@ -37,14 +29,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.height
-import com.example.myapplication.BotAppBarExample
+import androidx.compose.ui.Alignment
 import com.example.myapplication.R
-import com.example.myapplication.SmallTopAppBarExample
-
-
-
-
-
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.Font
+import com.example.myapplication.R.font.*
+import androidx.compose.ui.text.style.TextAlign
 @Composable
 fun Group(modifier: Modifier = Modifier) {
     Column {
@@ -52,11 +44,36 @@ fun Group(modifier: Modifier = Modifier) {
 
         Text(
             text = "Britney's Birthday",
-            modifier = modifier
+            modifier = modifier.fillMaxWidth(),
+            fontSize = 32.sp,
+            fontFamily = FontFamily(Font(roboto_condensed_bold)),
+            textAlign = TextAlign.Center
         )
+        Box(
+            modifier = Modifier
+                .height(100.dp)
+                .width(440.dp)
+                .padding(horizontal = 20.dp)
+                .fillMaxSize()
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(android.graphics.Color.parseColor("#104210"))),
+        ){
+            Text(
+                text = "Bb",
+                color = Color.White,
+                modifier = modifier.align(Alignment.Center),
+                fontSize = 32.sp,
+                fontFamily = FontFamily(Font(roboto_condensed_bold)),
+                textAlign = TextAlign.Center
+
+                )
+        }
         Text(
             text = "Group members",
-            modifier = modifier
+            modifier = modifier,
+            fontSize = 16.sp,
+            fontFamily = FontFamily(Font(roboto_condensed_regular))
         )
         LazyRow(  contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -68,7 +85,7 @@ fun Group(modifier: Modifier = Modifier) {
                         .size(90.dp)
                         .background(Color(0xFF8BC34A), RoundedCornerShape(16.dp)),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFF8BC34A)
+                        containerColor = Color(android.graphics.Color.parseColor("#88C25F")),
                     )
                 ) {
                     Box(
@@ -76,7 +93,7 @@ fun Group(modifier: Modifier = Modifier) {
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.icon),
+                            painter = painterResource(R.drawable.profile_picture),
                             contentDescription = "Member icon",
                             modifier = Modifier.size(40.dp),
                             contentScale = ContentScale.Fit
@@ -87,20 +104,58 @@ fun Group(modifier: Modifier = Modifier) {
     }
         }
             TextButton(
-                onClick = { }, modifier = Modifier.padding(vertical = 30.dp)
+                onClick = { }, modifier = Modifier.padding(horizontal = 10.dp)
             ) {
-                Text("Add Member")
+                Text(
+                    text = "Add Member",
+                    modifier = modifier,
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily(Font(roboto_condensed_regular))
+                )            }
+
+        Box(
+            modifier = Modifier
+                .height(350.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(android.graphics.Color.parseColor("#88C25F"))),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 25.dp),
+            ) {
+                Text(
+                    text = "Total Ammount",
+                    modifier = modifier,
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily(Font(roboto_condensed_regular)),
+                    color = Color.White,
+
+                )
+                Text(
+                    text = "400 Kr",
+                    modifier = modifier.padding(horizontal = 300.dp),
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily(Font(roboto_condensed_regular)),
+                    color = Color.White,
+
+
+                    )
             }
-
-
-        LazyColumn(modifier = Modifier.height(400.dp)) {
-            items(7) { index ->
-                ActivityItem()
+            Spacer(Modifier.height(20.dp))
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+            ) {
+                items(7) { index ->
+                    ActivityItem()
+                }
             }
-
         }
-
-        Button(onClick = {},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp), colors = ButtonDefaults.buttonColors(Color(0xFF4CAF50)
+        Button(onClick = {},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp),
+            colors = ButtonDefaults.buttonColors(Color(android.graphics.Color.parseColor("#88C25F"))
         )) {
             Text("Make Request")
         }
@@ -117,10 +172,11 @@ fun ActivityItem() {
             .padding(vertical = 8.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF1B5E20)
+            containerColor = Color(android.graphics.Color.parseColor("#104210")),
         ),
         elevation = CardDefaults.cardElevation(6.dp)
     ) {
+
         Row(
             modifier = Modifier
                 .padding(16.dp)
@@ -138,7 +194,7 @@ fun ActivityItem() {
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Image(
-                        painter = painterResource(R.drawable.icon),
+                        painter = painterResource(R.drawable.profile_picture),
                         contentDescription = null,
                         modifier = Modifier.size(55.dp)
                     )
@@ -166,7 +222,7 @@ fun ActivityItem() {
                     onClick = {},
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF4CAF50)
+                        containerColor = Color(android.graphics.Color.parseColor("#88C25F")),
                     )
                 ) {
                     Text("Pay")

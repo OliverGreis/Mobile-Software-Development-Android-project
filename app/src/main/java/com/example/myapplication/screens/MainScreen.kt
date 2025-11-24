@@ -8,10 +8,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.padding
-import com.example.myapplication.BotAppBarExample
-import com.example.myapplication.SmallTopAppBarExample
 import com.example.myapplication.ui.theme.MyApplication7Theme
 import com.example.myapplication.navigation.AppNavHost
+import com.example.myapplication.Controller.groupApi
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +27,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    val api = groupApi
 
     Scaffold(
         topBar = { SmallTopAppBarExample(navController) },
@@ -35,7 +35,8 @@ fun MainScreen() {
     ) { innerPadding ->
         AppNavHost(
             navController = navController,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            api = api,
         )
     }
 }

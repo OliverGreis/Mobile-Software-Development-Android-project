@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -28,38 +29,105 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
+import com.example.myapplication.R.font.roboto_condensed_bold
 import java.time.format.TextStyle
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.material3.TextFieldDefaults
+
+@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun CreateGroup(modifier: Modifier = Modifier) {
-
+    var textName by remember { mutableStateOf("") }
+    var textMembers by remember { mutableStateOf("") }
     Column(){
         Spacer(Modifier.height(100.dp))
 
         Text(
             text = "Group Name",
-            modifier = modifier
+            color = Color.Black,
+            fontSize = 32.sp,
+            fontFamily = FontFamily(Font(roboto_condensed_bold)),
+            modifier = Modifier.padding(horizontal = 20.dp)
         )
-
-        /*TextField(
-            state = rememberTextFieldState("Hello\nWorld\nInvisible"),
-            lineLimits = TextFieldLineLimits.MultiLine(maxHeightInLines = 2),
-            placeholder = { Text("") },
-            textStyle = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold),
-            label = { Text("Enter text") },
-            modifier = Modifier.padding(20.dp)
-        )*/
+        TextField(
+            value = textName,
+            onValueChange = { textName = it },
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .width(380.dp),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(android.graphics.Color.parseColor("#88C25F")),
+                unfocusedContainerColor = Color(android.graphics.Color.parseColor("#88C25F")),
+                disabledContainerColor = Color(android.graphics.Color.parseColor("#88C25F")),
+                errorContainerColor = Color(android.graphics.Color.parseColor("#88C25F")),
+            )
+        )
 
         Text(
             text = "Group Image",
-            modifier = modifier
+            color = Color.Black,
+            fontSize = 32.sp,
+            fontFamily = FontFamily(Font(roboto_condensed_bold)),
+            modifier = Modifier.padding(horizontal = 20.dp)
+
+        )
+
+        Box(
+            modifier = Modifier
+                .height(150.dp)
+                .width(420.dp)
+                .padding(horizontal = 20.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(android.graphics.Color.parseColor("#104210"))),
         )
 
         Text(
             text = "Add Members",
-            modifier = modifier
+            color = Color.Black,
+            fontSize = 32.sp,
+            fontFamily = FontFamily(Font(roboto_condensed_bold)),
+            modifier = Modifier.padding(horizontal = 20.dp)
         )
+        TextField(
+            value = textMembers,
+            onValueChange = { textMembers = it },
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .width(380.dp),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(android.graphics.Color.parseColor("#88C25F")),
+                unfocusedContainerColor = Color(android.graphics.Color.parseColor("#88C25F")),
+                disabledContainerColor = Color(android.graphics.Color.parseColor("#88C25F")),
+                errorContainerColor = Color(android.graphics.Color.parseColor("#88C25F")),
+            )
+        )
+        Text(
+            text = "Members Added",
+            color = Color.Black,
+            fontSize = 32.sp,
+            fontFamily = FontFamily(Font(roboto_condensed_bold)),
+            modifier = Modifier.padding(horizontal = 20.dp)
+
+        )
+
 
         LazyRow(  contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -79,7 +147,7 @@ fun CreateGroup(modifier: Modifier = Modifier) {
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.icon),
+                            painter = painterResource(R.drawable.profile_picture),
                             contentDescription = "Member icon",
                             modifier = Modifier.size(40.dp),
                             contentScale = ContentScale.Fit
@@ -89,6 +157,17 @@ fun CreateGroup(modifier: Modifier = Modifier) {
                 }
             }
     }
+        Button(onClick = {},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp),
+            colors = ButtonDefaults.buttonColors(Color(android.graphics.Color.parseColor("#88C25F"))
+            )) {
+            Text("Make Request")
+        }
     }
 }
+
+
+
+
+
+
 

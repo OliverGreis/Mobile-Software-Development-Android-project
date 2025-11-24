@@ -16,7 +16,7 @@
         android:contentDescription="@string/shows_account_ico"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
         android:elevation="4dp"
         android:layout_marginStart="8dp"
