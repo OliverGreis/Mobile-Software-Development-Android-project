@@ -2,6 +2,11 @@ package com.example.myapplication.Controller
 import retrofit2.http.GET
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.POST
+import retrofit2.http.Body
+import retrofit2.http.Path
+import android.os.Parcelable
+
 
 data class Group(
     val id: Int,
@@ -26,5 +31,12 @@ val groupApi: GroupApiService = retrofit.create(GroupApiService::class.java)
 interface GroupApiService {
     @GET("api/groups")
     suspend fun getGroups(): List<Group>
+
+    @POST("api/creategroup/{name}")
+    suspend fun createGroup(@Path("name") name: String): Group
 }
+
+
+
+
 

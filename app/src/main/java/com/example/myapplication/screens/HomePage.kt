@@ -39,6 +39,9 @@ import com.example.myapplication.Controller.Group
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.example.myapplication.Controller.GroupApiService
+import java.nio.charset.StandardCharsets
+import java.net.URLEncoder
+import android.net.Uri
 
 @Composable
 fun Home(modifier: Modifier = Modifier,navController: NavHostController,groups: List<Group>) {
@@ -214,10 +217,11 @@ fun GroupItem(
 
 
     @Composable
-    fun HomeScreen(navController: NavHostController, api: GroupApiService) {
+    fun HomeScreen(navController: NavHostController, api: GroupApiService,refreshTrigger: Boolean ) {
         var groups by remember { mutableStateOf<List<Group>>(emptyList()) }
 
-        LaunchedEffect(Unit) {
+
+        LaunchedEffect(refreshTrigger) {
             try {
                 groups = api.getGroups()
                 println("Fetched groups: $groups")

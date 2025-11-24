@@ -48,11 +48,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.material3.TextFieldDefaults
+import com.example.myapplication.Controller.groupApi
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+import java.net.URLEncoder
+import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 
 @Composable
-fun CreateGroup(modifier: Modifier = Modifier) {
+fun CreateGroup(navController: NavHostController,modifier: Modifier = Modifier) {
+    val coroutineScope = rememberCoroutineScope()
     var textName by remember { mutableStateOf("") }
     var textMembers by remember { mutableStateOf("") }
     Column(){
@@ -157,9 +163,28 @@ fun CreateGroup(modifier: Modifier = Modifier) {
                 }
             }
     }
-        Button(onClick = {},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp),
-            colors = ButtonDefaults.buttonColors(Color(android.graphics.Color.parseColor("#88C25F"))
-            )) {
+        Button(
+            onClick = {
+                coroutineScope.launch {
+                    try {
+                        val response = groupApi.createGroup(URLEncoder.encode(textName, "UTF-8"))
+                        println(response)
+                        val updatedGroups = groupApi.getGroups()
+                        navController.navigate("home?refresh=true"){
+                            popUpTo("createGroup") { inclusive = true }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            },
+            modifier = Modifier
+                .padding(horizontal = 135.dp)
+                .padding(vertical = 25.dp),
+            colors = ButtonDefaults.buttonColors(
+                Color(android.graphics.Color.parseColor("#88C25F"))
+            )
+        ) {
             Text("Make Request")
         }
     }

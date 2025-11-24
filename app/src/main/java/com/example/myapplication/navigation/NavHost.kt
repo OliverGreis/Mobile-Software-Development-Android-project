@@ -23,10 +23,10 @@ fun AppNavHost(navController: NavHostController, api: GroupApiService, modifier:
         startDestination = "login"
     ) {
         composable("login") { LoginScreen(navController, AuthRepository, activity) }
-        composable("home") { HomeScreen(navController = navController, api = api) }
-        composable("add") { CreateGroup() }
+        composable("home") { HomeScreen(navController = navController, api = api,true) }
+        composable("add") { CreateGroup(navController = navController) }
         composable("profile") { Profile() }
-        composable("group") { Group() }
+        composable(route = "group"){Group("Event4")}
         composable("activity") { ActivityPage() }
         
     }

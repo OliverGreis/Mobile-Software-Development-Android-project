@@ -37,13 +37,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Font
 import com.example.myapplication.R.font.*
 import androidx.compose.ui.text.style.TextAlign
+import com.example.myapplication.Controller.Group
+
+
 @Composable
-fun Group(modifier: Modifier = Modifier) {
+fun Group(groupName: String,modifier: Modifier = Modifier) {
+
     Column {
         Spacer(Modifier.height(100.dp))
 
         Text(
-            text = "Britney's Birthday",
+            text = groupName,
             modifier = modifier.fillMaxWidth(),
             fontSize = 32.sp,
             fontFamily = FontFamily(Font(roboto_condensed_bold)),
