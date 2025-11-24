@@ -19,6 +19,10 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        //Auth Filter
+        manifestPlaceholders["auth0Domain"] = "@string/auth0_domain"
+        manifestPlaceholders["auth0Scheme"] = "@string/auth0_scheme"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

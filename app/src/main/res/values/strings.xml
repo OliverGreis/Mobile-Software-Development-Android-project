@@ -59,6 +59,14 @@
     <string name="month_year_numbers">01/23</string>
     <string name="delete_info">Are you sure you want to delete payment method</string>
     <string name="leave_info">you are about to leave with out saving your changes do you want to leave</string>
+
+<!--    Notification -->
     <string name="default_notification_channel_id">default_notification_channel_id</string>
     <string name="default_notification_channel_name">default_notification_channel_name</string>
+
+
+<!--    Auth0-->
+    <string name="auth0_scheme">app</string>
+    <string name="auth0_domain">dev-0o0gcvm7d4ul8b2u.eu.auth0.com</string>
+    <string name="com_auth0_client_id">5LIXAuSwDdBXI6b9wct9wXerbpKcr7Pc</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.myapplication.model.notification
+package com.example.myapplication.model
 
 import kotlinx.serialization.Serializable
 

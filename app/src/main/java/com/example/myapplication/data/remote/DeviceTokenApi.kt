@@ -1,7 +1,7 @@
 package com.example.myapplication.data.remote
 
 import android.util.Log
-import com.example.myapplication.model.notification.DeviceTokenRequestDTO
+import com.example.myapplication.model.DeviceTokenRequestDTO
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.put
