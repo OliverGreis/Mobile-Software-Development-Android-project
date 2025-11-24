@@ -59,4 +59,6 @@
     <string name="month_year_numbers">01/23</string>
     <string name="delete_info">Are you sure you want to delete payment method</string>
     <string name="leave_info">you are about to leave with out saving your changes do you want to leave</string>
+    <string name="default_notification_channel_id">default_notification_channel_id</string>
+    <string name="default_notification_channel_name">default_notification_channel_name</string>
 </resources>
