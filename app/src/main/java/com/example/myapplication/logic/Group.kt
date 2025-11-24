@@ -16,6 +16,11 @@ class Group() {
         return response
     }
 
+    suspend fun GetGroup(urlInput:String): HttpResponse {
+        val response: HttpResponse = Network.sendGetRequest("http://localhost:8080/api/group/$urlInput")
+        return response
+    }
+
     suspend fun addGroupMember(urlInput:String): HttpResponse {
         val response: HttpResponse = Network.sendPutRequest("http://localhost:8080/api/addmember/$urlInput")
         return response
