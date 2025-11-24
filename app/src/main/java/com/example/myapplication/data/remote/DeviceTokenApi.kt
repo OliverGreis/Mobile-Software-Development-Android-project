@@ -15,7 +15,9 @@ class DeviceTokenApi {
     private val baseUrl = KtorClientProvider.baseURL
 
     suspend fun registerDeviceToken(userId: String, token: String) {
-        val body = DeviceTokenRequestDTO(userId = userId, token = token)
+        val trimmedUserId = userId.substringAfter("|")
+        val body = DeviceTokenRequestDTO(userId = trimmedUserId, token = token)
+
         Log.w("FCM", "registerDeviceToken body: $body")
         Log.w("FCM", "URL: $baseUrl/api/devicetoken")
 

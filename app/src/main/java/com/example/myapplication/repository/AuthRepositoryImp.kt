@@ -1,6 +1,7 @@
 package com.example.myapplication.repository
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.suspendCancellableCoroutine
 import com.example.myapplication.model.User
 import com.auth0.android.Auth0
@@ -11,7 +12,11 @@ import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.example.myapplication.R
 import com.example.myapplication.data.remote.DeviceTokenApi
+import com.example.myapplication.data.remote.KtorClientProvider
 import com.google.firebase.messaging.FirebaseMessaging
+import io.ktor.client.request.post
+import io.ktor.client.request.put
+import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,6 +48,17 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
                     val idToken = result.idToken
                     val user = parseUserFromIdToken(idToken)
 
+                    // TODO: PLACE UNTIL PROPER SIGNUP HAS BEEN CREATED
+                    CoroutineScope(Dispatchers.IO).launch {
+                        createuser(
+                            userName = user.email,
+                            mail = user.email,
+                            userId = user.id,
+                            password = "1234" // Or some other placeholder, since password is not available
+                        )
+                    }
+
+
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
                             val fcmToken = FirebaseMessaging.getInstance().token.await()
@@ -59,6 +75,8 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
                     cont.resume(user)
                 }
             })
+
+
     }
 
     override suspend fun logout(activity: Activity) {
@@ -84,4 +102,22 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
         )
 
     }
+
+
+
+
+    // :TODO This is a hack solution, for demonstration purposes only
+    private val client = KtorClientProvider.client
+    private val baseUrl = KtorClientProvider.baseURL
+    suspend fun createuser(userName: String, mail: String, userId: String, password: String) {
+        val trimmedUserId = userId.substringAfter("|")
+        try{
+            val response: HttpResponse = client.post("$baseUrl/api/users/create/$userName/$mail/$password")
+            Log.w("FCM", "registerDeviceToken success: $response")
+            client.put("$baseUrl/api/user/setuserid/$userName/$trimmedUserId")
+        }catch (e: Exception){
+            Log.e("FCM", "Error calling api/user/create", e)
+        }
+    }
+
 }
