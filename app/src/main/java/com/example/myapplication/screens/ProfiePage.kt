@@ -152,7 +152,8 @@ fun userInfo()
     }
     Spacer(modifier = Modifier.height(24.dp))
 
-    Button(onClick = {},
+    Button(
+        onClick = {},
         colors = ButtonDefaults.buttonColors(containerColor = DarkGreen),
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier.width(160.dp)
@@ -163,7 +164,8 @@ fun userInfo()
             color = Color.White,
             fontSize = 20.sp,
             fontFamily = FontFamily(Font(roboto_condensed_regular)),
-            fontWeight = FontWeight.Normal)
+            fontWeight = FontWeight.Normal
+        )
     }
 }
 
