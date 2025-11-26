@@ -34,6 +34,7 @@ import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.DarkGreen
 import com.example.myapplication.ui.theme.White
 
+
 @Composable
 fun LoginPage2()
 {
@@ -66,7 +67,7 @@ fun LoginPage2()
         Text(
             text = "Log in",
             fontSize = 32.sp,
-            //Font(roboto_condensed_regular,
+            //fontFamily = FontFamily(Font(roboto_condensed_regular),
             fontWeight = FontWeight.Normal
         )
 
