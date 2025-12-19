@@ -62,7 +62,7 @@ fun ProfilePage()
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        userInfo()
+        UserInfo()
         Spacer(modifier = Modifier.height(32.dp))
         CardSection()
         Spacer(modifier = Modifier.height(24.dp))
@@ -70,7 +70,7 @@ fun ProfilePage()
 }
 
 @Composable
-fun userInfo()
+fun UserInfo()
 {
     Image(
         painter = painterResource(id = R.drawable.profile_picture),

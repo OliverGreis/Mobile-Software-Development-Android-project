@@ -60,7 +60,7 @@ fun CreateAccountPasswordPage()
 
         Spacer(modifier = Modifier.height(45.dp))
 
-        FormTextField(
+        TextField(
             label = "Password",
             placeholder = "Enter password",
             value = password,
@@ -70,7 +70,7 @@ fun CreateAccountPasswordPage()
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        FormTextField(
+        TextField(
             label = "Confirm password",
             placeholder = "Enter password",
             value = confirmPassword,
@@ -106,7 +106,7 @@ fun CreateAccountPasswordPage()
 }
 
 @Composable
-fun FormTextField(
+fun TextField(
     label: String,
     placeholder: String,
     value: String,
