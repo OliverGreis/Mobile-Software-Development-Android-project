@@ -10,10 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -23,19 +21,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.Edit_profile
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 
 @Composable
-fun CreateAccountPage() {
+fun EditProfilePage()
+{
     var firstName by remember { mutableStateOf("") }
-    var middleName by remember { mutableStateOf("") }
+    var middelName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
@@ -48,6 +46,7 @@ fun CreateAccountPage() {
                     phoneNumber.isNotBlank()
         }
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,9 +58,9 @@ fun CreateAccountPage() {
 
         FormTextField(
             label = "First Name",
-            placeholder = "Enter first name",
+            placeholder = "Enter first name",//should be changed to take the info from database
             value = firstName,
-            onValueChange = {firstName = it},
+            onValueChange = { firstName = it },
             backgroundColor = LightGreen
         )
 
@@ -69,9 +68,9 @@ fun CreateAccountPage() {
 
         FormTextField(
             label = "Middle Name",
-            placeholder = "Enter middle name",
-            value = middleName,
-            onValueChange = {middleName = it},
+            placeholder = "Enter middle name", //should be changed to take the info from database if there are any
+            value = middelName,
+            onValueChange = { middelName = it },
             isOptional = true,
             backgroundColor = LightGreen
         )
@@ -79,10 +78,10 @@ fun CreateAccountPage() {
         Spacer(modifier = Modifier.height(20.dp))
 
         FormTextField(
-            label = "Last Name",
-            placeholder = "Enter last name",
+            label = "LastName",
+            placeholder = "Enter last name", //should be changed to take the info from database
             value = lastName,
-            onValueChange = {lastName = it},
+            onValueChange = { lastName = it },
             backgroundColor = LightGreen
         )
 
@@ -90,9 +89,9 @@ fun CreateAccountPage() {
 
         FormTextField(
             label = "Email",
-            placeholder = "Enter email address",
-            email,
-            onValueChange = {email = it},
+            placeholder = "Enter email address", //should be changed to take the info from database
+            value = email,
+            onValueChange = { email = it },
             backgroundColor = LightGreen
         )
 
@@ -100,14 +99,16 @@ fun CreateAccountPage() {
 
         FormTextField(
             label = "Phone number",
-            placeholder = "Enter phone number",
+            placeholder = "Enter phone number", //should be changed to take the info from database
             value = phoneNumber,
-            onValueChange = {phoneNumber = it},
+            onValueChange = { phoneNumber = it },
             backgroundColor = LightGreen
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
+
+        //should be changed to take the info from database if there are any
         Column()
         {
             Row(
@@ -157,86 +158,13 @@ fun CreateAccountPage() {
         )
         {
             Text(
-                text = "Next",
+                text = "Save",
                 fontSize = 20.sp,
                 //fontFamily = FontFamily(Font(roboto_condensed_regular),
                 fontWeight = FontWeight.Normal,
                 color = White
             )
         }
-    }
-}
 
-@Composable
-fun FormTextField(
-    label: String,
-    placeholder: String,
-    value: String,
-    onValueChange: (String) -> Unit,
-    isOptional: Boolean = false,
-    backgroundColor: Color
-)
-{
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    )
-    {
-        Row()
-        {
-            Text(
-                text = label,
-                fontSize = 24.sp,
-                //fontFamily = FontFamily(Font(roboto_condensed_regular),
-                fontWeight = FontWeight.Normal,
-                color = Color.Black,
-                textAlign = TextAlign.Start
-            )
-            if (isOptional) {
-                Text(
-                    text = "optinal",
-                    fontSize = 10.sp,
-                    //fontFamily = FontFamily(Font(roboto_condensed_regular),
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(start = 4.dp, top = 6.dp)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(2.dp))
-
-        Surface(
-            color = LightGreen,
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(55.dp)
-        )
-        {
-            BasicTextField(
-                value = value,
-                onValueChange = onValueChange,
-                singleLine = true,
-                decorationBox = { innerTextField ->
-                    Row(
-                        modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    )
-                    {
-                        if (value.isEmpty()) {
-                            Text(
-                                text = placeholder,
-                                color = Color.White,
-                                fontSize = 20.sp
-                            )
-                        }
-                        innerTextField()
-                    }
-                },
-                textStyle = androidx.compose.ui.text.TextStyle(
-                    color = Color.White,
-                    fontSize = 20.sp
-                )
-            )
-        }
     }
 }
