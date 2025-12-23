@@ -58,7 +58,7 @@ fun AddPaymentPage()
     }
 
     val isFormValid by remember {
-        derivedStateOf { isBankValid.value || isBankValid.value }
+        derivedStateOf { isCardValid.value || isBankValid.value }
     }
 
     Column(
