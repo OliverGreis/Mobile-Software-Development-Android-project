@@ -46,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.DarkGreen
 import com.example.myapplication.ui.theme.White
@@ -53,7 +54,7 @@ import com.example.myapplication.R
 import com.example.myapplication.R.font.roboto_condensed_regular
 
 @Composable
-fun ProfilePage()
+fun ProfilePage(navController: NavHostController)
 {
     Column(
         modifier = Modifier
@@ -62,15 +63,15 @@ fun ProfilePage()
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        UserInfo()
+        UserInfo(navController = navController)
         Spacer(modifier = Modifier.height(32.dp))
-        CardSection()
+        CardSection(navController = navController)
         Spacer(modifier = Modifier.height(24.dp))
     }
 }
 
 @Composable
-fun UserInfo()
+fun UserInfo(navController: NavHostController)
 {
     Image(
         painter = painterResource(id = R.drawable.profile_picture),
@@ -153,7 +154,7 @@ fun UserInfo()
     Spacer(modifier = Modifier.height(24.dp))
 
     Button(
-        onClick = {},
+        onClick = {navController.navigate("edit_profile")},
         colors = ButtonDefaults.buttonColors(containerColor = DarkGreen),
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier.width(160.dp)
@@ -170,7 +171,7 @@ fun UserInfo()
 }
 
 @Composable
-fun CardSection()
+fun CardSection(navController: NavHostController)
 {
     Column(modifier = Modifier.fillMaxWidth())
     {
@@ -239,7 +240,7 @@ fun CardSection()
                 Spacer(modifier = Modifier.width(10.dp))
 
                 Button(
-                    onClick = {},
+                    onClick = {navController.navigate("add_card")},
                     colors = ButtonDefaults.buttonColors(containerColor = DarkGreen),
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier

@@ -2,6 +2,7 @@ package com.example.myapplication.screens
 
 import android.R
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,13 +31,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.DarkGreen
 import com.example.myapplication.ui.theme.White
+import com.example.myapplication.navigation.AppNavHost
 
 
 @Composable
-fun LoginPage2()
+fun LoginPage2(navController: NavController)
 {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -97,13 +100,15 @@ fun LoginPage2()
             //Font(roboto_condensed_regular,
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.fillMaxWidth().align(Alignment.Start)
+            modifier = Modifier
+                .fillMaxWidth().align(Alignment.Start)
+                .clickable{navController.navigate("forgot_password")}
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
-            onClick = {},
+            onClick = { navController.navigate("create_account") },
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen),
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.width(200.dp)
@@ -139,6 +144,7 @@ fun LoginPage2()
 
     }
 }
+
 
 @Composable
 fun InputWithLabel(

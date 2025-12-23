@@ -28,12 +28,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 import com.example.myapplication.ui.theme.DarkGreen
 
 @Composable
-fun AddPaymentPage()
+fun AddPaymentPage(navController: NavHostController)
 {
     var cardNumber by remember { mutableStateOf("") }
     var expirationDate by remember { mutableStateOf("") }
@@ -98,7 +99,7 @@ fun AddPaymentPage()
         Spacer(modifier = Modifier.height(20.dp))
 
         BankSection(
-            accountNumber, {accountName = it},
+            accountNumber, {accountNumber = it},
             accountName, {accountName = it}
         )
 
@@ -107,7 +108,7 @@ fun AddPaymentPage()
         CreateButton(
             label = "Create",
             isEnable = isFormValid,
-            onClick = {},
+            onClick = {navController.navigate("home")},
             modifier = Modifier.align(Alignment.End)
         )
     }

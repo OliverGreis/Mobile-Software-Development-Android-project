@@ -26,11 +26,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 
 @Composable
-fun CreateAccountPasswordPage()
+fun CreateAccountPasswordPage(navController: NavHostController)
 {
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -83,7 +84,10 @@ fun CreateAccountPasswordPage()
         Button(
             onClick = {
                 if (isFormValid){
-                    println("next")
+                    navController.navigate("add_payment")
+                } else
+                {
+                    println("need to fill out first name, last name, email and phone number")
                 }
             },
             enabled = isFormValid,

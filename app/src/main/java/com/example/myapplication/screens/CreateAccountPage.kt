@@ -29,11 +29,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 
 @Composable
-fun CreateAccountPage() {
+fun CreateAccountPage(navController: NavHostController) {
     var firstName by remember { mutableStateOf("") }
     var middleName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
@@ -144,8 +145,13 @@ fun CreateAccountPage() {
 
         Button(
             onClick = {
-                if (isFormValid){
-                    println("next")
+                if (isFormValid)
+                {
+                    navController.navigate("create_account_password")
+                }
+                else
+                {
+                    println("fill out first name, last name, email and phone number")
                 }
             },
             enabled = isFormValid,

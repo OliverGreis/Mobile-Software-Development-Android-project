@@ -20,11 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 
 @Composable
-fun AddCardPage()
+fun AddCardPage(navController: NavHostController)
 {
     var cardNumber by remember { mutableStateOf("") }
     var expirationDate by remember { mutableStateOf("") }

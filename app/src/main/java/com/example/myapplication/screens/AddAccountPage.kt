@@ -17,9 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun AddAccountPage()
+fun AddAccountPage(navController: NavHostController)
 {
     var accountNumber by remember { mutableStateOf("") }
     var accountName by remember { mutableStateOf("") }
@@ -61,7 +62,7 @@ fun AddAccountPage()
         AddButton(
             label = "Add",
             isEnable = isValid,
-            onClick = {},
+            onClick = {navController.navigate("profile")},
             modifier = Modifier.align(Alignment.End)
         )
 

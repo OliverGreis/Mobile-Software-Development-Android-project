@@ -25,12 +25,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.Edit_profile
+import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 
 @Composable
-fun EditProfilePage()
+fun EditProfilePage(navController: NavHostController)
 {
     var firstName by remember { mutableStateOf("") }
     var middelName by remember { mutableStateOf("") }
