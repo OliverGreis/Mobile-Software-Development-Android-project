@@ -6,6 +6,7 @@ import retrofit2.http.POST
 import retrofit2.http.Body
 import retrofit2.http.Path
 import android.os.Parcelable
+import retrofit2.http.PUT
 
 
 data class Group(
@@ -34,6 +35,25 @@ interface GroupApiService {
 
     @POST("api/creategroup/{name}")
     suspend fun createGroup(@Path("name") name: String): Group
+
+    @GET("api/groups/member/{id}")
+    suspend fun getGroupsForMember(@Path("id") id: String): List<Group>
+
+    @PUT("api/addmember/{id}/{groupID}")
+    suspend fun addMember(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+
+    @PUT("api/addtransaction/{id}/{groupID}")
+    suspend fun addTransaction(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+
+    @GET("api/group/{id}")
+    suspend fun getGroup(@Path("id") id: String): String
+
+    @PUT("api/removemember/{id}/{groupID}")
+    suspend fun removeMember(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+
+    @PUT("api/removetransaction/{id}/{groupID}")
+    suspend fun removeTransaction(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+
 }
 
 
