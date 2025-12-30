@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".Add_account">
+
+    <TextView
+        android:id="@+id/Add_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_bank_account"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="100dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardPayment"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/card_view_card"
+        app:layout_constraintTop_toBottomOf="@id/Add_account"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp">
+
+        <include layout="@layout/account_details"/>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/Add_button"
+        android:layout_width="93dp"
+        android:layout_height="33dp"
+        android:background="@drawable/light_green_box"
+        android:text="@string/add"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        android:textAllCaps="false"
+        android:elevation="4dp"
+        android:shadowColor="@color/darkGreen"
+        app:layout_constraintTop_toBottomOf="@id/card_view_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="30dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

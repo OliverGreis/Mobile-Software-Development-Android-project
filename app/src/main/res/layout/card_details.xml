@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="185dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/Card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/card"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/Card_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/card_number"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        app:layout_constraintTop_toBottomOf="@+id/Card"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="2dp"
+        />
+
+    <EditText
+        android:id="@+id/Card_number_input"
+        android:layout_width="292dp"
+        android:layout_height="36dp"
+        android:paddingStart="15dp"
+        android:hint="@string/card_number"
+        android:textColorHint="@color/white"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        android:textSize="16sp"
+        android:background="@drawable/dark_green_box"
+        app:layout_constraintTop_toBottomOf="@+id/Card_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="4dp"
+        android:shadowColor="@color/black"
+        android:autofillHints="card number"
+        android:inputType="number"
+        tools:ignore="RtlSymmetry"
+        />
+
+    <TextView
+        android:id="@+id/Expiration_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expiration_date"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        app:layout_constraintTop_toBottomOf="@+id/Card_number_input"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/Expiration_date_input"
+        android:layout_width="128dp"
+        android:layout_height="36dp"
+        android:paddingStart="15dp"
+        android:hint="@string/month_year"
+        android:textSize="16sp"
+        android:textColorHint="@color/white"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        android:background="@drawable/dark_green_box"
+        android:elevation="4dp"
+        android:shadowColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/Expiration_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:autofillHints="Expiration date"
+        android:inputType="number"
+        tools:ignore="RtlSymmetry,TextFields"
+        />
+
+    <TextView
+        android:id="@+id/Security_code_CVC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/CVC"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        app:layout_constraintTop_toTopOf="@id/Expiration_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    
+    <EditText
+        android:id="@+id/Security_code_CVC_input"
+        android:layout_width="174dp"
+        android:layout_height="36dp"
+        android:paddingStart="15dp"
+        android:hint="@string/digits"
+        android:textSize="16sp"
+        android:textColorHint="@color/white"
+        android:fontFamily="@font/robot_condensed_family"
+        android:textStyle="normal"
+        android:background="@drawable/dark_green_box"
+        android:elevation="4dp"
+        android:shadowColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/Security_code_CVC"
+        app:layout_constraintStart_toEndOf="@id/Expiration_date_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="39dp"
+        android:autofillHints="CVC"
+        android:inputType="number"
+        tools:ignore="RtlSymmetry"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
