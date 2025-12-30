@@ -6,6 +6,8 @@ import retrofit2.http.POST
 import retrofit2.http.Body
 import retrofit2.http.Path
 import android.os.Parcelable
+import retrofit2.http.PUT
+import com.example.myapplication.model.User
 
 
 data class Group(
@@ -14,6 +16,14 @@ data class Group(
     val memberIDs: List<String>,
     val transactionIDs: List<Int>,
     val creationDate: String
+)
+
+data class Users(
+    val username: String,
+    val email: String,
+    val password: String,
+    val number: String,
+    val carsRented: List<String>
 )
 
 private const val BASE_URL =
@@ -26,6 +36,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 val groupApi: GroupApiService = retrofit.create(GroupApiService::class.java)
+val userApi: UserApiService = retrofit.create(UserApiService::class.java)
 
 
 interface GroupApiService {
@@ -36,6 +47,30 @@ interface GroupApiService {
     suspend fun createGroup(@Path("name") name: String): Group
 }
 
+interface UserApiService {
+    @GET("api/users")
+    suspend fun getUsers(): List<User>
+
+    @POST("api/users/create/{username}/{email}/{password}/{number}")
+    suspend fun createUser(
+        @Path("username") username: String,
+        @Path("email") email: String,
+        @Path("password") password: String,
+        @Path("number") number: String
+    ): String
+
+    @POST("api/login/{email}/{password}")
+    suspend fun loginUser(
+        @Path("email") email: String,
+        @Path("password") password: String
+    ): String
+
+    @PUT("api/reset/{email}/{newPassword}")
+    suspend fun resetPassword(
+        @Path("email") email: String,
+        @Path("newPassword") newPassword: String
+    ): String
+}
 
 
 
