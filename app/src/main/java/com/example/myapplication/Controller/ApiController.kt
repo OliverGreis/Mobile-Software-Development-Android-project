@@ -3,9 +3,7 @@ import retrofit2.http.GET
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.POST
-import retrofit2.http.Body
 import retrofit2.http.Path
-import android.os.Parcelable
 import retrofit2.http.PUT
 
 
@@ -99,7 +97,7 @@ interface UserApiService {
                            @Path("email") email: String, @Path("password") password: String): String
 
     @PUT("api/user/addgroup/{id}/{username}")
-    suspend fun addGroup(@Path("id") id: Int, @Path("username") username: String): String
+    suspend fun addGroup(@Path("id") id: Integer, @Path("username") username: String): String
 
     @PUT("api/user/addtransaction/{id}/{username}")
     suspend fun addTransaction(@Path("id") id: Int, @Path("username") username: String): String
