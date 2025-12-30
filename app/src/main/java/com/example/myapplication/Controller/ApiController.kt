@@ -83,6 +83,8 @@ interface GroupApiService {
     @PUT("api/removetransaction/{id}/{groupID}")
     suspend fun removeTransaction(@Path("id") id: String, @Path("groupID") groupID: Integer): String
 
+    @GET("api/group/notify/{id}")
+    suspend fun notifyGroupPing(@Path("id") id: Int): String
 }
 
 interface UserApiService {
