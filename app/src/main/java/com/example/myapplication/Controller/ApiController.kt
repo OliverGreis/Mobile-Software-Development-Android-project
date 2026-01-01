@@ -146,6 +146,12 @@ interface TransactionApiService {
 
     @PUT("api/transactions/removeexpenses/{id}/{expense}")
     suspend fun removeExpense(@Path("id") id: Int, @Path("expense") expense: String): String
+
+    @GET("api/transactions/getpaidstatus/{id}")
+    suspend fun getPaidStatus(@Path("id") id: Int): String
+
+    @PUT("api/transactions/setpaidstatus/{id}/{value}")
+    suspend fun setPaidStatus(@Path("id") id: Int, @Path("value") value: Boolean): String
 }
 
 interface ExpenseApiService {
@@ -161,4 +167,10 @@ interface ExpenseApiService {
 
     @PUT("api/expense/{id}/changeuser/{username}")
     suspend fun changeUser(@Path("id") id: String, @Path("username") username: String): String
+
+    @GET("api/expense/getpaidstatus/{id}")
+    suspend fun getPaidStatus(@Path("id") id: String): String
+
+    @PUT("api/expense/setpaidstatus/{id}/{value}")
+    suspend fun setPaidStatus(@Path("id") id: String, @Path("value") value: Boolean): String
 }
