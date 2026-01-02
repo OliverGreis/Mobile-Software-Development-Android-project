@@ -2,6 +2,7 @@ package com.example.myapplication.Controller
 import retrofit2.http.GET
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.PUT
@@ -46,6 +47,7 @@ private const val BASE_URL =
 
 
 private val retrofit = Retrofit.Builder()
+    .addConverterFactory(ScalarsConverterFactory.create())
     .addConverterFactory(GsonConverterFactory.create())
     .baseUrl(BASE_URL)
     .build()
@@ -67,19 +69,19 @@ interface GroupApiService {
     suspend fun getGroupsForMember(@Path("id") id: String): List<Group>
 
     @PUT("api/addmember/{id}/{groupID}")
-    suspend fun addMember(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+    suspend fun addMember(@Path("id") id: String, @Path("groupID") groupID: Int): String
 
     @PUT("api/addtransaction/{id}/{groupID}")
-    suspend fun addTransaction(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+    suspend fun addTransaction(@Path("id") id: Int, @Path("groupID") groupID: Int): String
 
     @GET("api/group/{id}")
     suspend fun getGroup(@Path("id") id: String): String
 
     @PUT("api/removemember/{id}/{groupID}")
-    suspend fun removeMember(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+    suspend fun removeMember(@Path("id") id: String, @Path("groupID") groupID: Int): String
 
     @PUT("api/removetransaction/{id}/{groupID}")
-    suspend fun removeTransaction(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+    suspend fun removeTransaction(@Path("id") id: Int, @Path("groupID") groupID: Int): String
 
     @GET("api/group/notify/{id}")
     suspend fun notifyGroupPing(@Path("id") id: Int): String
@@ -97,7 +99,7 @@ interface UserApiService {
                            @Path("email") email: String, @Path("password") password: String): String
 
     @PUT("api/user/addgroup/{id}/{username}")
-    suspend fun addGroup(@Path("id") id: Integer, @Path("username") username: String): String
+    suspend fun addGroup(@Path("id") id: Int, @Path("username") username: String): String
 
     @PUT("api/user/addtransaction/{id}/{username}")
     suspend fun addTransaction(@Path("id") id: Int, @Path("username") username: String): String
