@@ -82,7 +82,7 @@ class ControllerHelperMethods(
                     for (user in users) {
                         userResponses.add(userApi.removeTransaction(id, user))
                     }
-                    groupResponse.contains("removed") && userResponses.firstOrNull().contains("Removed")
+                    groupResponse.contains("removed") && userResponses.firstOrNull()?.contains("Removed") == true
                 } else {
                     false
                 }
