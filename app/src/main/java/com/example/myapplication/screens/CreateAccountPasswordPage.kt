@@ -18,6 +18,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,14 +28,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.myapplication.Controller.UserApiService
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
+import com.example.myapplication.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun CreateAccountPasswordPage(navController: NavHostController)
+fun CreateAccountPasswordPage(navController: NavHostController, userApi: UserApiService, userViewModel: UserViewModel)
 {
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
     val isFormValid by remember {
         derivedStateOf {
@@ -83,12 +88,21 @@ fun CreateAccountPasswordPage(navController: NavHostController)
 
         Button(
             onClick = {
-                if (isFormValid){
-                    navController.navigate("add_payment")
-                } else
-                {
-                    println("need to fill out first name, last name, email and phone number")
-                }
+             scope.launch {
+                 try {
+                     val fullName = "${userViewModel.firstName} ${userViewModel.lastName}"
+
+                     userApi.createUser(
+                         username = fullName,
+                         email = userViewModel.email,
+                         password = password
+                     )
+
+                     navController.navigate("add_payment")
+                 } catch (e: Exception) {
+                     println("Error when creating: ${e.message}")
+                 }
+             }
             },
             enabled = isFormValid,
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen, disabledContainerColor = LightGreen),

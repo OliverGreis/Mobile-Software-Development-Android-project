@@ -19,8 +19,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -32,6 +34,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,31 +55,113 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.myapplication.Controller.UserApiService
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.DarkGreen
 import com.example.myapplication.ui.theme.White
 import com.example.myapplication.R
 import com.example.myapplication.R.font.roboto_condensed_regular
+import kotlinx.coroutines.launch
+import java.util.Collections.emptyList
+import kotlin.collections.emptyList
 
 @Composable
-fun ProfilePage(navController: NavHostController)
+fun ProfilePage(navController: NavHostController, userApi: UserApiService)
 {
+  val scope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
+
+    var userName by remember { mutableStateOf("Loading...") }
+    var userEmail by remember { mutableStateOf("Loading...") }
+    var phoneNumber by remember { mutableStateOf("Loading...") }
+
+    var userCards by remember { mutableStateOf(emptyList<UserCard>()) }
+    var userAccounts by remember { mutableStateOf(emptyList<UserAccount>()) }
+
+    val loadProfileData = {
+        scope.launch {
+            try {
+                val users = userApi.getUsers()
+                val firstUser = users.firstOrNull()
+                if (firstUser != null)
+                {
+                    val nameParts = firstUser.username.trim().split("\\s+".toRegex())
+
+                    if (nameParts.size >= 3) {
+                        val first = nameParts.first()
+                        val last = nameParts.last()
+                        val middle = nameParts.subList(1, nameParts.size - 1).joinToString(" ")
+
+                        userName = "$first $middle $last"
+                    } else if (nameParts.size == 2) {
+                        userName = "${nameParts[0]} ${nameParts[1]}"
+                    } else {
+                        userName = firstUser.username
+                    }
+                    userEmail = firstUser.email
+                    phoneNumber = firstUser.phoneNumber
+
+                    userCards = firstUser.cards ?: emptyList()
+                    userAccounts = firstUser.accounts ?: emptyList()
+                }
+            } catch (e: Exception)
+            {
+                userName = "Error loading profile"
+            }
+        }
+    }
+
+    LaunchedEffect(Unit){
+        loadProfileData()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        UserInfo(navController = navController)
+        UserInfo(navController = navController, name = userName, email = userEmail, phone = phoneNumber)
         Spacer(modifier = Modifier.height(32.dp))
-        CardSection(navController = navController)
+        CardSection(
+            navController = navController,
+            cards = userCards,
+            onDelete = {
+                cardId -> scope.launch {
+                    try {
+                        userApi.deleteCard(cardId)
+                        loadProfileData()
+                    } catch (e: Exception)
+                    {
+                        e.printStackTrace()
+                    }
+            }
+            })
         Spacer(modifier = Modifier.height(24.dp))
+        BankSection(
+            navController = navController,
+            accounts = userAccounts,
+            onDelete = { accountId ->
+                scope.launch {
+                    try
+                    {
+                        userApi.deleteBankAccount(accountId)
+                    loadProfileData()
+                    } catch (e: Exception)
+                    {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        )
     }
 }
 
+
 @Composable
-fun UserInfo(navController: NavHostController)
+fun UserInfo(navController: NavHostController, name: String, email: String, phone: String)
 {
     Image(
         painter = painterResource(id = R.drawable.profile_picture),
@@ -80,7 +170,7 @@ fun UserInfo(navController: NavHostController)
     )
 
     Text(
-        text = "User name",
+        text = name,
         fontSize = 32.sp,
         fontFamily = FontFamily(Font(roboto_condensed_regular)),
         fontWeight = FontWeight.Normal,
@@ -113,7 +203,7 @@ fun UserInfo(navController: NavHostController)
             )
             {
                 Text(
-                    text = "UserName@Email.com", //should be data from the database
+                    text = email,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(roboto_condensed_regular)),
                     color = Color.White,
@@ -142,7 +232,7 @@ fun UserInfo(navController: NavHostController)
             )
             {
                 Text(
-                    text = "+45 12 34 56 78", // should be data from database
+                    text = phone, // should be data from database
                     fontSize = 16.sp,
                     color = Color.White,
                     fontFamily = FontFamily(Font(roboto_condensed_regular)),
@@ -171,7 +261,7 @@ fun UserInfo(navController: NavHostController)
 }
 
 @Composable
-fun CardSection(navController: NavHostController)
+fun CardSection(navController: NavHostController, cards: List<UserCard>, onDelete: (String) -> Unit)
 {
     Column(modifier = Modifier.fillMaxWidth())
     {
@@ -182,8 +272,8 @@ fun CardSection(navController: NavHostController)
             fontWeight = FontWeight.Normal
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
 
+    cards.forEach { card ->
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = LightGreen)
@@ -217,7 +307,7 @@ fun CardSection(navController: NavHostController)
                         Row()
                         {
                             Text(
-                                text = "****1234", // should be data from database
+                                text = "****${card.cardNumber.takeLast(4)}",
                                 fontSize = 12.sp,
                                 fontFamily = FontFamily(Font(roboto_condensed_regular)),
                                 fontWeight = FontWeight.Normal,
@@ -227,7 +317,7 @@ fun CardSection(navController: NavHostController)
                             Spacer(modifier = Modifier.width(4.dp))
 
                             Text(
-                                text = "expires" +"01/23", //second part should be data from database
+                                text = "expires ${card.expiryDate}", //second part should be data from database
                                 fontSize = 12.sp,
                                 fontFamily = FontFamily(Font(roboto_condensed_regular)),
                                 fontWeight = FontWeight.Normal,
@@ -240,7 +330,7 @@ fun CardSection(navController: NavHostController)
                 Spacer(modifier = Modifier.width(10.dp))
 
                 Button(
-                    onClick = {navController.navigate("add_card")},
+                    onClick = { onDelete(card.id) },
                     colors = ButtonDefaults.buttonColors(containerColor = DarkGreen),
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier
@@ -258,10 +348,11 @@ fun CardSection(navController: NavHostController)
                 }
             }
         }
+    }
 
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = {},
+            onClick = {navController.navigate("add_account")},
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen),
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.height(35.dp)
@@ -276,3 +367,103 @@ fun CardSection(navController: NavHostController)
     }
 }
 
+@Composable
+fun BankSection(navController: NavHostController, accounts: List<UserAccount>, onDelete: (String) -> Unit)
+{
+    Column(modifier = Modifier.fillMaxWidth())
+    {
+        Text(
+            text = "Accounts",
+            fontSize = 24.sp,
+            fontFamily = FontFamily(Font(roboto_condensed_regular)),
+            fontWeight = FontWeight.Normal
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        accounts.forEach { account ->
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = LightGreen)
+            )
+            {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                )
+                {
+                    Row(verticalAlignment = Alignment.CenterVertically)
+                    {
+                        Image(
+                            painter = painterResource(id = R.drawable.account_icon),
+                            contentDescription = "Card icon",
+                            modifier = Modifier.size(80.dp)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Column()
+                        {
+                            Text(
+                                text = account.accountName,
+                                fontSize = 12.sp,
+                                fontFamily = FontFamily(Font(roboto_condensed_regular)),
+                                fontWeight = FontWeight.Normal,
+                                color = White
+                            )
+                            Row()
+                            {
+                                Text(
+                                    text = "${account.regNum} ${account.accountNumber}", // should be data from database
+                                    fontSize = 12.sp,
+                                    fontFamily = FontFamily(Font(roboto_condensed_regular)),
+                                    fontWeight = FontWeight.Normal,
+                                    color = White
+                                )
+
+                                Spacer(modifier = Modifier.width(4.dp))
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    Button(
+                        onClick = { onDelete(account.id) },
+                        colors = ButtonDefaults.buttonColors(containerColor = DarkGreen),
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(35.dp)
+                    )
+                    {
+                        Text(
+                            "Delete",
+                            color = Color.White,
+                            fontSize = 10.sp,
+                            fontFamily = FontFamily(Font(roboto_condensed_regular)),
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(
+            onClick = {navController.navigate("add_account")},
+            colors = ButtonDefaults.buttonColors(containerColor = LightGreen),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier.height(35.dp)
+        ) {
+            Text(
+                "Add Account",
+                color = White,
+                fontFamily = FontFamily(Font(roboto_condensed_regular)),
+                fontSize = 12.sp
+            )
+        }
+
+    }
+}

@@ -14,10 +14,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,25 +27,42 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavHostController
+import com.example.myapplication.Controller.UserApiService
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
+import com.example.myapplication.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun EditProfilePage(navController: NavHostController)
+fun EditProfilePage(navController: NavHostController, userApi: UserApiService, userViewModel: UserViewModel)
 {
-    var firstName by remember { mutableStateOf("") }
-    var middelName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var phoneNumber by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
-    val isFormValid by remember {
-        derivedStateOf {
-            firstName.isNotBlank() &&
-                    lastName.isNotBlank() &&
-                    email.isNotBlank() &&
-                    phoneNumber.isNotBlank()
+    LaunchedEffect(Unit) {
+        try {
+            val users = userApi.getUsers()
+            val currentUser = users.firstOrNull()
+            currentUser?.let {
+                val parts = it.username.split(" ")
+
+                userViewModel.firstName = parts.getOrNull(0) ?: ""
+
+                if (parts.size > 2) {
+                    userViewModel.middleName = parts.subList(1, parts.size - 1).joinToString(" ")
+                    userViewModel.lastName = parts.lastOrNull() ?: ""
+                } else {
+                    userViewModel.middleName = ""
+                    userViewModel.lastName = parts.getOrNull(1) ?: ""
+                }
+                userViewModel.email = it.email
+                userViewModel.phoneNumber = it.phoneNumber ?: ""
+
+            }
+        } catch (e:Exception)
+        {
+            println("Error when loading profile: ${e.message}")
         }
     }
 
@@ -59,8 +78,8 @@ fun EditProfilePage(navController: NavHostController)
         FormTextField(
             label = "First Name",
             placeholder = "Enter first name",//should be changed to take the info from database
-            value = firstName,
-            onValueChange = { firstName = it },
+            value = userViewModel.firstName,
+            onValueChange = { userViewModel.firstName = it },
             backgroundColor = LightGreen
         )
 
@@ -69,8 +88,8 @@ fun EditProfilePage(navController: NavHostController)
         FormTextField(
             label = "Middle Name",
             placeholder = "Enter middle name", //should be changed to take the info from database if there are any
-            value = middelName,
-            onValueChange = { middelName = it },
+            value = userViewModel.middleName,
+            onValueChange = { userViewModel.middleName = it },
             isOptional = true,
             backgroundColor = LightGreen
         )
@@ -80,8 +99,8 @@ fun EditProfilePage(navController: NavHostController)
         FormTextField(
             label = "LastName",
             placeholder = "Enter last name", //should be changed to take the info from database
-            value = lastName,
-            onValueChange = { lastName = it },
+            value = userViewModel.lastName,
+            onValueChange = { userViewModel.lastName = it },
             backgroundColor = LightGreen
         )
 
@@ -90,8 +109,8 @@ fun EditProfilePage(navController: NavHostController)
         FormTextField(
             label = "Email",
             placeholder = "Enter email address", //should be changed to take the info from database
-            value = email,
-            onValueChange = { email = it },
+            value = userViewModel.email,
+            onValueChange = { userViewModel.email = it },
             backgroundColor = LightGreen
         )
 
@@ -100,8 +119,8 @@ fun EditProfilePage(navController: NavHostController)
         FormTextField(
             label = "Phone number",
             placeholder = "Enter phone number", //should be changed to take the info from database
-            value = phoneNumber,
-            onValueChange = { phoneNumber = it },
+            value = userViewModel.phoneNumber,
+            onValueChange = { userViewModel.phoneNumber = it },
             backgroundColor = LightGreen
         )
 
@@ -145,11 +164,22 @@ fun EditProfilePage(navController: NavHostController)
 
         Button(
             onClick = {
-                if (isFormValid){
-                    println("next")
-                }
+               scope.launch {
+                   try {
+                       userApi.createUser(
+                           firstName = userViewModel.firstName,
+                           middleName = userViewModel.middleName,
+                           lastName = userViewModel.lastName,
+                           email = userViewModel.email,
+                           phoneNumber = userViewModel.phoneNumber
+                       )
+                       navController.popBackStack()
+                   } catch (e: Exception)
+                   {
+                       print("weren't able to save chanches: ${e.message}")
+                   }
+               }
             },
-            enabled = isFormValid,
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen, disabledContainerColor = LightGreen),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier

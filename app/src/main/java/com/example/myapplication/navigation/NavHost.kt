@@ -11,6 +11,7 @@ import com.example.myapplication.screens.CreateGroup
 import com.example.myapplication.Profile
 import com.example.myapplication.screens.Group
 import com.example.myapplication.Controller.GroupApiService
+import com.example.myapplication.Controller.UserApiService
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.repository.AuthRepository
@@ -26,8 +27,11 @@ import com.example.myapplication.screens.ForgotPasswordPage
 fun AppNavHost(
     navController: NavHostController,
     api: GroupApiService,
+    userApi: UserApiService,
     modifier: Modifier = Modifier,
-    AuthRepository: AuthRepository)
+    AuthRepository: AuthRepository,
+    userViewModel: Any
+)
 {
     val activity = (LocalContext.current as Activity)
 
@@ -49,37 +53,37 @@ fun AppNavHost(
 
         composable("create_account")
         {
-            CreateAccountPage(navController)
+            CreateAccountPage(navController, userApi, userViewModel)
         }
 
         composable("create_account_password")
         {
-            CreateAccountPasswordPage(navController)
+            CreateAccountPasswordPage(navController, userApi)
         }
 
         composable("add_payment")
         {
-            AddPaymentPage(navController)
+            AddPaymentPage(navController, userApi)
         }
 
         composable("profile")
         {
-            Profile(navController)
+            Profile(navController, userApi)
         }
 
         composable("edit_profile")
         {
-            EditProfilePage(navController)
+            EditProfilePage(navController, userApi, userViewModel)
         }
 
         composable("add_card")
         {
-            AddCardPage(navController)
+            AddCardPage(navController, userApi)
         }
 
         composable("add_account")
         {
-            AddAccountPage(navController)
+            AddAccountPage(navController, userApi)
         }
 
         composable("home") { HomeScreen(navController = navController, api = api,true) }

@@ -29,24 +29,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
+import com.example.myapplication.viewmodel.UserViewModel
 
 @Composable
-fun CreateAccountPage(navController: NavHostController) {
-    var firstName by remember { mutableStateOf("") }
-    var middleName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var phoneNumber by remember { mutableStateOf("") }
+fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewModel) {
 
     val isFormValid by remember {
         derivedStateOf {
-            firstName.isNotBlank() &&
-                    lastName.isNotBlank() &&
-                    email.isNotBlank() &&
-                    phoneNumber.isNotBlank()
+            userViewModel.firstName.isNotBlank() &&
+                    userViewModel.lastName.isNotBlank() &&
+                    userViewModel.email.isNotBlank() &&
+                    userViewModel.phoneNumber.isNotBlank()
         }
     }
     Column(
@@ -61,8 +58,8 @@ fun CreateAccountPage(navController: NavHostController) {
         FormTextField(
             label = "First Name",
             placeholder = "Enter first name",
-            value = firstName,
-            onValueChange = {firstName = it},
+            value = userViewModel.firstName,
+            onValueChange = {userViewModel.firstName = it},
             backgroundColor = LightGreen
         )
 
@@ -71,8 +68,8 @@ fun CreateAccountPage(navController: NavHostController) {
         FormTextField(
             label = "Middle Name",
             placeholder = "Enter middle name",
-            value = middleName,
-            onValueChange = {middleName = it},
+            value = userViewModel.middleName,
+            onValueChange = {userViewModel.middleName = it},
             isOptional = true,
             backgroundColor = LightGreen
         )
@@ -82,8 +79,8 @@ fun CreateAccountPage(navController: NavHostController) {
         FormTextField(
             label = "Last Name",
             placeholder = "Enter last name",
-            value = lastName,
-            onValueChange = {lastName = it},
+            value = userViewModel.lastName,
+            onValueChange = {userViewModel.lastName = it},
             backgroundColor = LightGreen
         )
 
@@ -92,8 +89,8 @@ fun CreateAccountPage(navController: NavHostController) {
         FormTextField(
             label = "Email",
             placeholder = "Enter email address",
-            email,
-            onValueChange = {email = it},
+            value = userViewModel.email,
+            onValueChange = {userViewModel.email = it},
             backgroundColor = LightGreen
         )
 
@@ -102,8 +99,8 @@ fun CreateAccountPage(navController: NavHostController) {
         FormTextField(
             label = "Phone number",
             placeholder = "Enter phone number",
-            value = phoneNumber,
-            onValueChange = {phoneNumber = it},
+            value = userViewModel.phoneNumber,
+            onValueChange = {userViewModel.phoneNumber = it},
             backgroundColor = LightGreen
         )
 

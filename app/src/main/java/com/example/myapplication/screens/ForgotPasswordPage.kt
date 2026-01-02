@@ -87,7 +87,7 @@ fun ForgotPasswordPage(navController: NavHostController)
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(
-            onClick = {},
+            onClick = {navController.navigate("log_in")},
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen),
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.width(200.dp)

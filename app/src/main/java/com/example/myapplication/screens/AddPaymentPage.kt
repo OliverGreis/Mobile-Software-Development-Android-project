@@ -20,6 +20,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,32 +30,30 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.myapplication.Controller.UserApiService
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 import com.example.myapplication.ui.theme.DarkGreen
+import com.example.myapplication.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun AddPaymentPage(navController: NavHostController)
+fun AddPaymentPage(navController: NavHostController, userApi: UserApiService, userViewModel: UserViewModel)
 {
-    var cardNumber by remember { mutableStateOf("") }
-    var expirationDate by remember { mutableStateOf("") }
-    var CVC by remember { mutableStateOf("") }
-
-    var accountNumber by remember { mutableStateOf("") }
-    var accountName by remember { mutableStateOf("")}
+   val scope = rememberCoroutineScope()
 
     val isCardValid = remember {
         derivedStateOf {
-            cardNumber.isNotBlank() &&
-                    expirationDate.isNotBlank() &&
-                    CVC.isNotBlank()
+            userViewModel.cardNumber.isNotBlank() &&
+                    userViewModel.expiryDate.isNotBlank() &&
+                    userViewModel.cvc.isNotBlank()
         }
     }
 
     val isBankValid = remember {
         derivedStateOf {
-            accountNumber.isNotBlank() &&
-                    accountName.isNotBlank()
+            userViewModel.accountNumber.isNotBlank() &&
+                    userViewModel.accountName.isNotBlank()
         }
     }
 
@@ -90,17 +89,22 @@ fun AddPaymentPage(navController: NavHostController)
         Spacer(modifier = Modifier.height(10.dp))
 
         CardSection(
-            cardNumber, {cardNumber = it},
-            expirationDate, {expirationDate = it},
-            CVC, {CVC = it}
+            cardNumber = userViewModel.cardNumber,
+            {userViewModel.cardNumber = it},
+            expirationDate = userViewModel.expiryDate,
+            {userViewModel.expiryDate = it},
+            CVC = userViewModel.cvc,
+            {userViewModel.cvc = it}
 
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         BankSection(
-            accountNumber, {accountNumber = it},
-            accountName, {accountName = it}
+            accountNumber = userViewModel.accountNumber,
+            {userViewModel.accountNumber = it},
+            accountName = userViewModel.accountName,
+            {userViewModel.accountName = it}
         )
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -108,7 +112,44 @@ fun AddPaymentPage(navController: NavHostController)
         CreateButton(
             label = "Create",
             isEnable = isFormValid,
-            onClick = {navController.navigate("home")},
+            onClick = {
+                scope.launch {
+                    try {
+                        userApi.createUser(
+                            username = "${userViewModel.firstName} ${userViewModel.lastName}",
+                            email = userViewModel.email,
+                            password = userViewModel.password
+                        )
+
+                        if (isCardValid)
+                        {
+                            userApi.addCard(
+                                username = "${userViewModel.firstName} ${userViewModel.lastName}",
+                                cardNumber = userViewModel.cardNumber,
+                                expiryDate = userViewModel.expiryDate,
+                                CVC = userViewModel.cvc
+                            )
+                        }
+
+                        if (isBankValid)
+                        {
+                            userApi.addBankAccount(
+                                username = "${userViewModel.firstName} ${userViewModel.lastName}",
+                                accountNumbr = userViewModel.accountNumber,
+                                accountName = userViewModel.accountName
+                            )
+                        }
+
+                        navController.navigate("home")
+                        {
+                            popUpTo("login") {inclusive = true}
+                        }
+                    } catch (e: Exception)
+                    {
+                        e.printStackTrace()
+                    }
+                }
+            },
             modifier = Modifier.align(Alignment.End)
         )
     }

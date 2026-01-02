@@ -9,30 +9,29 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.myapplication.Controller.UserApiService
+import com.example.myapplication.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun AddAccountPage(navController: NavHostController)
+fun AddAccountPage(navController: NavHostController, userApi: UserApiService, userViewModel: UserViewModel)
 {
-    var accountNumber by remember { mutableStateOf("") }
-    var accountName by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
     val isAccountValid = remember {
         derivedStateOf {
-            accountNumber.isNotBlank() &&
-                    accountName.isNotBlank()
+            userViewModel.accountNumber.isNotBlank() &&
+                    userViewModel.accountName.isNotBlank()
         }
     }
-
-    val isValid by remember { derivedStateOf { isAccountValid.value } }
 
     Column(
         modifier = Modifier
@@ -53,16 +52,36 @@ fun AddAccountPage(navController: NavHostController)
         Spacer(modifier = Modifier.height(10.dp))
 
         BankSection(
-            accountNumber, onAccountNumberChange = { accountNumber = it },
-            accountName, onAccountNameChange = { accountName = it },
+            accountNumber = userViewModel.accountNumber,
+            onAccountNumberChange = { userViewModel.accountNumber = it },
+            accountName = userViewModel.accountName,
+            onAccountNameChange = { userViewModel.accountName = it },
         )
 
         Spacer(modifier = Modifier.height(40.dp))
 
         AddButton(
             label = "Add",
-            isEnable = isValid,
-            onClick = {navController.navigate("profile")},
+            isEnable = isAccountValid,
+            onClick = {
+                scope.launch {
+                    try {
+                        userApi.addBankAccount(
+                            username = "${userViewModel.firstName} ${userViewModel.lastName}",
+                            accountNumber = userViewModel.accountNumber,
+                            accountName = userViewModel.accountName
+                        )
+
+                        navController.navigate("profile")
+                        {
+                            popUpTo("profile") {inclusive = true}
+                        }
+                    } catch (e: Exception)
+                    {
+                        e.printStackTrace()
+                    }
+                }
+            },
             modifier = Modifier.align(Alignment.End)
         )
 
