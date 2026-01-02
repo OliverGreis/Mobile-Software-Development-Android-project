@@ -114,9 +114,15 @@ fun AddPaymentPage(navController: NavHostController, userApi: UserApiService, us
             isEnable = isFormValid,
             onClick = {
                 scope.launch {
+                    val fullName = if (userViewModel.middleName.isNotBlank()) {
+                        "${userViewModel.firstName} ${userViewModel.middleName} ${userViewModel.lastName}"
+                    } else {
+                        "${userViewModel.firstName} ${userViewModel.lastName}"
+                    }
+
                     try {
                         userApi.createUser(
-                            username = "${userViewModel.firstName} ${userViewModel.lastName}",
+                            username = fullName,
                             email = userViewModel.email,
                             password = userViewModel.password
                         )

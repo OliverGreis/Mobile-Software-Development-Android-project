@@ -14,6 +14,8 @@ class UserViewModel : ViewModel()
     var email by mutableStateOf("")
     var phoneNumber by mutableStateOf("")
 
+    var password by mutableStateOf("")
+
     //user payment info
     var cardNumber by mutableStateOf("")
     var expiryDate by mutableStateOf("")
