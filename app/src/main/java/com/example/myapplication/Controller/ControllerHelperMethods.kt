@@ -72,7 +72,7 @@ class ControllerHelperMethods(
         }
     }
 
-    suspend fun removeTransaction(id: Int, groupID: Int) {
+    suspend fun removeTransaction(id: Int, groupID: Int): Boolean {
         return withContext(Dispatchers.IO) {
             try {
                 val users = getUsersFromTransaction(id)
