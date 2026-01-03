@@ -55,7 +55,6 @@ import androidx.core.content.PermissionChecker
 fun Home(modifier: Modifier = Modifier,navController: NavHostController,groups: List<Group>) {
 
     Column(){
-    Spacer(Modifier.height(100.dp))
 
     Text(
         text = "Groups:",

@@ -8,7 +8,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.padding
-import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.ui.theme.MyApplication7Theme
 import com.example.myapplication.navigation.AppNavHost
 import com.example.myapplication.Controller.groupApi
@@ -38,7 +37,7 @@ fun MainScreen(authRepository: AuthRepository) {
     val api = groupApi
 
     Scaffold(
-        topBar = { SmallTopAppBarExample(navController) },
+        topBar = { TopAppBar(navController) },
         bottomBar = { BotAppBarExample(navController) }
     ) { innerPadding ->
         AppNavHost(
