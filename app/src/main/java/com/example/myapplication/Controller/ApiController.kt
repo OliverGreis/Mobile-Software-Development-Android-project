@@ -42,6 +42,19 @@ data class Expense(
     val transactionID: Int
 )
 
+data class Card(
+    val id: Int,
+    val cardNumber: Int,
+    val expiryDate: Int
+)
+
+data class Account(
+    val id: Int,
+    val accountName: String,
+    val regNum: Int,
+    val accountNumber: Int
+)
+
 private const val BASE_URL =
     "http://10.0.2.2:8080/"
 
@@ -112,6 +125,24 @@ interface UserApiService {
 
     @PUT("api/user/setuserid/{username}/{userId}")
     suspend fun setUserId(@Path("username") username: String, @Path("userId") userId: String): String
+
+    @GET("api/user/{username}")
+    suspend fun getUserByUsername(@Path("username") username: String): User
+
+    @PUT("api/user/addcard/{username}/{id}/{cardnumber}/{expirydate}")
+    suspend fun addCard(@Path("username") username: String, @Path("id") id: Int,
+                        @Path("cardnumber") cardNumber: Int, @Path("expirydate") expiryDate: Int): String
+
+    @PUT("api/user/removecard/{username}/{id}")
+    suspend fun removeCard(@Path("username") username: String, @Path("id") id: Int): String
+
+    @PUT("api/user/addaccount/{username}/{id}/{accountname}/{regnum}/{accountnumber}")
+    suspend fun addAccount(@Path("username") username: String, @Path("id") id: Int,
+                           @Path("accountname") accountname: String, @Path("regnum") regnum: Int,
+                           @Path("accountnumber") accountnumber: Int): String
+
+    @PUT("api/user/removeaccount/{username}/{id}")
+    suspend fun removeAccount(@Path("username") username: String, @Path("id") id: Int): String
 }
 
 interface TransactionApiService {
