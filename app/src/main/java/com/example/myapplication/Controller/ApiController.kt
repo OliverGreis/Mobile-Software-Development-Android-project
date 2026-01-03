@@ -6,8 +6,10 @@ import retrofit2.http.POST
 import retrofit2.http.Body
 import retrofit2.http.Path
 import android.os.Parcelable
+import com.example.myapplication.Controller.ApiClient.retrofit
 import retrofit2.http.PUT
 import com.example.myapplication.model.User
+
 
 
 data class Group(
@@ -26,14 +28,6 @@ data class Users(
     val carsRented: List<String>
 )
 
-private const val BASE_URL =
-    "http://10.0.2.2:8080/"
-
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .baseUrl(BASE_URL)
-    .build()
 
 val groupApi: GroupApiService = retrofit.create(GroupApiService::class.java)
 val userApi: UserApiService = retrofit.create(UserApiService::class.java)

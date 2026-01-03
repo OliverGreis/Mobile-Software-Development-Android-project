@@ -12,4 +12,11 @@ class SettingPreference(context: Context) {
     fun setNotificationsEnabled(enabled: Boolean) {
         prefs.edit { putBoolean("notificationsEnabled", enabled) }
     }
+
+    fun getGroupNotificationsEnabled(): Boolean =
+        prefs.getBoolean("groupNotificationsEnabled", true)
+
+    fun setGroupNotificationsEnabled(enabled: Boolean) {
+        prefs.edit { putBoolean("groupNotificationsEnabled", enabled) }
+    }
 }

@@ -3,6 +3,7 @@ package com.example.myapplication.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.data.remote.NotificationSettingApi
 import com.example.myapplication.repository.SettingPreference
 import com.example.myapplication.repository.SettingRepository
 import com.example.myapplication.repository.SettingRepositoryImp
@@ -48,12 +49,12 @@ class SettingViewModel(private val repository: SettingRepository) : ViewModel() 
 
         viewModelScope.launch {
             runCatching {
-                repository.setNotificationsEnabled(enabled)
+                // TODO: Get proper userId, this is a temp placeholder
+                repository.setNotificationsEnabled("6914cc5a81f291ae623f8707", enabled)
 
                 // Keep backend consistent: if master off, force group off too
                 if (!enabled) repository.setGroupNotificationsEnabled(false)
             }.onFailure { e ->
-                // rollback if you want (optional). Here’s a rollback:
                 refresh()
                 _uiState.update { it.copy(error = e.message) }
             }
@@ -78,9 +79,12 @@ class SettingViewModel(private val repository: SettingRepository) : ViewModel() 
     }
 
     companion object {
-        fun Factory(pref: SettingPreference) = object : ViewModelProvider.Factory {
+        fun Factory(
+            pref: SettingPreference,
+            remote: NotificationSettingApi
+            ) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val repo = SettingRepositoryImp(pref)
+                val repo = SettingRepositoryImp(pref, remote)
                     @Suppress("UNCHECKED_CAST")
                     return SettingViewModel(repo) as T
             }
