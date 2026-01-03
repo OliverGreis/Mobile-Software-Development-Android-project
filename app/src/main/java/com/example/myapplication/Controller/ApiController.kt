@@ -22,7 +22,9 @@ data class User(
     val email: String,
     val password: String,
     val groupsMember: List<Int>,
-    val transactionsMember: List<Int>
+    val transactionsMember: List<Int>,
+    val cards: List<Card>,
+    val accounts: List<Account>
 )
 
 data class Transaction(
