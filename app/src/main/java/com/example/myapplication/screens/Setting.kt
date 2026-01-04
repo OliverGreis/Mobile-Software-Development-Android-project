@@ -54,7 +54,6 @@ fun SettingScreen(
             fontWeight = FontWeight.SemiBold
         )
 
-
         // General Notifications
         // Master Switch
         SwitchWithLabel(

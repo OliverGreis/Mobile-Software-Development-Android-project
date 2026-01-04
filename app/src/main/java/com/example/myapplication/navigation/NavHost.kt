@@ -1,5 +1,7 @@
 package com.example.myapplication.navigation
 import android.app.Activity
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -10,11 +12,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.myapplication.Controller.ApiClient
 import com.example.myapplication.screens.ActivityPage
 import com.example.myapplication.screens.CreateGroup
 import com.example.myapplication.Profile
 import com.example.myapplication.screens.Group
 import com.example.myapplication.Controller.GroupApiService
+import com.example.myapplication.Controller.NotificationsSettingApiController
+import com.example.myapplication.data.remote.NotificationSettingApi
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.repository.AuthRepository
@@ -22,6 +27,7 @@ import com.example.myapplication.screens.SettingScreen
 import com.example.myapplication.repository.SettingPreference
 import com.example.myapplication.viewmodel.SettingViewModel
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun AppNavHost(
     navController: NavHostController,
@@ -34,7 +40,7 @@ fun AppNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = "setting",
+        startDestination = "login",
         modifier = modifier
     ) {
         composable("login") { LoginScreen(navController, AuthRepository, activity) }
@@ -46,8 +52,9 @@ fun AppNavHost(
         composable("setting") {
 
             val pref = remember { SettingPreference(activity) }
+            val remote = NotificationSettingApi(ApiClient.retrofit.create(NotificationsSettingApiController::class.java))
             val vm: SettingViewModel = viewModel(
-                factory = SettingViewModel.Factory(pref)
+                factory = SettingViewModel.Factory(pref, remote)
             )
 
             val state by vm.state.collectAsState()
