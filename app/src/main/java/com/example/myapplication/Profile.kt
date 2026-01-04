@@ -8,8 +8,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.compose.ui.platform.ComposeView
 import com.example.myapplication.screens.SmallTopAppBarExampleXML
 import android.app.Activity
+import androidx.navigation.NavHostController
 
-class Profile : AppCompatActivity() {
+class Profile(navController: NavHostController) : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

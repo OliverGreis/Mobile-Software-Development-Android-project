@@ -3,13 +3,8 @@ import retrofit2.http.GET
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.POST
-import retrofit2.http.Body
 import retrofit2.http.Path
-import android.os.Parcelable
-import com.example.myapplication.Controller.ApiClient.retrofit
 import retrofit2.http.PUT
-import com.example.myapplication.model.User
-
 
 
 data class Group(
@@ -20,17 +15,41 @@ data class Group(
     val creationDate: String
 )
 
-data class Users(
+data class User(
+    val userId: String,
     val username: String,
     val email: String,
     val password: String,
-    val number: String,
-    val carsRented: List<String>
+    val groupsMember: List<Int>,
+    val transactionsMember: List<Int>
 )
+
+data class Transaction(
+    val id: Int,
+    val amount: Int,
+    val users: List<String>,
+    val group: Int,
+    val creationDate: String,
+    val splitType: String,
+    val expenses: List<String>
+)
+
+data class Expense(
+    val expenseID: String,
+    val username: String,
+    val amount: Int,
+    val transactionID: Int
+)
+
+private const val BASE_URL =
+    "http://10.0.2.2:8080/"
+
 
 
 val groupApi: GroupApiService = retrofit.create(GroupApiService::class.java)
 val userApi: UserApiService = retrofit.create(UserApiService::class.java)
+val transactionApi: TransactionApiService = retrofit.create(TransactionApiService::class.java)
+val expenseApi: ExpenseApiService = retrofit.create(ExpenseApiService::class.java)
 
 
 interface GroupApiService {
@@ -39,33 +58,103 @@ interface GroupApiService {
 
     @POST("api/creategroup/{name}")
     suspend fun createGroup(@Path("name") name: String): Group
+
+    @GET("api/groups/member/{id}")
+    suspend fun getGroupsForMember(@Path("id") id: String): List<Group>
+
+    @PUT("api/addmember/{id}/{groupID}")
+    suspend fun addMember(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+
+    @PUT("api/addtransaction/{id}/{groupID}")
+    suspend fun addTransaction(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+
+    @GET("api/group/{id}")
+    suspend fun getGroup(@Path("id") id: String): String
+
+    @PUT("api/removemember/{id}/{groupID}")
+    suspend fun removeMember(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+
+    @PUT("api/removetransaction/{id}/{groupID}")
+    suspend fun removeTransaction(@Path("id") id: String, @Path("groupID") groupID: Integer): String
+
+    @GET("api/group/notify/{id}")
+    suspend fun notifyGroupPing(@Path("id") id: Int): String
 }
 
 interface UserApiService {
     @GET("api/users")
     suspend fun getUsers(): List<User>
 
-    @POST("api/users/create/{username}/{email}/{password}/{number}")
-    suspend fun createUser(
-        @Path("username") username: String,
-        @Path("email") email: String,
-        @Path("password") password: String,
-        @Path("number") number: String
-    ): String
+    @GET("api/users/{username}/history")
+    suspend fun getUserHistory(@Path("username") username: String): List<Integer>
 
-    @POST("api/login/{email}/{password}")
-    suspend fun loginUser(
-        @Path("email") email: String,
-        @Path("password") password: String
-    ): String
+    @POST("api/users/create/{username}/{email}/{password}")
+    suspend fun createUser(@Path("username") username: String,
+                           @Path("email") email: String, @Path("password") password: String): String
 
-    @PUT("api/reset/{email}/{newPassword}")
-    suspend fun resetPassword(
-        @Path("email") email: String,
-        @Path("newPassword") newPassword: String
-    ): String
+    @PUT("api/user/addgroup/{id}/{username}")
+    suspend fun addGroup(@Path("id") id: Integer, @Path("username") username: String): String
+
+    @PUT("api/user/addtransaction/{id}/{username}")
+    suspend fun addTransaction(@Path("id") id: Int, @Path("username") username: String): String
+
+    @PUT("api/user/removegroup/{id}/{username}")
+    suspend fun removeGroup(@Path("id") id: Int, @Path("username") username: String): String
+
+    @PUT("api/user/removetransaction/{id}/{username}")
+    suspend fun removeTransaction(@Path("id") id: Int, @Path("username") username: String): String
+
+    @PUT("api/user/setuserid/{username}/{userId}")
+    suspend fun setUserId(@Path("username") username: String, @Path("userId") userId: String): String
 }
 
+interface TransactionApiService {
+    @GET("api/transactions/group/{id}")
+    suspend fun getTransactionsGroup(@Path("id") id: Int): List<Transaction>
 
+    @GET("api/transactions/user/{username}")
+    suspend fun getTransactionsUser(@Path("username") username: String): List<Transaction>
 
+    @GET("api/transactions/{id}")
+    suspend fun getTransaction(@Path("id") id: Int): List<Transaction>
 
+    @POST("api/transactions/create/{amount}/{username}/{group}")
+    suspend fun createTransaction(@Path("amount") amount: Int,
+                                  @Path("username") username: String, @Path("group") group: Int): String
+
+    @PUT("api/transactions/adduser/{id}/{username}")
+    suspend fun addUserTransaction(@Path("id") id: Int, @Path("username") username: String): String
+
+    @PUT("api/transactions/removeuser/{id}/{username}")
+    suspend fun removeUserTransaction(@Path("id") id: Int, @Path("username") username: String): String
+
+    @GET("api/transactions/getsplittype/{id}")
+    suspend fun getSplitType(@Path("id") id: Int): String
+
+    @PUT("api/transactions/setsplittype/{id}/{string}")
+    suspend fun setSplitType(@Path("id") id: Int, @Path("string") string: String): String
+
+    @GET("api/transactions/expenses/{id}")
+    suspend fun getExpensesTransaction(@Path("id") id: Int): List<String>
+
+    @PUT("api/transactions/addexpenses/{id}/{expense}")
+    suspend fun addExpense(@Path("id") id: Int, @Path("expense") expense: String): String
+
+    @PUT("api/transactions/removeexpenses/{id}/{expense}")
+    suspend fun removeExpense(@Path("id") id: Int, @Path("expense") expense: String): String
+}
+
+interface ExpenseApiService {
+    @POST("api/createexpense/{id}/{username}/{amount}/{transactionID}")
+    suspend fun createExpense(@Path("id") id: String, @Path("username") username: String,
+                              @Path("amount") amount: Int, @Path("transactionID") transactionID: Int): String
+
+    @GET("api/expense/{id}")
+    suspend fun getExpense(@Path("id") id: String): String
+
+    @PUT("api/expense/{id}/changeamount/{amount}")
+    suspend fun changeAmount(@Path("id") id: String, @Path("amount") amount: Int): String
+
+    @PUT("api/expense/{id}/changeuser/{username}")
+    suspend fun changeUser(@Path("id") id: String, @Path("username") username: String): String
+}
