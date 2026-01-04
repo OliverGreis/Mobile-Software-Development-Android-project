@@ -26,7 +26,8 @@ data class User(
     val transactionsMember: List<Int>,
     val cards: List<Card>,
     val accounts: List<Account>,
-    val profileImage: String
+    val profileImage: String,
+    val phoneNumber: Int
 )
 
 data class Transaction(
@@ -163,6 +164,12 @@ interface UserApiService {
     //image is a single number from 1 to 6 that changes the profile image
     @PUT("api/user/setimage/{username}/{image}")
     suspend fun setGroupImage(@Path("username") username: String, @Path("image") image: Int): String
+
+    @GET("api/user/getphonenumber/{username}")
+    suspend fun getPhoneNumber(@Path("username") username: String): Int
+
+    @PUT("api/user/setimage/{username}/{phonenumber}")
+    suspend fun setPhoneNumber(@Path("username") username: String, @Path("phonenumber") phonenumber: Int): String
 }
 
 interface TransactionApiService {
