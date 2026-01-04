@@ -1,11 +1,18 @@
 package com.example.myapplication.navigation
 import android.app.Activity
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.myapplication.Controller.ApiClient
 import com.example.myapplication.screens.ActivityPage
 import com.example.myapplication.screens.CreateGroup
 import com.example.myapplication.Profile
@@ -23,6 +30,7 @@ import com.example.myapplication.screens.CreateAccountPasswordPage
 import com.example.myapplication.screens.EditProfilePage
 import com.example.myapplication.screens.ForgotPasswordPage
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun AppNavHost(
     navController: NavHostController,
@@ -90,7 +98,25 @@ fun AppNavHost(
         composable("add") { CreateGroup(navController = navController) }
         composable(route = "group"){Group("Event4")}
         composable("activity") { ActivityPage() }
-        
+        composable("setting") {
+
+            val pref = remember { SettingPreference(activity) }
+            val remote = NotificationSettingApi(ApiClient.retrofit.create(NotificationsSettingApiController::class.java))
+            val vm: SettingViewModel = viewModel(
+                factory = SettingViewModel.Factory(pref, remote)
+            )
+
+            val state by vm.state.collectAsState()
+
+            SettingScreen(
+                modifier = modifier,
+                state = state,
+                onBack = { navController.popBackStack() },
+                onToggleNotifications = vm::toggleNotifications,
+                onToggleGroupNotifications = vm::toggleGroupNotifications
+            )
+        }
     }
 }
+
 

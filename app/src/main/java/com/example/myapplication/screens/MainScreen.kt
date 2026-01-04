@@ -42,7 +42,7 @@ fun MainScreen(authRepository: AuthRepository) {
     val userViewModel: UserViewModel = viewModel()
 
     Scaffold(
-        topBar = { SmallTopAppBarExample(navController) },
+        topBar = { TopAppBar(navController) },
         bottomBar = { BotAppBarExample(navController) }
     ) { innerPadding ->
         AppNavHost(

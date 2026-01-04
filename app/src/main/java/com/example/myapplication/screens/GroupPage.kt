@@ -44,8 +44,6 @@ import com.example.myapplication.Controller.Group
 fun Group(groupName: String,modifier: Modifier = Modifier) {
 
     Column {
-        Spacer(Modifier.height(100.dp))
-
         Text(
             text = groupName,
             modifier = modifier.fillMaxWidth(),

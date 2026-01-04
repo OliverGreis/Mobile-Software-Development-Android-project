@@ -45,10 +45,6 @@ private const val BASE_URL =
     "http://10.0.2.2:8080/"
 
 
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(GsonConverterFactory.create())
-    .baseUrl(BASE_URL)
-    .build()
 
 val groupApi: GroupApiService = retrofit.create(GroupApiService::class.java)
 val userApi: UserApiService = retrofit.create(UserApiService::class.java)
