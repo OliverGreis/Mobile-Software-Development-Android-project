@@ -1,11 +1,11 @@
-package com.example.myapplication.data.remote
+package com.example.myapplication.repository
 
-import com.example.myapplication.Controller.NotificationsSettingApiController
+import com.example.myapplication.Controller.NotificationsSettingApiService
 import com.example.myapplication.model.NotificationSettingsDTO
 import com.example.myapplication.model.types.NotificationTypes
 
-class NotificationSettingApi(
-    private val api: NotificationsSettingApiController
+class NotificationSettingRepository(
+    private val api: NotificationsSettingApiService
 ) {
     suspend fun update(userId: String, type: NotificationTypes, enabled: Boolean) {
         api.updateNotificationsSettings(

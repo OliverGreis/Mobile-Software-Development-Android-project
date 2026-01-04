@@ -122,7 +122,7 @@ class TempLogin : ComponentActivity() {
                     CircularProgressIndicator()
                 } else {
                     if (state.isLoggedIn) {
-                        Text(text = "Hello, ${state.user?.name ?: "user"}")
+
                         Spacer(modifier = Modifier.height(8.dp))
                         Button(onClick = { viewModel.logout(activity) }) {
                             Text("Log out")

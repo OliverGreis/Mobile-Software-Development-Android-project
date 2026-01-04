@@ -3,7 +3,7 @@ package com.example.myapplication.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.data.remote.NotificationSettingApi
+import com.example.myapplication.repository.NotificationSettingRepository
 import com.example.myapplication.repository.SettingPreference
 import com.example.myapplication.repository.SettingRepository
 import com.example.myapplication.repository.SettingRepositoryImp
@@ -81,7 +81,7 @@ class SettingViewModel(private val repository: SettingRepository) : ViewModel() 
     companion object {
         fun Factory(
             pref: SettingPreference,
-            remote: NotificationSettingApi
+            remote: NotificationSettingRepository
             ) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 val repo = SettingRepositoryImp(pref, remote)

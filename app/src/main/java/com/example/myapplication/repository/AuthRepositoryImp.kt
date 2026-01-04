@@ -53,7 +53,7 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
                         createuser(
                             userName = user.email,
                             mail = user.email,
-                            userId = user.id,
+                            userId = user.userId,
                             password = "1234" // Or some other placeholder, since password is not available
                         )
                     }
@@ -64,7 +64,7 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
                             val fcmToken = FirebaseMessaging.getInstance().token.await()
                             deviceTokenApi.testConnection()
                             deviceTokenApi.registerDeviceToken(
-                                userId = user.id,
+                                userId = user.userId,
                                 token = fcmToken
                             )
                         }catch (e: Exception){
@@ -96,9 +96,16 @@ class AuthRepositoryImp(private val context: Context): AuthRepository {
     private fun parseUserFromIdToken(idToken: String): User {
         val jwt = JWT(idToken)
         return User(
-            id = jwt.subject ?: "",
-            name = jwt.getClaim("name").asString() ?: "",
-            email = jwt.getClaim("email").asString() ?: ""
+            userId = jwt.subject ?: "",
+            username = jwt.getClaim("name").asString() ?: "",
+            email = jwt.getClaim("email").asString() ?: "",
+            password = "",
+            groupsMember = emptyList(),
+            transactionsMember = emptyList(),
+            cards = emptyList(),
+            accounts = emptyList(),
+            profileImage = "",
+            phoneNumber = 0
         )
 
     }

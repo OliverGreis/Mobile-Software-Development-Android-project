@@ -2,7 +2,6 @@
 
 import android.Manifest
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,7 +34,6 @@ import androidx.navigation.NavHostController
 import com.example.myapplication.R
 import com.example.myapplication.R.font.roboto_condensed_regular
 import com.example.myapplication.R.font.roboto_condensed_bold
-import com.example.myapplication.Controller.Group
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.example.myapplication.Controller.GroupApiService
@@ -51,9 +49,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
+import com.example.myapplication.model.Group
 
     @Composable
 fun Home(modifier: Modifier = Modifier,navController: NavHostController,groups: List<Group>) {
@@ -253,7 +251,6 @@ fun GroupItem(
     fun HomeScreen(navController: NavHostController, api: GroupApiService,refreshTrigger: Boolean ) {
         NotificationPermissionRequester()
         var groups by remember { mutableStateOf<List<Group>>(emptyList()) }
-
 
         LaunchedEffect(refreshTrigger) {
             try {

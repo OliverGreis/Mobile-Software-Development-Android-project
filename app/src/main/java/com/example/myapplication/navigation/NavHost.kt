@@ -17,9 +17,9 @@ import com.example.myapplication.screens.ActivityPage
 import com.example.myapplication.screens.CreateGroup
 import com.example.myapplication.screens.Group
 import com.example.myapplication.Controller.GroupApiService
-import com.example.myapplication.Controller.NotificationsSettingApiController
+import com.example.myapplication.Controller.NotificationsSettingApiService
 import com.example.myapplication.Controller.UserApiService
-import com.example.myapplication.data.remote.NotificationSettingApi
+import com.example.myapplication.repository.NotificationSettingRepository
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.repository.AuthRepository
@@ -106,8 +106,8 @@ fun AppNavHost(
         composable("setting") {
 
             val pref = remember { SettingPreference(activity) }
-            val remote = NotificationSettingApi(ApiClient.retrofit.create(
-                NotificationsSettingApiController::class.java))
+            val remote = NotificationSettingRepository(ApiClient.retrofit.create(
+                NotificationsSettingApiService::class.java))
             val vm: SettingViewModel = viewModel(
                 factory = SettingViewModel.Factory(pref, remote)
             )

@@ -1,12 +1,14 @@
 package com.example.myapplication.Controller
 
+import com.example.myapplication.Controller.ApiClient.retrofit
 import com.example.myapplication.model.NotificationSettingsDTO
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-interface NotificationsSettingApiController {
+val notificationSettingApi: NotificationsSettingApiService = retrofit.create(NotificationsSettingApiService::class.java)
+interface NotificationsSettingApiService {
 
     @GET("/api/notificationsettings/{userId}")
     suspend fun getNotificationsSettings(@Path("userId") userId: String): List<NotificationSettingsDTO>

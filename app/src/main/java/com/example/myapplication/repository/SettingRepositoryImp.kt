@@ -1,13 +1,12 @@
 package com.example.myapplication.repository
 
-import com.example.myapplication.data.remote.NotificationSettingApi
-import com.example.myapplication.model.NotificationSettingsDTO
+import com.example.myapplication.repository.NotificationSettingRepository
 import com.example.myapplication.model.types.NotificationTypes
 import com.example.myapplication.screens.SettingUiState
 
 class SettingRepositoryImp (
     private val pref: SettingPreference,
-    private val remote: NotificationSettingApi
+    private val remote: NotificationSettingRepository
 ): SettingRepository{
     override suspend fun getInitialSettings(): SettingUiState {
         return SettingUiState(
