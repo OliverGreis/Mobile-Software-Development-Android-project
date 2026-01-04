@@ -157,11 +157,11 @@ interface UserApiService {
     suspend fun removeAccount(@Path("username") username: String, @Path("id") id: Int): String
 
     //returns a string that is the url path to the image hosted on the spring backend
-    @GET("api/group/getimage/{username}")
+    @GET("api/user/getimage/{username}")
     suspend fun getGroupImage(@Path("username") username: String): String
 
     //image is a single number from 1 to 6 that changes the profile image
-    @PUT("api/group/setimage/{username}/{image}")
+    @PUT("api/user/setimage/{username}/{image}")
     suspend fun setGroupImage(@Path("username") username: String, @Path("image") image: Int): String
 }
 
