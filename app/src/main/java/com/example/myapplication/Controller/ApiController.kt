@@ -13,7 +13,8 @@ data class Group(
     val name: String,
     val memberIDs: List<String>,
     val transactionIDs: List<Int>,
-    val creationDate: String
+    val creationDate: String,
+    val groupImage: String
 )
 
 data class User(
@@ -24,7 +25,8 @@ data class User(
     val groupsMember: List<Int>,
     val transactionsMember: List<Int>,
     val cards: List<Card>,
-    val accounts: List<Account>
+    val accounts: List<Account>,
+    val profileImage: String
 )
 
 data class Transaction(
@@ -100,6 +102,14 @@ interface GroupApiService {
 
     @GET("api/group/notify/{id}")
     suspend fun notifyGroupPing(@Path("id") id: Int): String
+
+    //returns a string that is the url path to the image hosted on the spring backend
+    @GET("api/group/getimage/{id}")
+    suspend fun getGroupImage(@Path("id") id: Int): String
+
+    //image is a single number from 1 to 4 that changes the group image
+    @PUT("api/group/setimage/{id}/{image}")
+    suspend fun setGroupImage(@Path("id") id: Int, @Path("image") image: Int): String
 }
 
 interface UserApiService {
@@ -145,6 +155,14 @@ interface UserApiService {
 
     @PUT("api/user/removeaccount/{username}/{id}")
     suspend fun removeAccount(@Path("username") username: String, @Path("id") id: Int): String
+
+    //returns a string that is the url path to the image hosted on the spring backend
+    @GET("api/group/getimage/{username}")
+    suspend fun getGroupImage(@Path("username") username: String): String
+
+    //image is a single number from 1 to 6 that changes the profile image
+    @PUT("api/group/setimage/{username}/{image}")
+    suspend fun setGroupImage(@Path("username") username: String, @Path("image") image: Int): String
 }
 
 interface TransactionApiService {
