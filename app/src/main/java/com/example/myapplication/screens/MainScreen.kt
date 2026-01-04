@@ -9,9 +9,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.padding
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.ui.theme.MyApplication7Theme
 import com.example.myapplication.navigation.AppNavHost
-import com.example.myapplication.Controller.groupApi
 import com.example.myapplication.Controller.userApi
 import com.example.myapplication.repository.AuthRepository
 import com.example.myapplication.repository.AuthRepositoryImp
@@ -38,12 +38,20 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(authRepository: AuthRepository) {
     val navController = rememberNavController()
-    val groupApi = groupApi
     val userapi = userApi
     val userViewModel: UserViewModel = viewModel()
 
+    val backStackEntry = navController.currentBackStackEntryAsState().value
+    val route = backStackEntry?.destination?.route
+    val hideTopBarRoutes = setOf("login")
+    val showTopBar = route !in hideTopBarRoutes
+
     Scaffold(
-        topBar = { TopAppBar(navController) },
+        topBar = {
+            if(showTopBar){
+                TopAppBar(navController)
+            }
+        },
         bottomBar = { BotAppBarExample(navController) }
     ) { innerPadding ->
         AppNavHost(

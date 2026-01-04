@@ -3,6 +3,7 @@ package com.example.myapplication.screens
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,8 +22,10 @@ fun TopAppBar (navController: NavHostController){
 
     // Screens that the back button can go to
     val rootRoutes = setOf("home")
+    val hideSettingsRoutes = setOf("login", "signup")
 
     val canGoBack = navController.previousBackStackEntry != null && route !in rootRoutes
+    val showSetting = route !in hideSettingsRoutes
 
     CenterAlignedTopAppBar(
         modifier = Modifier.statusBarsPadding(),
@@ -33,6 +36,16 @@ fun TopAppBar (navController: NavHostController){
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back"
+                    )
+                }
+            }
+        },
+        actions = {
+            if (showSetting) {
+                IconButton(onClick = { navController.navigate("setting") }) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Settings"
                     )
                 }
             }

@@ -20,8 +20,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,8 +32,6 @@ import androidx.navigation.NavHostController
 import com.example.myapplication.R
 import com.example.myapplication.R.font.roboto_condensed_regular
 import com.example.myapplication.R.font.roboto_condensed_bold
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -44,6 +40,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.platform.LocalContext
@@ -55,7 +53,7 @@ import com.example.myapplication.viewmodel.HomeViewModel
 
     @Composable
 fun Home(
-        modifier: Modifier = Modifier,
+
         navController: NavHostController,
         groups: List<Group>,
         ) {
@@ -97,6 +95,7 @@ fun Home(
         modifier = Modifier
             .height(300.dp)
             .padding(horizontal = 20.dp)
+            .navigationBarsPadding()
             .width(380.dp),
         shape = RoundedCornerShape(16.dp),
         color = Color(android.graphics.Color.parseColor("#88C25F")),
@@ -104,9 +103,16 @@ fun Home(
         shadowElevation = 16.dp
     ){
         LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .navigationBarsPadding(),
             verticalArrangement = Arrangement.spacedBy(5.dp),
-            contentPadding = PaddingValues(12.dp)
+            contentPadding = PaddingValues(
+                start = 12.dp,
+                end = 12.dp,
+                top = 12.dp,
+                bottom = 88.dp
+            )
 
         ) {
             items(7) { index ->
@@ -254,7 +260,6 @@ fun GroupItem(
     @Composable
     fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel, refreshTrigger: Boolean ) {
         NotificationPermissionRequester()
-        var groups by remember { mutableStateOf<List<Group>>(emptyList()) }
 
         LaunchedEffect(refreshTrigger) {
             viewModel.loadGroups()
@@ -282,13 +287,3 @@ fun GroupItem(
                 }
         }
     }
-//    @Preview(showBackground = true)
-//    @Composable
-//    fun HomeScreenPreview() {
-//        val groups = listOf<Group>(
-//            Group(1, "Group1", emptyList(), emptyList(), ""),
-//            Group(2, "Group2", emptyList(), emptyList(), ""),
-//            Group(3, "Group3", emptyList(), emptyList(), "")
-//        )
-//        Home(navController = NavHostController(LocalContext.current), groups = groups )
-//    }
