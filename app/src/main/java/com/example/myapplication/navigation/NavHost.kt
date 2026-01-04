@@ -32,6 +32,7 @@ import com.example.myapplication.screens.CreateAccountPasswordPage
 import com.example.myapplication.screens.EditProfilePage
 import com.example.myapplication.screens.ForgotPasswordPage
 import com.example.myapplication.screens.SettingScreen
+import com.example.myapplication.viewmodel.HomeViewModel
 import com.example.myapplication.viewmodel.SettingViewModel
 import com.example.myapplication.viewmodel.UserViewModel
 
@@ -39,11 +40,10 @@ import com.example.myapplication.viewmodel.UserViewModel
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    api: GroupApiService,
     userApi: UserApiService,
     modifier: Modifier = Modifier,
     AuthRepository: AuthRepository,
-    userViewModel: UserViewModel
+    userViewModel: UserViewModel,
 )
 {
     val activity = (LocalContext.current as Activity)
@@ -99,7 +99,19 @@ fun AppNavHost(
             AddAccountPage(navController, userApi, userViewModel)
         }
 
-        composable("home") { HomeScreen(navController = navController, api = api,true) }
+        composable("home") {
+            val groupApi = remember { ApiClient.retrofit.create(GroupApiService::class.java) }
+
+            val homeViewModel: HomeViewModel = viewModel(
+                factory = HomeViewModel.Factory(groupApi)
+            )
+
+            HomeScreen(
+                navController = navController,
+                viewModel = homeViewModel,
+                refreshTrigger = false)
+        }
+
         composable("add") { CreateGroup(navController = navController) }
         composable(route = "group"){Group("Event4")}
         composable("activity") { ActivityPage() }

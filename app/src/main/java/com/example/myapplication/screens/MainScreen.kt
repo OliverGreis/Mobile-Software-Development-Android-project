@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(authRepository: AuthRepository) {
     val navController = rememberNavController()
-    val api = groupApi
+    val groupApi = groupApi
     val userapi = userApi
     val userViewModel: UserViewModel = viewModel()
 
@@ -49,7 +49,6 @@ fun MainScreen(authRepository: AuthRepository) {
         AppNavHost(
             navController = navController,
             modifier = Modifier.padding(innerPadding),
-            api = api,
             userApi = userapi,
             userViewModel = userViewModel,
             AuthRepository = authRepository,

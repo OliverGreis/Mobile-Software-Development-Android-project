@@ -36,7 +36,6 @@ import com.example.myapplication.R.font.roboto_condensed_regular
 import com.example.myapplication.R.font.roboto_condensed_bold
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import com.example.myapplication.Controller.GroupApiService
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -52,9 +51,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import com.example.myapplication.model.Group
+import com.example.myapplication.viewmodel.HomeViewModel
 
     @Composable
-fun Home(modifier: Modifier = Modifier,navController: NavHostController,groups: List<Group>) {
+fun Home(
+        modifier: Modifier = Modifier,
+        navController: NavHostController,
+        groups: List<Group>,
+        ) {
 
     Column(){
 
@@ -248,20 +252,14 @@ fun GroupItem(
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @Composable
-    fun HomeScreen(navController: NavHostController, api: GroupApiService,refreshTrigger: Boolean ) {
+    fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel, refreshTrigger: Boolean ) {
         NotificationPermissionRequester()
         var groups by remember { mutableStateOf<List<Group>>(emptyList()) }
 
         LaunchedEffect(refreshTrigger) {
-            try {
-                groups = api.getGroups()
-                println("Fetched groups: $groups")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            viewModel.loadGroups()
         }
-
-        Home(navController = navController, groups = groups)
+        Home(navController = navController, groups = viewModel.groups)
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
