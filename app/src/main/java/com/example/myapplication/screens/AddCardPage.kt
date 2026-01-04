@@ -76,9 +76,9 @@ fun AddCardPage(navController: NavHostController, userApi: UserApiService, userV
                     try {
                         userApi.addCard(
                             username = "${userViewModel.firstName} ${userViewModel.lastName}",
-                            cardname = userViewModel.cardNumber,
-                            expiryDate = userViewModel.expiryDate,
-                            cvc = userViewModel.cvc
+                            id = 0,
+                            cardNumber = 0,
+                            expiryDate = 0
                         )
                         
                         navController.navigate("profile")
@@ -107,7 +107,7 @@ fun AddButton(
 {
     Button(
         onClick = onClick,
-        enabled = isEnable,
+        enabled = true,
         colors = ButtonDefaults.buttonColors(containerColor = LightGreen, disabledContainerColor = LightGreen),
         shape = RoundedCornerShape(20.dp),
         modifier = Modifier.height(48.dp)

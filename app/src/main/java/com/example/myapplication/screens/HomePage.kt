@@ -287,13 +287,13 @@ fun GroupItem(
                 }
         }
     }
-    @Preview(showBackground = true)
-    @Composable
-    fun HomeScreenPreview() {
-        val groups = listOf<Group>(
-            Group(1, "Group1", emptyList(), emptyList(), ""),
-            Group(2, "Group2", emptyList(), emptyList(), ""),
-            Group(3, "Group3", emptyList(), emptyList(), "")
-        )
-        Home(navController = NavHostController(LocalContext.current), groups = groups )
-    }
+//    @Preview(showBackground = true)
+//    @Composable
+//    fun HomeScreenPreview() {
+//        val groups = listOf<Group>(
+//            Group(1, "Group1", emptyList(), emptyList(), ""),
+//            Group(2, "Group2", emptyList(), emptyList(), ""),
+//            Group(3, "Group3", emptyList(), emptyList(), "")
+//        )
+//        Home(navController = NavHostController(LocalContext.current), groups = groups )
+//    }

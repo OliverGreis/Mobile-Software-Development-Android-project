@@ -127,22 +127,28 @@ fun AddPaymentPage(navController: NavHostController, userApi: UserApiService, us
                             password = userViewModel.password
                         )
 
-                        if (isCardValid)
+//                        if (isCardValid)
+                        if (true)
                         {
                             userApi.addCard(
                                 username = "${userViewModel.firstName} ${userViewModel.lastName}",
-                                cardNumber = userViewModel.cardNumber,
-                                expiryDate = userViewModel.expiryDate,
-                                CVC = userViewModel.cvc
+                                id = 0,
+                                cardNumber = userViewModel.cardNumber.toInt(),
+                                expiryDate = userViewModel.expiryDate.toInt(),
                             )
                         }
 
-                        if (isBankValid)
+//                        if (isBankValid )
+                        if (true)
                         {
-                            userApi.addBankAccount(
+                            userApi.addAccount(
                                 username = "${userViewModel.firstName} ${userViewModel.lastName}",
-                                accountNumbr = userViewModel.accountNumber,
-                                accountName = userViewModel.accountName
+                                id = 1,
+                                accountname = userViewModel.accountName,
+                                regnum = 0,
+                                accountnumber = userViewModel.accountNumber.toInt()
+
+
                             )
                         }
 

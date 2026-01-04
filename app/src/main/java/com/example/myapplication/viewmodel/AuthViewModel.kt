@@ -4,7 +4,7 @@ import com.example.myapplication.repository.AuthRepository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import com.example.myapplication.model.AuthUiState
+import com.example.myapplication.model.User
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -28,3 +28,10 @@ class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
 
     }
 }
+
+data class AuthUiState (
+    val isLoading: Boolean = false,
+    val isLoggedIn: Boolean = false,
+    val user: User? = null,
+    val error: String? = null
+)

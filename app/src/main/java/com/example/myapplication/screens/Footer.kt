@@ -17,8 +17,9 @@ import kotlin.jvm.java
 import androidx.compose.ui.platform.LocalContext
 import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.ui.graphics.Color
-import com.example.myapplication.Profile
+
 
 @Composable
 fun BotAppBarExample(navController: NavHostController) {
@@ -52,11 +53,12 @@ fun BotAppBarExample(navController: NavHostController) {
             }
 
             IconButton(
-                onClick = {
-                    val intent = Intent(context, Profile::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(intent)
-                },
+//                onClick = {
+//                    val intent = Intent(context, Profile::class.java)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    context.startActivity(intent)
+//                },
+                onClick = { navController.navigate("setting") },
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp)
             ) {
                 Icon(

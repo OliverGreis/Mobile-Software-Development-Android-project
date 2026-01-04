@@ -21,5 +21,5 @@ object KtorClientProvider {
         }
     }
     // I'm using phone if emulator use 10.0.2.2/8080
-    const val baseURL = "http://192.168.1.94:8080"
+    const val baseURL = "http://10.0.2.2:8080"
 }

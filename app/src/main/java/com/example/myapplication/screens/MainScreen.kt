@@ -15,7 +15,8 @@ import com.example.myapplication.Controller.groupApi
 import com.example.myapplication.Controller.userApi
 import com.example.myapplication.repository.AuthRepository
 import com.example.myapplication.repository.AuthRepositoryImp
-import com.example.myapplication.viewmodel.UserRegirtationViewModel
+import com.example.myapplication.viewmodel.UserViewModel
+
 
 class MainActivity : ComponentActivity() {
     private val repo: AuthRepository by lazy { AuthRepositoryImp(applicationContext) }

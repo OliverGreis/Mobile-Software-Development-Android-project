@@ -66,10 +66,12 @@ fun AddAccountPage(navController: NavHostController, userApi: UserApiService, us
             onClick = {
                 scope.launch {
                     try {
-                        userApi.addBankAccount(
+                        userApi.addAccount(
                             username = "${userViewModel.firstName} ${userViewModel.lastName}",
-                            accountNumber = userViewModel.accountNumber,
-                            accountName = userViewModel.accountName
+                            id = 0,
+                            accountname = "",
+                            regnum = 0,
+                            accountnumber = 0
                         )
 
                         navController.navigate("profile")

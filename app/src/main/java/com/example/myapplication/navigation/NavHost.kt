@@ -15,13 +15,15 @@ import androidx.navigation.compose.composable
 import com.example.myapplication.Controller.ApiClient
 import com.example.myapplication.screens.ActivityPage
 import com.example.myapplication.screens.CreateGroup
-import com.example.myapplication.Profile
 import com.example.myapplication.screens.Group
 import com.example.myapplication.Controller.GroupApiService
+import com.example.myapplication.Controller.NotificationsSettingApiController
 import com.example.myapplication.Controller.UserApiService
+import com.example.myapplication.data.remote.NotificationSettingApi
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.repository.AuthRepository
+import com.example.myapplication.repository.SettingPreference
 import com.example.myapplication.screens.AddAccountPage
 import com.example.myapplication.screens.AddCardPage
 import com.example.myapplication.screens.AddPaymentPage
@@ -29,6 +31,9 @@ import com.example.myapplication.screens.CreateAccountPage
 import com.example.myapplication.screens.CreateAccountPasswordPage
 import com.example.myapplication.screens.EditProfilePage
 import com.example.myapplication.screens.ForgotPasswordPage
+import com.example.myapplication.screens.SettingScreen
+import com.example.myapplication.viewmodel.SettingViewModel
+import com.example.myapplication.viewmodel.UserViewModel
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
@@ -38,7 +43,7 @@ fun AppNavHost(
     userApi: UserApiService,
     modifier: Modifier = Modifier,
     AuthRepository: AuthRepository,
-    userViewModel: Any
+    userViewModel: UserViewModel
 )
 {
     val activity = (LocalContext.current as Activity)
@@ -61,23 +66,23 @@ fun AppNavHost(
 
         composable("create_account")
         {
-            CreateAccountPage(navController, userApi, userViewModel)
+            CreateAccountPage(navController, userViewModel)
         }
 
         composable("create_account_password")
         {
-            CreateAccountPasswordPage(navController, userApi)
+            CreateAccountPasswordPage(navController, userApi, userViewModel)
         }
 
         composable("add_payment")
         {
-            AddPaymentPage(navController, userApi)
+            AddPaymentPage(navController, userApi, userViewModel)
         }
 
-        composable("profile")
-        {
-            Profile(navController, userApi)
-        }
+//        composable("profile")
+//        {
+//            Profile(navController, userApi)
+//        }
 
         composable("edit_profile")
         {
@@ -86,12 +91,12 @@ fun AppNavHost(
 
         composable("add_card")
         {
-            AddCardPage(navController, userApi)
+            AddCardPage(navController, userApi, userViewModel)
         }
 
         composable("add_account")
         {
-            AddAccountPage(navController, userApi)
+            AddAccountPage(navController, userApi, userViewModel)
         }
 
         composable("home") { HomeScreen(navController = navController, api = api,true) }
@@ -101,7 +106,8 @@ fun AppNavHost(
         composable("setting") {
 
             val pref = remember { SettingPreference(activity) }
-            val remote = NotificationSettingApi(ApiClient.retrofit.create(NotificationsSettingApiController::class.java))
+            val remote = NotificationSettingApi(ApiClient.retrofit.create(
+                NotificationsSettingApiController::class.java))
             val vm: SettingViewModel = viewModel(
                 factory = SettingViewModel.Factory(pref, remote)
             )

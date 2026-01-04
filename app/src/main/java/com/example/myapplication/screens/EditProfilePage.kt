@@ -57,7 +57,6 @@ fun EditProfilePage(navController: NavHostController, userApi: UserApiService, u
                     userViewModel.lastName = parts.getOrNull(1) ?: ""
                 }
                 userViewModel.email = it.email
-                userViewModel.phoneNumber = it.phoneNumber ?: ""
 
             }
         } catch (e:Exception)
@@ -167,11 +166,9 @@ fun EditProfilePage(navController: NavHostController, userApi: UserApiService, u
                scope.launch {
                    try {
                        userApi.createUser(
-                           firstName = userViewModel.firstName,
-                           middleName = userViewModel.middleName,
-                           lastName = userViewModel.lastName,
+                           username = userViewModel.firstName,
                            email = userViewModel.email,
-                           phoneNumber = userViewModel.phoneNumber
+                           password = ""
                        )
                        navController.popBackStack()
                    } catch (e: Exception)
