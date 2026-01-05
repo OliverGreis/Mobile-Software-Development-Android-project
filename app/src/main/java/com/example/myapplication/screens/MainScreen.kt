@@ -47,7 +47,7 @@ fun MainScreen(authRepository: AuthRepository) {
     val hideTopBarRoutes = setOf("login")
     val showTopBar = route !in hideTopBarRoutes
 
-    val hideBotBarRoutes = setOf("login")
+    val hideBotBarRoutes = setOf("login", "create_account", "create_account_password", "add_payment", "forgot_password")
     val showBotBar = route !in hideBotBarRoutes
 
 

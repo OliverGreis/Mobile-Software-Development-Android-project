@@ -1,6 +1,7 @@
 package com.example.myapplication.api
 
 import com.example.myapplication.api.ApiClient.retrofit
+import com.example.myapplication.model.Card
 import com.example.myapplication.model.User
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -38,9 +39,12 @@ interface UserApiService {
     @GET("api/user/{username}")
     suspend fun getUserByUsername(@Path("username") username: String): User
 
-    @PUT("api/user/addcard/{username}/{id}/{cardnumber}/{expirydate}")
-    suspend fun addCard(@Path("username") username: String, @Path("id") id: Int,
-                        @Path("cardnumber") cardNumber: Int, @Path("expirydate") expiryDate: Int): String
+    @GET("api/user/getcards/{username}")
+    suspend fun getCards(@Path("username") username: String): List<Card>
+
+    @PUT("api/user/addcard/{username}/{cardnumber}/{expirydate}")
+    suspend fun addCard(@Path("username") username: String,
+                        @Path("cardnumber") cardNumber: String, @Path("expirydate") expiryDate: Int): String
 
     @PUT("api/user/removecard/{username}/{id}")
     suspend fun removeCard(@Path("username") username: String, @Path("id") id: Int): String

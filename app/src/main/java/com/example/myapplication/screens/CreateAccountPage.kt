@@ -33,19 +33,35 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
+import com.example.myapplication.viewmodel.AuthViewModel1
 import com.example.myapplication.viewmodel.UserViewModel
 
 @Composable
-fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewModel) {
+fun CreateAccountPage(
+    navController: NavHostController,
+    userViewModel: UserViewModel,
+    authViewModel: AuthViewModel1
+    ) {
+
+    var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+
 
     val isFormValid by remember {
         derivedStateOf {
-            userViewModel.firstName.isNotBlank() &&
-                    userViewModel.lastName.isNotBlank() &&
+            userViewModel.username.isNotBlank() &&
                     userViewModel.email.isNotBlank() &&
-                    userViewModel.phoneNumber.isNotBlank()
+                    userViewModel.phoneNumber.isNotBlank() &&
+                    password.isNotBlank() &&
+                    confirmPassword.isNotBlank() &&
+                    password == confirmPassword
+
         }
     }
+
+    val isLoading = authViewModel.isLoading
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,37 +69,13 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        Spacer(modifier = Modifier.height(50.dp))
-
         FormTextField(
-            label = "First Name",
-            placeholder = "Enter first name",
-            value = userViewModel.firstName,
-            onValueChange = {userViewModel.firstName = it},
+            label = "Username",
+            placeholder = "Enter username",
+            value = userViewModel.username,
+            onValueChange = {userViewModel.username = it},
             backgroundColor = LightGreen
         )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        FormTextField(
-            label = "Middle Name",
-            placeholder = "Enter middle name",
-            value = userViewModel.middleName,
-            onValueChange = {userViewModel.middleName = it},
-            isOptional = true,
-            backgroundColor = LightGreen
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        FormTextField(
-            label = "Last Name",
-            placeholder = "Enter last name",
-            value = userViewModel.lastName,
-            onValueChange = {userViewModel.lastName = it},
-            backgroundColor = LightGreen
-        )
-
         Spacer(modifier = Modifier.height(20.dp))
 
         FormTextField(
@@ -101,6 +93,24 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
             placeholder = "Enter phone number",
             value = userViewModel.phoneNumber,
             onValueChange = {userViewModel.phoneNumber = it},
+            backgroundColor = LightGreen
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+
+        FormTextField(
+            label = "Password",
+            placeholder = "Enter password",
+            value = password,
+            onValueChange = {password = it},
+            backgroundColor = LightGreen
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+
+        FormTextField(
+            label = "Confirm password",
+            placeholder = "Enter password",
+            value = confirmPassword,
+            onValueChange = {confirmPassword = it},
             backgroundColor = LightGreen
         )
 
@@ -144,14 +154,16 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
             onClick = {
                 if (isFormValid)
                 {
-                    navController.navigate("create_account_password")
+                    userViewModel.password = password
+
+                    navController.navigate("add_payment")
                 }
                 else
                 {
                     println("fill out first name, last name, email and phone number")
                 }
             },
-            enabled = isFormValid,
+            enabled = isFormValid && !isLoading,
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen, disabledContainerColor = LightGreen),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier

@@ -8,9 +8,7 @@ import androidx.lifecycle.ViewModel
 class UserViewModel : ViewModel()
 {
     //user info
-    var firstName by mutableStateOf("")
-    var middleName by mutableStateOf("")
-    var lastName by mutableStateOf("")
+    var username by mutableStateOf("")
     var email by mutableStateOf("")
     var phoneNumber by mutableStateOf("")
 

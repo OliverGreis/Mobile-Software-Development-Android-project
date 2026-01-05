@@ -51,6 +51,9 @@ fun AppNavHost(
 )
 {
     val activity = (LocalContext.current as Activity)
+    val authApi = remember { ApiClient.retrofit.create(AuthApiService::class.java) }
+    val authRepo = remember { AuthRepository1(authApi) }
+    val authFactory = remember { AuthViewModel1.Factory(authRepo) }
 
     NavHost(
         navController = navController,
@@ -60,17 +63,15 @@ fun AppNavHost(
     {
         composable("login")
         {
-            val authApi = remember { ApiClient.retrofit.create(AuthApiService::class.java) }
-            val repo = remember { AuthRepository1(authApi) }
+            val authVm: AuthViewModel1 = viewModel(factory = authFactory)
+            LoginPage2(navController = navController, authViewModel = authVm)
+        }
 
-            val authVm: AuthViewModel1 = viewModel(
-                factory = AuthViewModel1.Factory(repo)
-            )
+        composable("create_account")
+        {
+            val authVm: AuthViewModel1 = viewModel(factory = authFactory)
 
-            LoginPage2(
-                navController = navController,
-                authViewModel = authVm
-            )
+            CreateAccountPage(navController, userViewModel, authVm)
         }
 
         composable("forgot_password")
@@ -78,10 +79,6 @@ fun AppNavHost(
             ForgotPasswordPage(navController)
         }
 
-        composable("create_account")
-        {
-            CreateAccountPage(navController, userViewModel)
-        }
 
         composable("create_account_password")
         {
@@ -90,7 +87,8 @@ fun AppNavHost(
 
         composable("add_payment")
         {
-            AddPaymentPage(navController, userApi, userViewModel)
+            val authVm: AuthViewModel1 = viewModel(factory = authFactory)
+            AddPaymentPage(navController, userApi, userViewModel, authViewModel = authVm)
         }
 
         composable("profile")

@@ -75,9 +75,8 @@ fun AddCardPage(navController: NavHostController, userApi: UserApiService, userV
                 scope.launch { 
                     try {
                         userApi.addCard(
-                            username = "${userViewModel.firstName} ${userViewModel.lastName}",
-                            id = 0,
-                            cardNumber = 0,
+                            username = "",
+                            cardNumber = "0",
                             expiryDate = 0
                         )
                         

@@ -90,10 +90,10 @@ fun CreateAccountPasswordPage(navController: NavHostController, userApi: UserApi
             onClick = {
              scope.launch {
                  try {
-                     val fullName = "${userViewModel.firstName} ${userViewModel.lastName}"
+                     val username = "${userViewModel.username} "
 
                      userApi.createUser(
-                         username = fullName,
+                         username = username,
                          email = userViewModel.email,
                          password = password
                      )

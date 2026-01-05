@@ -32,11 +32,17 @@ import com.example.myapplication.api.UserApiService
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 import com.example.myapplication.ui.theme.DarkGreen
+import com.example.myapplication.viewmodel.AuthViewModel1
 import com.example.myapplication.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun AddPaymentPage(navController: NavHostController, userApi: UserApiService, userViewModel: UserViewModel)
+fun AddPaymentPage(
+    navController: NavHostController,
+    userApi: UserApiService,
+    userViewModel: UserViewModel,
+    authViewModel: AuthViewModel1
+)
 {
    val scope = rememberCoroutineScope()
 
@@ -65,7 +71,6 @@ fun AddPaymentPage(navController: NavHostController, userApi: UserApiService, us
             .padding(horizontal = 16.dp, vertical = 8.dp)
     )
     {
-        Spacer(modifier = Modifier.height(120.dp))
         Text(
             text = "Add payment method",
             fontSize = 32.sp,
@@ -112,43 +117,34 @@ fun AddPaymentPage(navController: NavHostController, userApi: UserApiService, us
             isEnable = isFormValid,
             onClick = {
                 scope.launch {
-                    val fullName = if (userViewModel.middleName.isNotBlank()) {
-                        "${userViewModel.firstName} ${userViewModel.middleName} ${userViewModel.lastName}"
-                    } else {
-                        "${userViewModel.firstName} ${userViewModel.lastName}"
-                    }
-
                     try {
+
                         userApi.createUser(
-                            username = fullName,
+                            username = userViewModel.username,
                             email = userViewModel.email,
                             password = userViewModel.password
                         )
-
 //                        if (isCardValid)
                         if (true)
                         {
                             userApi.addCard(
-                                username = "${userViewModel.firstName} ${userViewModel.lastName}",
-                                id = 0,
-                                cardNumber = userViewModel.cardNumber.toInt(),
+                                username = "${userViewModel.username}",
+                                cardNumber = userViewModel.cardNumber,
                                 expiryDate = userViewModel.expiryDate.toInt(),
                             )
                         }
 
 //                        if (isBankValid )
-                        if (true)
-                        {
-                            userApi.addAccount(
-                                username = "${userViewModel.firstName} ${userViewModel.lastName}",
-                                id = 1,
-                                accountname = userViewModel.accountName,
-                                regnum = 0,
-                                accountnumber = userViewModel.accountNumber.toInt()
-
-
-                            )
-                        }
+//                        if (true)
+//                        {
+//                            userApi.addAccount(
+//                                username = "${userViewModel.username} ",
+//                                id = 1,
+//                                accountname = userViewModel.accountName,
+//                                regnum = 0,
+//                                accountnumber = userViewModel.accountNumber.toInt()
+//                            )
+//                        }
 
                         navController.navigate("home")
                         {
@@ -310,7 +306,7 @@ fun CardSection(
                 )
                 {
                     FormTextField(
-                        label = "Securety code (CVC)",
+                        label = "Security code (CVC)",
                         placeholder = "3 digits",
                         value = CVC,
                         onValueChange = onCVCChange,

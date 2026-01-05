@@ -41,15 +41,7 @@ fun EditProfilePage(navController: NavHostController, userApi: UserApiService, u
             currentUser?.let {
                 val parts = it.username.split(" ")
 
-                userViewModel.firstName = parts.getOrNull(0) ?: ""
-
-                if (parts.size > 2) {
-                    userViewModel.middleName = parts.subList(1, parts.size - 1).joinToString(" ")
-                    userViewModel.lastName = parts.lastOrNull() ?: ""
-                } else {
-                    userViewModel.middleName = ""
-                    userViewModel.lastName = parts.getOrNull(1) ?: ""
-                }
+                userViewModel.username = parts.getOrNull(0) ?: ""
                 userViewModel.email = it.email
 
             }
@@ -71,31 +63,11 @@ fun EditProfilePage(navController: NavHostController, userApi: UserApiService, u
         FormTextField(
             label = "First Name",
             placeholder = "Enter first name",//should be changed to take the info from database
-            value = userViewModel.firstName,
-            onValueChange = { userViewModel.firstName = it },
+            value = userViewModel.username,
+            onValueChange = { userViewModel.username = it },
             backgroundColor = LightGreen
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
-
-        FormTextField(
-            label = "Middle Name",
-            placeholder = "Enter middle name", //should be changed to take the info from database if there are any
-            value = userViewModel.middleName,
-            onValueChange = { userViewModel.middleName = it },
-            isOptional = true,
-            backgroundColor = LightGreen
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        FormTextField(
-            label = "LastName",
-            placeholder = "Enter last name", //should be changed to take the info from database
-            value = userViewModel.lastName,
-            onValueChange = { userViewModel.lastName = it },
-            backgroundColor = LightGreen
-        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -129,7 +101,7 @@ fun EditProfilePage(navController: NavHostController, userApi: UserApiService, u
             )
             {
                 Text(
-                    text = "Profie picture",
+                    text = "Profile picture",
                     fontSize = 24.sp,
                     //fontFamily = FontFamily(Font(roboto_condensed_regular),
                     fontWeight = FontWeight.Normal
@@ -160,7 +132,7 @@ fun EditProfilePage(navController: NavHostController, userApi: UserApiService, u
                scope.launch {
                    try {
                        userApi.createUser(
-                           username = userViewModel.firstName,
+                           username = userViewModel.username,
                            email = userViewModel.email,
                            password = ""
                        )

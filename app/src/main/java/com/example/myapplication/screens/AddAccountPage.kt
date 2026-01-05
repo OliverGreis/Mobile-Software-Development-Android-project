@@ -66,7 +66,7 @@ fun AddAccountPage(navController: NavHostController, userApi: UserApiService, us
                 scope.launch {
                     try {
                         userApi.addAccount(
-                            username = "${userViewModel.firstName} ${userViewModel.lastName}",
+                            username = "${userViewModel.username}",
                             id = 0,
                             accountname = "",
                             regnum = 0,
