@@ -1,4 +1,6 @@
 package com.example.myapplication.screens
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -29,6 +31,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.height
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import com.example.myapplication.R
 import androidx.compose.ui.draw.clip
@@ -37,17 +44,20 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Font
 import com.example.myapplication.R.font.*
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavHostController
 import com.example.myapplication.Controller.Group
-
+import com.example.myapplication.Controller.GroupApiService
+import com.example.myapplication.Controller.groupApi
+import coil.compose.rememberImagePainter
 
 @Composable
-fun Group(groupName: String,modifier: Modifier = Modifier) {
+fun GroupPage(navController: NavHostController, group: Group, modifier: Modifier = Modifier) {
 
     Column {
         Spacer(Modifier.height(100.dp))
 
         Text(
-            text = groupName,
+            text = group.name,
             modifier = modifier.fillMaxWidth(),
             fontSize = 32.sp,
             fontFamily = FontFamily(Font(roboto_condensed_bold)),
@@ -63,8 +73,16 @@ fun Group(groupName: String,modifier: Modifier = Modifier) {
                 .clip(RoundedCornerShape(16.dp))
                 .background(Color(android.graphics.Color.parseColor("#104210"))),
         ){
+            if(group.groupImage != null){
+                Image(
+                    painter = rememberImagePainter("https://example.com/image.jpg"),
+                    contentDescription = "GroupImage",
+                    modifier = Modifier.size(40.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
             Text(
-                text = "Bb",
+                text = group.name,
                 color = Color.White,
                 modifier = modifier.align(Alignment.Center),
                 fontSize = 32.sp,
@@ -82,7 +100,7 @@ fun Group(groupName: String,modifier: Modifier = Modifier) {
         LazyRow(  contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
 
-            items(7){
+            items(group.memberIDs.size){  i ->
                 Card(
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier
@@ -97,7 +115,7 @@ fun Group(groupName: String,modifier: Modifier = Modifier) {
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.profile_picture),
+                            painter = painterResource(group.memberIDs.get(i)),
                             contentDescription = "Member icon",
                             modifier = Modifier.size(40.dp),
                             contentScale = ContentScale.Fit
@@ -158,7 +176,7 @@ fun Group(groupName: String,modifier: Modifier = Modifier) {
                 }
             }
         }
-        Button(onClick = {},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp),
+        Button(onClick = {navController.navigate("transaction")},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp),
             colors = ButtonDefaults.buttonColors(Color(android.graphics.Color.parseColor("#88C25F"))
         )) {
             Text("Make Request")
@@ -233,6 +251,35 @@ fun ActivityItem() {
                 }
             }
         }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+fun GroupScreen(
+    navController: NavHostController,
+    api: GroupApiService,
+    refreshTrigger: Boolean,
+    id: Int
+) {
+    NotificationPermissionRequester()
+
+    var group by remember { mutableStateOf<Group?>(null) }
+
+    LaunchedEffect(refreshTrigger, id) {
+        try {
+            group = api.getGroup(id)
+            println("group: $group")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    group?.let { safeGroup ->
+        GroupPage(
+            navController = navController,
+            group = safeGroup
+        )
     }
 }
 

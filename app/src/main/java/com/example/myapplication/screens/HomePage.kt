@@ -73,7 +73,7 @@ fun Home(modifier: Modifier = Modifier,navController: NavHostController,groups: 
             .background(Color(android.graphics.Color.parseColor("#88C25F"))),
     ){
         GroupList(groups = groups) { group ->
-            navController.navigate("group")
+            navController.navigate("group/${group.id}")
         }
     }
 
