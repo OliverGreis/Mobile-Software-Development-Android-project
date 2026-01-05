@@ -29,18 +29,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
-import com.example.myapplication.viewmodel.AuthViewModel1
+import com.example.myapplication.viewmodel.AuthViewModel
 import com.example.myapplication.viewmodel.UserViewModel
 
 @Composable
 fun CreateAccountPage(
     navController: NavHostController,
     userViewModel: UserViewModel,
-    authViewModel: AuthViewModel1
+    authViewModel: AuthViewModel
     ) {
 
     var password by remember { mutableStateOf("") }

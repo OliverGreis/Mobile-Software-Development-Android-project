@@ -22,7 +22,6 @@ import com.example.myapplication.api.NotificationsSettingApiService
 import com.example.myapplication.api.UserApiService
 import com.example.myapplication.repository.NotificationSettingRepository
 import com.example.myapplication.screens.HomeScreen
-import com.example.myapplication.repository.AuthRepository
 import com.example.myapplication.repository.AuthRepository1
 import com.example.myapplication.repository.SettingPreference
 import com.example.myapplication.screens.AddAccountPage
@@ -35,7 +34,7 @@ import com.example.myapplication.screens.ForgotPasswordPage
 import com.example.myapplication.screens.LoginPage2
 import com.example.myapplication.screens.ProfilePage
 import com.example.myapplication.screens.SettingScreen
-import com.example.myapplication.viewmodel.AuthViewModel1
+import com.example.myapplication.viewmodel.AuthViewModel
 import com.example.myapplication.viewmodel.HomeViewModel
 import com.example.myapplication.viewmodel.SettingViewModel
 import com.example.myapplication.viewmodel.UserViewModel
@@ -46,14 +45,13 @@ fun AppNavHost(
     navController: NavHostController,
     userApi: UserApiService,
     modifier: Modifier = Modifier,
-    AuthRepository: AuthRepository,
     userViewModel: UserViewModel,
 )
 {
     val activity = (LocalContext.current as Activity)
     val authApi = remember { ApiClient.retrofit.create(AuthApiService::class.java) }
     val authRepo = remember { AuthRepository1(authApi) }
-    val authFactory = remember { AuthViewModel1.Factory(authRepo) }
+    val authFactory = remember { AuthViewModel.Factory(authRepo) }
 
     NavHost(
         navController = navController,
@@ -63,13 +61,13 @@ fun AppNavHost(
     {
         composable("login")
         {
-            val authVm: AuthViewModel1 = viewModel(factory = authFactory)
+            val authVm: AuthViewModel = viewModel(factory = authFactory)
             LoginPage2(navController = navController, authViewModel = authVm)
         }
 
         composable("create_account")
         {
-            val authVm: AuthViewModel1 = viewModel(factory = authFactory)
+            val authVm: AuthViewModel = viewModel(factory = authFactory)
 
             CreateAccountPage(navController, userViewModel, authVm)
         }
@@ -87,7 +85,7 @@ fun AppNavHost(
 
         composable("add_payment")
         {
-            val authVm: AuthViewModel1 = viewModel(factory = authFactory)
+            val authVm: AuthViewModel = viewModel(factory = authFactory)
             AddPaymentPage(navController, userApi, userViewModel, authViewModel = authVm)
         }
 

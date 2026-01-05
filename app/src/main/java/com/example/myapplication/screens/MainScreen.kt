@@ -13,13 +13,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.ui.theme.MyApplication7Theme
 import com.example.myapplication.navigation.AppNavHost
 import com.example.myapplication.api.userApi
-import com.example.myapplication.repository.AuthRepository
-import com.example.myapplication.repository.AuthRepositoryImp
 import com.example.myapplication.viewmodel.UserViewModel
 
 
 class MainActivity : ComponentActivity() {
-    private val repo: AuthRepository by lazy { AuthRepositoryImp(applicationContext) }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,14 +27,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplication7Theme {
-                    MainScreen(authRepository = repo)
+                    MainScreen()
                 }
         }
     }
 }
 
 @Composable
-fun MainScreen(authRepository: AuthRepository) {
+fun MainScreen() {
     val navController = rememberNavController()
     val userapi = userApi
     val userViewModel: UserViewModel = viewModel()
@@ -68,7 +66,6 @@ fun MainScreen(authRepository: AuthRepository) {
             modifier = Modifier.padding(innerPadding),
             userApi = userapi,
             userViewModel = userViewModel,
-            AuthRepository = authRepository,
         )
     }
 }

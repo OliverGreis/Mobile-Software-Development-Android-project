@@ -1,37 +1,65 @@
 package com.example.myapplication.viewmodel
-import android.app.Activity
-import com.example.myapplication.repository.AuthRepository
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import com.example.myapplication.model.User
-import kotlinx.coroutines.flow.update
+import com.example.myapplication.model.UserResponseDTO
+import com.example.myapplication.repository.AuthRepository1
 import kotlinx.coroutines.launch
 
+class AuthViewModel(private val authRepository: AuthRepository1): ViewModel() {
 
-class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
-    val uiState = MutableStateFlow(AuthUiState())
+    var currentUser by mutableStateOf<UserResponseDTO?>(null)
+        private set
 
-    fun login(activity: Activity) = viewModelScope.launch{
-        uiState.update {it.copy(isLoading = true)}
-        try {
-            val user = repo.login(activity)
-            uiState.update {it.copy(isLoading = false, isLoggedIn = true, user = user)}
-        }catch(e: Exception){
-            uiState.update {it.copy(isLoading = false, error = e.message)}
+    var isLoading by mutableStateOf(false)
+        private set
+
+    fun login(email: String, password: String, onSuccess: () -> Unit){
+        viewModelScope.launch {
+            isLoading = true
+            try{
+                currentUser = authRepository.login(email, password)
+                onSuccess()
+            }catch (e: Exception){
+                e.printStackTrace()
+            } finally {
+                isLoading = false
+            }
         }
     }
 
-    fun logout (activity: Activity) = viewModelScope.launch{
-        repo.logout(activity)
-        uiState.value = AuthUiState()
-
+    fun register(username: String, email: String, password: String, number: String, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            isLoading = true
+            try {
+                authRepository.register(username, email, password, number)
+                onSuccess()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                isLoading = false
+            }
+        }
     }
-}
 
-data class AuthUiState (
-    val isLoading: Boolean = false,
-    val isLoggedIn: Boolean = false,
-    val user: User? = null,
-    val error: String? = null
-)
+    fun logout(onSuccess: () -> Unit) {
+        currentUser = null
+    }
+
+    companion object {
+        fun Factory(authRepo: AuthRepository1) = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
+                    @Suppress("UNCHECKED_CAST")
+                    return AuthViewModel(authRepo) as T
+                }
+                throw IllegalArgumentException("Unknown ViewModel class")
+            }
+        }
+    }
+
+}

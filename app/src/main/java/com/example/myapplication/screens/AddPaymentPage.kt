@@ -32,7 +32,7 @@ import com.example.myapplication.api.UserApiService
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 import com.example.myapplication.ui.theme.DarkGreen
-import com.example.myapplication.viewmodel.AuthViewModel1
+import com.example.myapplication.viewmodel.AuthViewModel
 import com.example.myapplication.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
@@ -41,7 +41,7 @@ fun AddPaymentPage(
     navController: NavHostController,
     userApi: UserApiService,
     userViewModel: UserViewModel,
-    authViewModel: AuthViewModel1
+    authViewModel: AuthViewModel
 )
 {
    val scope = rememberCoroutineScope()

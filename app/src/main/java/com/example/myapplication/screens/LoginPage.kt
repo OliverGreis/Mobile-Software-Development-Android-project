@@ -35,12 +35,12 @@ import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.DarkGreen
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import com.example.myapplication.viewmodel.AuthViewModel1
+import com.example.myapplication.viewmodel.AuthViewModel
 
 
 @Composable
 fun LoginPage2(navController: NavController,
-               authViewModel: AuthViewModel1
+               authViewModel: AuthViewModel
 ) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
