@@ -14,13 +14,13 @@ interface GroupApiService {
     suspend fun getGroups(): List<Group>
 
     @POST("api/creategroup/{name}")
-    suspend fun createGroup(@Path("name") name: String): Group
+    suspend fun createGroup(@Path("name") name: String): String
 
     @GET("api/groups/member/{id}")
     suspend fun getGroupsForMember(@Path("id") id: String): List<Group>
 
-    @PUT("api/addmember/{id}/{groupID}")
-    suspend fun addMember(@Path("id") id: String, @Path("groupID") groupID: Int): String
+    @PUT("api/addmember/{username}/{groupId}")
+    suspend fun addMember(@Path("groupId") id: Int, @Path("username") username: String): String
 
     @PUT("api/addtransaction/{id}/{groupID}")
     suspend fun addTransaction(@Path("id") id: Int, @Path("groupID") groupID: Int): String

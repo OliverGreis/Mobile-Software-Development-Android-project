@@ -23,10 +23,10 @@ class ApiHelperMethods(
         }
     }
 
-    suspend fun addUserToGroup(userID: String, groupID: Int, username: String): Boolean {
+    suspend fun addUserToGroup(groupID: Int, username: String): Boolean {
         return withContext(Dispatchers.IO) {
             try {
-                val groupResponse = groupApi.addMember(userID, groupID)
+                val groupResponse = groupApi.addMember(groupID, username)
                 val userResponse = userApi.addGroup(groupID, username)
 
                 groupResponse.contains("added") && userResponse.contains("Added")

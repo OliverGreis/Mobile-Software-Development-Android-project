@@ -22,7 +22,8 @@ import com.example.myapplication.api.NotificationsSettingApiService
 import com.example.myapplication.api.UserApiService
 import com.example.myapplication.repository.NotificationSettingRepository
 import com.example.myapplication.screens.HomeScreen
-import com.example.myapplication.repository.AuthRepository1
+import com.example.myapplication.repository.AuthRepository
+import com.example.myapplication.repository.GroupRepository
 import com.example.myapplication.repository.SettingPreference
 import com.example.myapplication.screens.AddAccountPage
 import com.example.myapplication.screens.AddCardPage
@@ -35,6 +36,7 @@ import com.example.myapplication.screens.LoginPage2
 import com.example.myapplication.screens.ProfilePage
 import com.example.myapplication.screens.SettingScreen
 import com.example.myapplication.viewmodel.AuthViewModel
+import com.example.myapplication.viewmodel.GroupViewModel
 import com.example.myapplication.viewmodel.HomeViewModel
 import com.example.myapplication.viewmodel.SettingViewModel
 import com.example.myapplication.viewmodel.UserViewModel
@@ -50,8 +52,9 @@ fun AppNavHost(
 {
     val activity = (LocalContext.current as Activity)
     val authApi = remember { ApiClient.retrofit.create(AuthApiService::class.java) }
-    val authRepo = remember { AuthRepository1(authApi) }
+    val authRepo = remember { AuthRepository(authApi) }
     val authFactory = remember { AuthViewModel.Factory(authRepo) }
+    val authVm: AuthViewModel = viewModel(factory = authFactory)
 
     NavHost(
         navController = navController,
@@ -61,13 +64,13 @@ fun AppNavHost(
     {
         composable("login")
         {
-            val authVm: AuthViewModel = viewModel(factory = authFactory)
+
             LoginPage2(navController = navController, authViewModel = authVm)
         }
 
         composable("create_account")
         {
-            val authVm: AuthViewModel = viewModel(factory = authFactory)
+
 
             CreateAccountPage(navController, userViewModel, authVm)
         }
@@ -85,7 +88,6 @@ fun AppNavHost(
 
         composable("add_payment")
         {
-            val authVm: AuthViewModel = viewModel(factory = authFactory)
             AddPaymentPage(navController, userApi, userViewModel, authViewModel = authVm)
         }
 
@@ -119,10 +121,19 @@ fun AppNavHost(
             HomeScreen(
                 navController = navController,
                 viewModel = homeViewModel,
-                refreshTrigger = false)
+                refreshTrigger = false,
+                authViewModel = authVm
+            )
         }
 
-        composable("add") { CreateGroup(navController = navController) }
+        composable("add") {
+            val groupApi = remember { ApiClient.retrofit.create(GroupApiService::class.java) }
+            val groupRepo = remember { GroupRepository(groupApi) }
+            val groupViewModel: GroupViewModel = viewModel(
+                factory = GroupViewModel.Factory(groupRepo)
+            )
+            CreateGroup(navController = navController, groupViewModel = groupViewModel)
+        }
         composable(route = "group"){Group("Event4")}
         composable("activity") { ActivityPage() }
         composable("setting") {

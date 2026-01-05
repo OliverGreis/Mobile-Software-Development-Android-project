@@ -33,6 +33,7 @@ import com.example.myapplication.R
 import com.example.myapplication.R.font.roboto_condensed_regular
 import com.example.myapplication.R.font.roboto_condensed_bold
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -49,14 +50,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import com.example.myapplication.model.Group
+import com.example.myapplication.viewmodel.AuthViewModel
 import com.example.myapplication.viewmodel.HomeViewModel
-
     @Composable
 fun Home(
-
-        navController: NavHostController,
-        groups: List<Group>,
-        ) {
+    navController: NavHostController,
+    groups: List<Group>,
+    authViewModel: AuthViewModel
+) {
 
     Column(){
 
@@ -258,13 +259,17 @@ fun GroupItem(
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @Composable
-    fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel, refreshTrigger: Boolean ) {
+    fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel, refreshTrigger: Boolean, authViewModel: AuthViewModel ) {
         NotificationPermissionRequester()
 
-        LaunchedEffect(refreshTrigger) {
-            viewModel.loadGroups()
+        val userId = authViewModel.currentUser?.userId
+        Log.d("HomeScreen", "userId: $userId")
+        LaunchedEffect(refreshTrigger, userId) {
+            if (userId != null) {
+                viewModel.loadGroups(userId)
+            }
         }
-        Home(navController = navController, groups = viewModel.groups)
+        Home(navController = navController, groups = viewModel.groups, authViewModel = authViewModel)
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)

@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val api: GroupApiService,
+
     ): ViewModel() {
     var groups by mutableStateOf<List<Group>>(emptyList())
         private set
@@ -21,12 +22,12 @@ class HomeViewModel(
         private set
 
 
-    fun loadGroups() {
-        Log.e("HomeViewModel", "loadGroups called")
+    fun loadGroups(userId: String) {
         viewModelScope.launch{
             isLoading = true
             try {
-                groups = api.getGroups()
+                groups = api.getGroupsForMember(userId)
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }finally {

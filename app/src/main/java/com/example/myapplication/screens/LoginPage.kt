@@ -114,7 +114,7 @@ fun LoginPage2(navController: NavController,
         Button(
             onClick = {
                 authViewModel.login(
-                    email = username,
+                    username = username,
                     password = password,
                     onSuccess = {
                         navController.navigate("home")

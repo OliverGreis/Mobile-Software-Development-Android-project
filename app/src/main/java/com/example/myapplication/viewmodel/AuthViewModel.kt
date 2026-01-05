@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.model.UserResponseDTO
-import com.example.myapplication.repository.AuthRepository1
+import com.example.myapplication.repository.AuthRepository
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val authRepository: AuthRepository1): ViewModel() {
+class AuthViewModel(private val authRepository: AuthRepository): ViewModel() {
 
     var currentUser by mutableStateOf<UserResponseDTO?>(null)
         private set
@@ -18,11 +18,11 @@ class AuthViewModel(private val authRepository: AuthRepository1): ViewModel() {
     var isLoading by mutableStateOf(false)
         private set
 
-    fun login(email: String, password: String, onSuccess: () -> Unit){
+    fun login(username: String, password: String, onSuccess: () -> Unit){
         viewModelScope.launch {
             isLoading = true
             try{
-                currentUser = authRepository.login(email, password)
+                currentUser = authRepository.login(username, password)
                 onSuccess()
             }catch (e: Exception){
                 e.printStackTrace()
@@ -51,7 +51,7 @@ class AuthViewModel(private val authRepository: AuthRepository1): ViewModel() {
     }
 
     companion object {
-        fun Factory(authRepo: AuthRepository1) = object : ViewModelProvider.Factory {
+        fun Factory(authRepo: AuthRepository) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
                     @Suppress("UNCHECKED_CAST")

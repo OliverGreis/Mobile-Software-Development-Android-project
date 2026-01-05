@@ -1,5 +1,6 @@
 package com.example.myapplication.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -38,19 +39,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.rememberCoroutineScope
-import kotlinx.coroutines.launch
-import java.net.URLEncoder
 import androidx.navigation.NavHostController
-import com.example.myapplication.api.groupApi
+import com.example.myapplication.viewmodel.GroupViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 
 @Composable
-fun CreateGroup(navController: NavHostController,modifier: Modifier = Modifier) {
-    val coroutineScope = rememberCoroutineScope()
+fun CreateGroup(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+    groupViewModel: GroupViewModel,
+) {
     var textName by remember { mutableStateOf("") }
-    var textMembers by remember { mutableStateOf("") }
+
+    var memberInput by remember { mutableStateOf("") }
+    var memberUsernames by remember { mutableStateOf(listOf<String>()) }
+
+
     Column(){
         Text(
             text = "Group Name",
@@ -100,8 +106,8 @@ fun CreateGroup(navController: NavHostController,modifier: Modifier = Modifier) 
             modifier = Modifier.padding(horizontal = 20.dp)
         )
         TextField(
-            value = textMembers,
-            onValueChange = { textMembers = it },
+            value = memberInput,
+            onValueChange = { memberInput = it },
             modifier = Modifier
                 .padding(horizontal = 20.dp)
                 .clip(RoundedCornerShape(8.dp))
@@ -126,7 +132,9 @@ fun CreateGroup(navController: NavHostController,modifier: Modifier = Modifier) 
         LazyRow(  contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
 
-            items(7){
+            items(memberUsernames.size){ index ->
+                val username = memberUsernames[index]
+
                 Card(
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier
@@ -153,18 +161,12 @@ fun CreateGroup(navController: NavHostController,modifier: Modifier = Modifier) 
     }
         Button(
             onClick = {
-                coroutineScope.launch {
-                    try {
-                        val response = groupApi.createGroup(URLEncoder.encode(textName, "UTF-8"))
-                        println(response)
-                        val updatedGroups = groupApi.getGroups()
-                        navController.navigate("home?refresh=true"){
-                            popUpTo("createGroup") { inclusive = true }
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+                val cleaned = memberInput.trim()
+                if (cleaned.isNotBlank() && cleaned !in memberUsernames) {
+                    memberUsernames = memberUsernames + cleaned
+                    memberInput = ""
                 }
+                Log.e("memberUsernames", memberUsernames.toString())
             },
             modifier = Modifier
                 .padding(horizontal = 135.dp)
@@ -173,7 +175,28 @@ fun CreateGroup(navController: NavHostController,modifier: Modifier = Modifier) 
                 Color(android.graphics.Color.parseColor("#88C25F"))
             )
         ) {
-            Text("Make Request")
+            Text("Add member")
+        }
+
+        Button(
+            onClick = {
+                groupViewModel.createGroupAndAddMembers(
+                    groupName = textName,
+                    usernames = memberUsernames,
+                    onSuccess = {
+                    navController.navigate("home?refresh=true"){
+                        popUpTo("createGroup"){inclusive = true}
+                    }
+                })
+            },
+            modifier = Modifier
+                .padding(horizontal = 135.dp)
+                .padding(vertical = 25.dp),
+            colors = ButtonDefaults.buttonColors(
+                Color(android.graphics.Color.parseColor("#88C25F"))
+            )
+        ) {
+            Text("Create Group")
         }
     }
 }
