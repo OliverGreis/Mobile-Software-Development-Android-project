@@ -45,12 +45,13 @@ import androidx.compose.ui.text.font.Font
 import com.example.myapplication.R.font.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
-import com.example.myapplication.api.GroupApiService
-import com.example.myapplication.model.Group
-
-
+import com.example.myapplication.Controller.Group
+import com.example.myapplication.Controller.GroupApiService
+import com.example.myapplication.Controller.groupApi
+import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
 @Composable
-fun GroupPage(group: Group, modifier: Modifier = Modifier, navController: NavHostController) {
+fun GroupPage(navController: NavHostController, group: Group, modifier: Modifier = Modifier) {
 
     Column {
         Text(
@@ -70,8 +71,16 @@ fun GroupPage(group: Group, modifier: Modifier = Modifier, navController: NavHos
                 .clip(RoundedCornerShape(16.dp))
                 .background(Color(android.graphics.Color.parseColor("#104210"))),
         ){
+            if(group.groupImage != null){
+                AsyncImage(
+                    model = group.groupImage,
+                    contentDescription = "GroupImage",
+                    modifier = Modifier.size(40.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
             Text(
-                text = "Bb",
+                text = group.name,
                 color = Color.White,
                 modifier = modifier.align(Alignment.Center),
                 fontSize = 32.sp,
@@ -89,7 +98,7 @@ fun GroupPage(group: Group, modifier: Modifier = Modifier, navController: NavHos
         LazyRow(  contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
 
-            items(7){
+            items(group.memberIDs.size){  i ->
                 Card(
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier
@@ -103,8 +112,8 @@ fun GroupPage(group: Group, modifier: Modifier = Modifier, navController: NavHos
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Image(
-                            painter = painterResource(R.drawable.profile_picture),
+                        AsyncImage(
+                            model = group.memberIDs.get(i),
                             contentDescription = "Member icon",
                             modifier = Modifier.size(40.dp),
                             contentScale = ContentScale.Fit
@@ -165,7 +174,7 @@ fun GroupPage(group: Group, modifier: Modifier = Modifier, navController: NavHos
                 }
             }
         }
-        Button(onClick = {},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp),
+        Button(onClick = {navController.navigate("transaction")},modifier = Modifier.padding(horizontal = 135.dp).padding(vertical = 25.dp),
             colors = ButtonDefaults.buttonColors(Color(android.graphics.Color.parseColor("#88C25F"))
         )) {
             Text("Make Request")
@@ -267,8 +276,7 @@ fun GroupScreen(
     group?.let { safeGroup ->
         GroupPage(
             navController = navController,
-            group = safeGroup,
-
+            group = safeGroup
         )
     }
 }

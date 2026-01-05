@@ -154,7 +154,7 @@ fun AppNavHost(
 
             GroupScreen(
                 navController = navController,
-                api = com.example.myapplication.api.groupApi,
+                api = com.example.myapplication.api.groupApi as com.example.myapplication.Controller.GroupApiService,
                 refreshTrigger = true,
                 id = groupId
             )
