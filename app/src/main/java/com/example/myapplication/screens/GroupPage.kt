@@ -1,5 +1,6 @@
 package com.example.myapplication.screens
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -45,11 +46,11 @@ import androidx.compose.ui.text.font.Font
 import com.example.myapplication.R.font.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
-import com.example.myapplication.Controller.Group
-import com.example.myapplication.Controller.GroupApiService
-import com.example.myapplication.Controller.groupApi
 import coil.compose.rememberImagePainter
 import coil.compose.AsyncImage
+import com.example.myapplication.api.GroupApiService
+import com.example.myapplication.model.Group
+
 @Composable
 fun GroupPage(navController: NavHostController, group: Group, modifier: Modifier = Modifier) {
 
@@ -78,16 +79,18 @@ fun GroupPage(navController: NavHostController, group: Group, modifier: Modifier
                     modifier = Modifier.size(40.dp),
                     contentScale = ContentScale.Fit
                 )
-            }
-            Text(
-                text = group.name,
-                color = Color.White,
-                modifier = modifier.align(Alignment.Center),
-                fontSize = 32.sp,
-                fontFamily = FontFamily(Font(roboto_condensed_bold)),
-                textAlign = TextAlign.Center
+            }else{
+                Text(
+                    text = group.name,
+                    color = Color.White,
+                    modifier = modifier.align(Alignment.Center),
+                    fontSize = 32.sp,
+                    fontFamily = FontFamily(Font(roboto_condensed_bold)),
+                    textAlign = TextAlign.Center
 
                 )
+            }
+
         }
         Text(
             text = "Group members",
@@ -263,8 +266,12 @@ fun GroupScreen(
     NotificationPermissionRequester()
 
     var group by remember { mutableStateOf<Group?>(null) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var isLoading by remember { mutableStateOf(true) }
 
-    LaunchedEffect(refreshTrigger, id) {
+
+
+    LaunchedEffect(id) {
         try {
             group = api.getGroup(id)
             println("group: $group")
@@ -272,6 +279,8 @@ fun GroupScreen(
             e.printStackTrace()
         }
     }
+
+
 
     group?.let { safeGroup ->
         GroupPage(

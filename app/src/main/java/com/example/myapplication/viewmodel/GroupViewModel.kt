@@ -29,6 +29,7 @@ class GroupViewModel (private val groupRepository: GroupRepository): ViewModel()
         state = state.copy(members = v)
     }
 
+
     fun createGroupAndAddMembers(
         groupName: String,
         usernames: List<String>,
@@ -41,7 +42,6 @@ class GroupViewModel (private val groupRepository: GroupRepository): ViewModel()
         viewModelScope.launch {
             state = state.copy(isLoadings = true)
             try {
-
 
                 val created = groupRepository.createGroup(groupName)
                 val groupId = parseGroupId(created)

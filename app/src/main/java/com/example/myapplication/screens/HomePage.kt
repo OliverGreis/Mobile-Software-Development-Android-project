@@ -84,7 +84,7 @@ fun Home(
                 shadowElevation = 64.dp
             ) {
                 GroupList(groups = groups, userId = userId) { group ->
-                    navController.navigate("group")
+                    navController.navigate("group/${group.id}")
                 }
             }
         }
@@ -265,9 +265,10 @@ fun GroupItem(
         ){
             items(groups) { group ->
                 GroupItem(
-                    groupName = group.name, onClick = { onItemClick(group) },
+                    groupName = group.name,
                     groupId = group.id,
-                    viewModel = HomeViewModel(groupApi)
+                    viewModel = HomeViewModel(groupApi),
+                    onClick = { onItemClick(group) }
                 )
             }
         }
@@ -287,10 +288,8 @@ fun GroupItem(
             }
             Home(navController = navController, groups = viewModel.groups, userId = userId)
         } else {
-            // Optional: Show a loading spinner or redirect to login
             Text("Loading user profile...")
         }
-        Home(navController = navController, groups = viewModel.groups, userId = userId)
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)

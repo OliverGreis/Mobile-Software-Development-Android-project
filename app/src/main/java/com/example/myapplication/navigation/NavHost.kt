@@ -100,10 +100,10 @@ fun AppNavHost(
             AddPaymentPage(navController, userApi, userViewModel, authViewModel = authVm)
         }
 
-        composable("profile")
-        {
-            ProfilePage(navController, userApi)
-        }
+//        composable("profile")
+//        {
+//            ProfilePage(navController, userApi)
+//        }
 
         composable("edit_profile")
         {
@@ -154,7 +154,7 @@ fun AppNavHost(
 
             GroupScreen(
                 navController = navController,
-                api = com.example.myapplication.api.groupApi as com.example.myapplication.Controller.GroupApiService,
+                api = groupApi,
                 refreshTrigger = true,
                 id = groupId
             )
