@@ -76,8 +76,8 @@ fun GroupPage(navController: NavHostController, group: Group, modifier: Modifier
                 AsyncImage(
                     model = group.groupImage,
                     contentDescription = "GroupImage",
-                    modifier = Modifier.size(40.dp),
-                    contentScale = ContentScale.Fit
+                    modifier = Modifier.matchParentSize(),
+                    contentScale = ContentScale.Crop
                 )
             }else{
                 Text(
