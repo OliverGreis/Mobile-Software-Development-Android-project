@@ -54,8 +54,6 @@ import coil.compose.rememberImagePainter
 fun GroupPage(navController: NavHostController, group: Group, modifier: Modifier = Modifier) {
 
     Column {
-        Spacer(Modifier.height(100.dp))
-
         Text(
             text = group.name,
             modifier = modifier.fillMaxWidth(),

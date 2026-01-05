@@ -10,42 +10,62 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavHostController
+import com.example.myapplication.Controller.UserApiService
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 import com.example.myapplication.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewModel) {
+fun EditProfilePage(navController: NavHostController, userApi: UserApiService, userViewModel: UserViewModel)
+{
+    val scope = rememberCoroutineScope()
 
-    val isFormValid by remember {
-        derivedStateOf {
-            userViewModel.firstName.isNotBlank() &&
-                    userViewModel.lastName.isNotBlank() &&
-                    userViewModel.email.isNotBlank() &&
-                    userViewModel.phoneNumber.isNotBlank()
+    LaunchedEffect(Unit) {
+        try {
+            val users = userApi.getUsers()
+            val currentUser = users.firstOrNull()
+            currentUser?.let {
+                val parts = it.username.split(" ")
+
+                userViewModel.firstName = parts.getOrNull(0) ?: ""
+
+                if (parts.size > 2) {
+                    userViewModel.middleName = parts.subList(1, parts.size - 1).joinToString(" ")
+                    userViewModel.lastName = parts.lastOrNull() ?: ""
+                } else {
+                    userViewModel.middleName = ""
+                    userViewModel.lastName = parts.getOrNull(1) ?: ""
+                }
+                userViewModel.email = it.email
+                userViewModel.phoneNumber = it.phoneNumber ?: ""
+
+            }
+        } catch (e:Exception)
+        {
+            println("Error when loading profile: ${e.message}")
         }
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,9 +77,9 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
 
         FormTextField(
             label = "First Name",
-            placeholder = "Enter first name",
+            placeholder = "Enter first name",//should be changed to take the info from database
             value = userViewModel.firstName,
-            onValueChange = {userViewModel.firstName = it},
+            onValueChange = { userViewModel.firstName = it },
             backgroundColor = LightGreen
         )
 
@@ -67,9 +87,9 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
 
         FormTextField(
             label = "Middle Name",
-            placeholder = "Enter middle name",
+            placeholder = "Enter middle name", //should be changed to take the info from database if there are any
             value = userViewModel.middleName,
-            onValueChange = {userViewModel.middleName = it},
+            onValueChange = { userViewModel.middleName = it },
             isOptional = true,
             backgroundColor = LightGreen
         )
@@ -77,10 +97,10 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
         Spacer(modifier = Modifier.height(20.dp))
 
         FormTextField(
-            label = "Last Name",
-            placeholder = "Enter last name",
+            label = "LastName",
+            placeholder = "Enter last name", //should be changed to take the info from database
             value = userViewModel.lastName,
-            onValueChange = {userViewModel.lastName = it},
+            onValueChange = { userViewModel.lastName = it },
             backgroundColor = LightGreen
         )
 
@@ -88,9 +108,9 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
 
         FormTextField(
             label = "Email",
-            placeholder = "Enter email address",
+            placeholder = "Enter email address", //should be changed to take the info from database
             value = userViewModel.email,
-            onValueChange = {userViewModel.email = it},
+            onValueChange = { userViewModel.email = it },
             backgroundColor = LightGreen
         )
 
@@ -98,14 +118,16 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
 
         FormTextField(
             label = "Phone number",
-            placeholder = "Enter phone number",
+            placeholder = "Enter phone number", //should be changed to take the info from database
             value = userViewModel.phoneNumber,
-            onValueChange = {userViewModel.phoneNumber = it},
+            onValueChange = { userViewModel.phoneNumber = it },
             backgroundColor = LightGreen
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
+
+        //should be changed to take the info from database if there are any
         Column()
         {
             Row(
@@ -142,16 +164,22 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
 
         Button(
             onClick = {
-                if (isFormValid)
-                {
-                    navController.navigate("create_account_password")
-                }
-                else
-                {
-                    println("fill out first name, last name, email and phone number")
-                }
+               scope.launch {
+                   try {
+                       userApi.createUser(
+                           firstName = userViewModel.firstName,
+                           middleName = userViewModel.middleName,
+                           lastName = userViewModel.lastName,
+                           email = userViewModel.email,
+                           phoneNumber = userViewModel.phoneNumber
+                       )
+                       navController.popBackStack()
+                   } catch (e: Exception)
+                   {
+                       print("weren't able to save chanches: ${e.message}")
+                   }
+               }
             },
-            enabled = isFormValid,
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen, disabledContainerColor = LightGreen),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier
@@ -160,86 +188,13 @@ fun CreateAccountPage(navController: NavHostController, userViewModel: UserViewM
         )
         {
             Text(
-                text = "Next",
+                text = "Save",
                 fontSize = 20.sp,
                 //fontFamily = FontFamily(Font(roboto_condensed_regular),
                 fontWeight = FontWeight.Normal,
                 color = White
             )
         }
-    }
-}
 
-@Composable
-fun FormTextField(
-    label: String,
-    placeholder: String,
-    value: String,
-    onValueChange: (String) -> Unit,
-    isOptional: Boolean = false,
-    backgroundColor: Color
-)
-{
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    )
-    {
-        Row()
-        {
-            Text(
-                text = label,
-                fontSize = 24.sp,
-                //fontFamily = FontFamily(Font(roboto_condensed_regular),
-                fontWeight = FontWeight.Normal,
-                color = Color.Black,
-                textAlign = TextAlign.Start
-            )
-            if (isOptional) {
-                Text(
-                    text = "optinal",
-                    fontSize = 10.sp,
-                    //fontFamily = FontFamily(Font(roboto_condensed_regular),
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(start = 4.dp, top = 6.dp)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(2.dp))
-
-        Surface(
-            color = LightGreen,
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(55.dp)
-        )
-        {
-            BasicTextField(
-                value = value,
-                onValueChange = onValueChange,
-                singleLine = true,
-                decorationBox = { innerTextField ->
-                    Row(
-                        modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    )
-                    {
-                        if (value.isEmpty()) {
-                            Text(
-                                text = placeholder,
-                                color = Color.White,
-                                fontSize = 20.sp
-                            )
-                        }
-                        innerTextField()
-                    }
-                },
-                textStyle = androidx.compose.ui.text.TextStyle(
-                    color = Color.White,
-                    fontSize = 20.sp
-                )
-            )
-        }
     }
 }
