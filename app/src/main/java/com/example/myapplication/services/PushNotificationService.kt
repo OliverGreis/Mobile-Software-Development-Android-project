@@ -32,10 +32,10 @@ class PushNotificationService: FirebaseMessagingService() {
         Log.d("FCM", "onMessageReceived: ${message.data} ${message.notification}")
 
         // Check if there's custom data in the data payload
-        val dataTitle = message.data["title"] // Example custom data field
-        val dataBody = message.data["body"] // Example custom data field
+        val dataTitle = message.data["title"]
+        val dataBody = message.data["body"]
 
-        // If custom data exists, override notification content
+
         if (!dataTitle.isNullOrEmpty()) {
             title = dataTitle
         }
@@ -47,14 +47,14 @@ class PushNotificationService: FirebaseMessagingService() {
     }
 
     private fun showNotification(title: String, body: String) {
-        val channelId = "default_channel"
+        val channelId = "general_notifications"
 
         // Create the channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
                 "Default Channel",
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_HIGH
             )
 
             val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager

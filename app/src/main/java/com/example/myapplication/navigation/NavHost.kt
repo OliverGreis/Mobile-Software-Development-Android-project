@@ -20,11 +20,13 @@ import com.example.myapplication.screens.Group
 import com.example.myapplication.api.GroupApiService
 import com.example.myapplication.api.NotificationsSettingApiService
 import com.example.myapplication.api.UserApiService
+import com.example.myapplication.api.DeviceTokenApi
 import com.example.myapplication.repository.NotificationSettingRepository
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.repository.AuthRepository
 import com.example.myapplication.repository.GroupRepository
 import com.example.myapplication.repository.SettingPreference
+import com.example.myapplication.repository.UserRepository
 import com.example.myapplication.screens.AddAccountPage
 import com.example.myapplication.screens.AddCardPage
 import com.example.myapplication.screens.AddPaymentPage
@@ -51,9 +53,12 @@ fun AppNavHost(
 )
 {
     val activity = (LocalContext.current as Activity)
+    val userApi = remember { ApiClient.retrofit.create(UserApiService::class.java) }
+    val deviceTokenApi = remember { ApiClient.retrofit.create(DeviceTokenApi::class.java) }
+    val userRepo = remember { UserRepository(userApi, deviceTokenApi) }
     val authApi = remember { ApiClient.retrofit.create(AuthApiService::class.java) }
     val authRepo = remember { AuthRepository(authApi) }
-    val authFactory = remember { AuthViewModel.Factory(authRepo) }
+    val authFactory = remember { AuthViewModel.Factory(authRepo, userRepo) }
     val authVm: AuthViewModel = viewModel(factory = authFactory)
 
     NavHost(

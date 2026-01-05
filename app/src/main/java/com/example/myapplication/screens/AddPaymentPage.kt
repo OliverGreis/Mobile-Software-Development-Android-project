@@ -119,16 +119,24 @@ fun AddPaymentPage(
                 scope.launch {
                     try {
 
-                        userApi.createUser(
+                        authViewModel.register(
                             username = userViewModel.username,
                             email = userViewModel.email,
-                            password = userViewModel.password
+                            password = userViewModel.password,
+                            number = userViewModel.phoneNumber,
+                            onSuccess = {
+                                navController.navigate("home")
+                                {
+                                    popUpTo("login") {inclusive = true}
+                                }
+                            }
+
                         )
 //                        if (isCardValid)
                         if (true)
                         {
                             userApi.addCard(
-                                username = "${userViewModel.username}",
+                                username = "${userViewModel.username} ",
                                 cardNumber = userViewModel.cardNumber,
                                 expiryDate = userViewModel.expiryDate.toInt(),
                             )
