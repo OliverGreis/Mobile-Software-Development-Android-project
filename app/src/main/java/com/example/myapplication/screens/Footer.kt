@@ -53,12 +53,7 @@ fun BotAppBarExample(navController: NavHostController) {
             }
 
             IconButton(
-//                onClick = {
-//                    val intent = Intent(context, Profile::class.java)
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    context.startActivity(intent)
-//                },
-                onClick = { navController.navigate("setting") },
+                onClick = { navController.navigate("profile") },
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp)
             ) {
                 Icon(

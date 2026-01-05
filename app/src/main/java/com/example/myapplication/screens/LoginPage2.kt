@@ -1,6 +1,5 @@
 package com.example.myapplication.screens
 
-import android.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -34,15 +33,19 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.DarkGreen
-import com.example.myapplication.ui.theme.White
-import com.example.myapplication.navigation.AppNavHost
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import com.example.myapplication.viewmodel.AuthViewModel1
 
 
 @Composable
-fun LoginPage2(navController: NavController)
-{
+fun LoginPage2(navController: NavController,
+               authViewModel: AuthViewModel1
+) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val isLoading = authViewModel.isLoading
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,7 +92,8 @@ fun LoginPage2(navController: NavController)
             label = "Password",
             placeholder = "Password",
             value = password,
-            onValueChange = { password = it}
+            onValueChange = { password = it},
+            isPassword = true
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -108,14 +112,22 @@ fun LoginPage2(navController: NavController)
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
-            onClick = { navController.navigate("create_account") },
+            onClick = {
+                authViewModel.login(
+                    email = username,
+                    password = password,
+                    onSuccess = {
+                        navController.navigate("home")
+                    }
+                ) },
+            enabled = !isLoading,
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen),
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.width(200.dp)
         )
         {
             Text(
-                text = "Log in",
+                text = if(isLoading) "Logging in..." else "Log in",
                 color = Color.White,
                 fontSize = 20.sp,
                 //Font(roboto_condensed_regular,
@@ -126,7 +138,7 @@ fun LoginPage2(navController: NavController)
         Spacer(modifier = Modifier.height(35.dp))
 
         Button(
-            onClick = {},
+            onClick = {navController.navigate("create_account")},
             colors = ButtonDefaults.buttonColors(containerColor = LightGreen),
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.width(200.dp)
@@ -151,7 +163,8 @@ fun InputWithLabel(
     label: String,
     placeholder: String,
     value: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    isPassword: Boolean = false
 )
 {
     Text(
@@ -178,6 +191,8 @@ fun InputWithLabel(
             value = value,
             onValueChange = onValueChange,
             singleLine = true,
+            visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+            modifier = Modifier.fillMaxSize(),
             decorationBox = {innerTextField ->
                 Row(
                     modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),

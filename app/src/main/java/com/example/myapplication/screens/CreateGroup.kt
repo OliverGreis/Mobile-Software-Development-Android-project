@@ -42,7 +42,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import java.net.URLEncoder
 import androidx.navigation.NavHostController
-import com.example.myapplication.Controller.groupApi
+import com.example.myapplication.api.groupApi
 
 @OptIn(ExperimentalMaterial3Api::class)
 

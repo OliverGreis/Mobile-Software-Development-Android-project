@@ -12,7 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.ui.theme.MyApplication7Theme
 import com.example.myapplication.navigation.AppNavHost
-import com.example.myapplication.Controller.userApi
+import com.example.myapplication.api.userApi
 import com.example.myapplication.repository.AuthRepository
 import com.example.myapplication.repository.AuthRepositoryImp
 import com.example.myapplication.viewmodel.UserViewModel
@@ -43,8 +43,13 @@ fun MainScreen(authRepository: AuthRepository) {
 
     val backStackEntry = navController.currentBackStackEntryAsState().value
     val route = backStackEntry?.destination?.route
+
     val hideTopBarRoutes = setOf("login")
     val showTopBar = route !in hideTopBarRoutes
+
+    val hideBotBarRoutes = setOf("login")
+    val showBotBar = route !in hideBotBarRoutes
+
 
     Scaffold(
         topBar = {
@@ -52,7 +57,11 @@ fun MainScreen(authRepository: AuthRepository) {
                 TopAppBar(navController)
             }
         },
-        bottomBar = { BotAppBarExample(navController) }
+        bottomBar = {
+            if(showBotBar){
+                BotAppBarExample(navController)
+            }
+        }
     ) { innerPadding ->
         AppNavHost(
             navController = navController,

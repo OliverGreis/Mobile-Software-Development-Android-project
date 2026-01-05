@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.myapplication.Controller.UserApiService
+import com.example.myapplication.api.UserApiService
 import com.example.myapplication.ui.theme.LightGreen
 import com.example.myapplication.ui.theme.White
 import com.example.myapplication.viewmodel.UserViewModel

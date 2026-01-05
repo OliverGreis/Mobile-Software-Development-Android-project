@@ -1,6 +1,6 @@
 package com.example.myapplication.repository
 
-import com.example.myapplication.Controller.NotificationsSettingApiService
+import com.example.myapplication.api.NotificationsSettingApiService
 import com.example.myapplication.model.NotificationSettingsDTO
 import com.example.myapplication.model.types.NotificationTypes
 

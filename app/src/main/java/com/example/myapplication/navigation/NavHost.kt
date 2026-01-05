@@ -12,17 +12,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.myapplication.Controller.ApiClient
+import com.example.myapplication.api.ApiClient
+import com.example.myapplication.api.AuthApiService
 import com.example.myapplication.screens.ActivityPage
 import com.example.myapplication.screens.CreateGroup
 import com.example.myapplication.screens.Group
-import com.example.myapplication.Controller.GroupApiService
-import com.example.myapplication.Controller.NotificationsSettingApiService
-import com.example.myapplication.Controller.UserApiService
+import com.example.myapplication.api.GroupApiService
+import com.example.myapplication.api.NotificationsSettingApiService
+import com.example.myapplication.api.UserApiService
 import com.example.myapplication.repository.NotificationSettingRepository
 import com.example.myapplication.screens.HomeScreen
-import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.repository.AuthRepository
+import com.example.myapplication.repository.AuthRepository1
 import com.example.myapplication.repository.SettingPreference
 import com.example.myapplication.screens.AddAccountPage
 import com.example.myapplication.screens.AddCardPage
@@ -31,7 +32,10 @@ import com.example.myapplication.screens.CreateAccountPage
 import com.example.myapplication.screens.CreateAccountPasswordPage
 import com.example.myapplication.screens.EditProfilePage
 import com.example.myapplication.screens.ForgotPasswordPage
+import com.example.myapplication.screens.LoginPage2
+import com.example.myapplication.screens.ProfilePage
 import com.example.myapplication.screens.SettingScreen
+import com.example.myapplication.viewmodel.AuthViewModel1
 import com.example.myapplication.viewmodel.HomeViewModel
 import com.example.myapplication.viewmodel.SettingViewModel
 import com.example.myapplication.viewmodel.UserViewModel
@@ -56,7 +60,17 @@ fun AppNavHost(
     {
         composable("login")
         {
-            LoginScreen(navController, AuthRepository, activity)
+            val authApi = remember { ApiClient.retrofit.create(AuthApiService::class.java) }
+            val repo = remember { AuthRepository1(authApi) }
+
+            val authVm: AuthViewModel1 = viewModel(
+                factory = AuthViewModel1.Factory(repo)
+            )
+
+            LoginPage2(
+                navController = navController,
+                authViewModel = authVm
+            )
         }
 
         composable("forgot_password")
@@ -79,10 +93,10 @@ fun AppNavHost(
             AddPaymentPage(navController, userApi, userViewModel)
         }
 
-//        composable("profile")
-//        {
-//            Profile(navController, userApi)
-//        }
+        composable("profile")
+        {
+            ProfilePage(navController, userApi)
+        }
 
         composable("edit_profile")
         {

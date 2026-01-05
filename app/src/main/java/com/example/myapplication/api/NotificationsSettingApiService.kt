@@ -1,6 +1,6 @@
-package com.example.myapplication.Controller
+package com.example.myapplication.api
 
-import com.example.myapplication.Controller.ApiClient.retrofit
+import com.example.myapplication.api.ApiClient.retrofit
 import com.example.myapplication.model.NotificationSettingsDTO
 import retrofit2.http.Body
 import retrofit2.http.GET

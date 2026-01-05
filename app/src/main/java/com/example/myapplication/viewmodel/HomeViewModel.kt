@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.Controller.GroupApiService
+import com.example.myapplication.api.GroupApiService
 import com.example.myapplication.model.Group
 import kotlinx.coroutines.launch
 

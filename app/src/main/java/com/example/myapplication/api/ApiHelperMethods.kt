@@ -1,8 +1,8 @@
-package com.example.myapplication.Controller
+package com.example.myapplication.api
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ControllerHelperMethods(
+class ApiHelperMethods(
     private val groupApi: GroupApiService,
     private val userApi: UserApiService,
     private val transactionApi: TransactionApiService,

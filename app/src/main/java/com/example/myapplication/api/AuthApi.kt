@@ -6,6 +6,7 @@ import java.io.BufferedReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+
 object AuthApi {
 
     private const val BASE_URL = "http://10.0.2.2:8080"
