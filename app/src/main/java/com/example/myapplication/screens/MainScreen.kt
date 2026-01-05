@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.padding
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.myapplication.api.groupApi
 import com.example.myapplication.ui.theme.MyApplication7Theme
 import com.example.myapplication.navigation.AppNavHost
 import com.example.myapplication.api.userApi
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val navController = rememberNavController()
     val userapi = userApi
+    val groupApi = groupApi
     val userViewModel: UserViewModel = viewModel()
 
     val backStackEntry = navController.currentBackStackEntryAsState().value
@@ -66,6 +68,7 @@ fun MainScreen() {
             modifier = Modifier.padding(innerPadding),
             userApi = userapi,
             userViewModel = userViewModel,
+            groupApi = groupApi
         )
     }
 }

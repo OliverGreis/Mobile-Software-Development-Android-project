@@ -10,13 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.myapplication.api.ApiClient
 import com.example.myapplication.api.AuthApiService
 import com.example.myapplication.screens.ActivityPage
 import com.example.myapplication.screens.CreateGroup
-import com.example.myapplication.screens.Group
+import com.example.myapplication.screens.GroupPage
 import com.example.myapplication.api.GroupApiService
 import com.example.myapplication.api.NotificationsSettingApiService
 import com.example.myapplication.api.UserApiService
@@ -34,6 +36,7 @@ import com.example.myapplication.screens.CreateAccountPage
 import com.example.myapplication.screens.CreateAccountPasswordPage
 import com.example.myapplication.screens.EditProfilePage
 import com.example.myapplication.screens.ForgotPasswordPage
+import com.example.myapplication.screens.GroupScreen
 import com.example.myapplication.screens.LoginPage2
 import com.example.myapplication.screens.ProfilePage
 import com.example.myapplication.screens.SettingScreen
@@ -50,6 +53,7 @@ fun AppNavHost(
     userApi: UserApiService,
     modifier: Modifier = Modifier,
     userViewModel: UserViewModel,
+    groupApi: GroupApiService,
 )
 {
     val activity = (LocalContext.current as Activity)
@@ -139,7 +143,22 @@ fun AppNavHost(
             )
             CreateGroup(navController = navController, groupViewModel = groupViewModel)
         }
-        composable(route = "group"){Group("Event4")}
+        composable(
+            route = "group/{groupId}",
+            arguments = listOf(
+                navArgument("groupId") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+
+            val groupId = backStackEntry.arguments!!.getInt("groupId")
+
+            GroupScreen(
+                navController = navController,
+                api = com.example.myapplication.api.groupApi,
+                refreshTrigger = true,
+                id = groupId
+            )
+        }
         composable("activity") { ActivityPage() }
         composable("setting") {
 
@@ -160,6 +179,8 @@ fun AppNavHost(
                 onToggleGroupNotifications = vm::toggleGroupNotifications
             )
         }
+        //composable("transaction"){ CreateTransaction(navController = navController)}
+
     }
 }
 

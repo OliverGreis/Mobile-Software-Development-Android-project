@@ -26,7 +26,7 @@ interface GroupApiService {
     suspend fun addTransaction(@Path("id") id: Int, @Path("groupID") groupID: Int): String
 
     @GET("api/group/{id}")
-    suspend fun getGroup(@Path("id") id: String): String
+    suspend fun getGroup(@Path("id") id: Int): Group
 
     @PUT("api/removemember/{id}/{groupID}")
     suspend fun removeMember(@Path("id") id: String, @Path("groupID") groupID: Int): String

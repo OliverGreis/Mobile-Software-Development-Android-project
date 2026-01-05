@@ -1,4 +1,6 @@
 package com.example.myapplication.screens
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -29,6 +31,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.height
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import com.example.myapplication.R
 import androidx.compose.ui.draw.clip
@@ -37,15 +44,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Font
 import com.example.myapplication.R.font.*
 import androidx.compose.ui.text.style.TextAlign
-
+import androidx.navigation.NavHostController
+import com.example.myapplication.api.GroupApiService
+import com.example.myapplication.model.Group
 
 
 @Composable
-fun Group(groupName: String,modifier: Modifier = Modifier) {
+fun GroupPage(group: Group, modifier: Modifier = Modifier, navController: NavHostController) {
 
     Column {
         Text(
-            text = groupName,
+            text = group.name,
             modifier = modifier.fillMaxWidth(),
             fontSize = 32.sp,
             fontFamily = FontFamily(Font(roboto_condensed_bold)),
@@ -231,6 +240,36 @@ fun ActivityItem() {
                 }
             }
         }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+fun GroupScreen(
+    navController: NavHostController,
+    api: GroupApiService,
+    refreshTrigger: Boolean,
+    id: Int
+) {
+    NotificationPermissionRequester()
+
+    var group by remember { mutableStateOf<Group?>(null) }
+
+    LaunchedEffect(refreshTrigger, id) {
+        try {
+            group = api.getGroup(id)
+            println("group: $group")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    group?.let { safeGroup ->
+        GroupPage(
+            navController = navController,
+            group = safeGroup,
+
+        )
     }
 }
 
