@@ -16,6 +16,12 @@ class GroupRepository(private val groupApiService: GroupApiService) {
         return groupApiService.addMember(groupId, username)
     }
 
+    suspend fun getGroupImage(groupId: Int): String {
+        return groupApiService.getGroupImage(groupId)
+    }
+
+
+
 
 
 

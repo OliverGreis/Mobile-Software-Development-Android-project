@@ -21,6 +21,8 @@ class HomeViewModel(
     var isLoading by mutableStateOf(false)
         private set
 
+    var groupImageUrl by mutableStateOf<String?>(null)
+        private set
 
     fun loadGroups(userId: String) {
         viewModelScope.launch{
@@ -32,6 +34,19 @@ class HomeViewModel(
                 e.printStackTrace()
             }finally {
                 isLoading = false
+            }
+        }
+    }
+
+    fun fetchImage(groupId: Int) {
+        // This launches a Coroutine in the background
+        viewModelScope.launch {
+            try {
+                // Now you can call the suspend function safely
+                val result = api.getGroupImage(groupId)
+                groupImageUrl = result
+            } catch (e: Exception) {
+                Log.e("Error", "Failed to fetch image", e)
             }
         }
     }

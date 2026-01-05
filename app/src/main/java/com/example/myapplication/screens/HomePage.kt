@@ -45,10 +45,14 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
+import coil.compose.AsyncImage
+import com.example.myapplication.api.groupApi
+import com.example.myapplication.api.userApi
 import com.example.myapplication.model.Group
 import com.example.myapplication.viewmodel.AuthViewModel
 import com.example.myapplication.viewmodel.HomeViewModel
@@ -56,7 +60,7 @@ import com.example.myapplication.viewmodel.HomeViewModel
 fun Home(
     navController: NavHostController,
     groups: List<Group>,
-    authViewModel: AuthViewModel
+    userId: String?,
 ) {
 
     Column(){
@@ -79,7 +83,7 @@ fun Home(
                 tonalElevation = 2.dp,
                 shadowElevation = 64.dp
             ) {
-                GroupList(groups = groups) { group ->
+                GroupList(groups = groups, userId = userId) { group ->
                     navController.navigate("group")
                 }
             }
@@ -173,7 +177,10 @@ fun HomeActivityItem(onClick: () -> Unit) {
 fun GroupItem(
     onClick: () -> Unit,
     groupName: String,
+    groupId: Int,
+    viewModel: HomeViewModel
 ) {
+
     Card(
         onClick = onClick,
         modifier = Modifier
@@ -194,7 +201,6 @@ fun GroupItem(
                 .height(100.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Card(
                 modifier = Modifier.size(55.dp),
                 shape = CircleShape,
@@ -203,11 +209,18 @@ fun GroupItem(
                 )
             ) {
                 Box(contentAlignment = Alignment.Center) {
-                    Image(
-                        painter = painterResource(R.drawable.profile_picture),
-                        contentDescription = null,
-                        modifier = Modifier.size(55.dp)
+                    LaunchedEffect(groupId) {
+                        viewModel.fetchImage(groupId)
+                    }
+
+                    AsyncImage(
+                        model = viewModel.groupImageUrl,
+                        contentDescription = "Group Image",
+                        modifier = Modifier
+                            .size(55.dp)
+                            .clip(CircleShape)
                     )
+                    Log.d("GroupItem", "Image URL: ${viewModel.groupImageUrl}")
                 }
             }
 
@@ -243,7 +256,7 @@ fun GroupItem(
 }
 
     @Composable
-    fun GroupList(groups: List<Group>, onItemClick: (Group) -> Unit) {
+    fun GroupList(groups: List<Group>,  userId: String?, onItemClick: (Group) -> Unit) {
         LazyColumn (
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(5.dp),
@@ -251,7 +264,11 @@ fun GroupItem(
 
         ){
             items(groups) { group ->
-                GroupItem(groupName = group.name, onClick = { onItemClick(group) })
+                GroupItem(
+                    groupName = group.name, onClick = { onItemClick(group) },
+                    groupId = group.id,
+                    viewModel = HomeViewModel(groupApi)
+                )
             }
         }
     }
@@ -263,13 +280,17 @@ fun GroupItem(
         NotificationPermissionRequester()
 
         val userId = authViewModel.currentUser?.userId
-        Log.d("HomeScreen", "userId: $userId")
-        LaunchedEffect(refreshTrigger, userId) {
-            if (userId != null) {
+        // Only render the UI if we have a valid ID
+        if (userId != null) {
+            LaunchedEffect(refreshTrigger, userId) {
                 viewModel.loadGroups(userId)
             }
+            Home(navController = navController, groups = viewModel.groups, userId = userId)
+        } else {
+            // Optional: Show a loading spinner or redirect to login
+            Text("Loading user profile...")
         }
-        Home(navController = navController, groups = viewModel.groups, authViewModel = authViewModel)
+        Home(navController = navController, groups = viewModel.groups, userId = userId)
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)

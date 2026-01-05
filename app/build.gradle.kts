@@ -64,9 +64,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    //Auth
-    implementation("com.auth0.android:auth0:3.10.0")
-    implementation("com.auth0.android:jwtdecode:2.0.2")
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     //Notification
     implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
